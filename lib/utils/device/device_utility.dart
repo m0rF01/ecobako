@@ -110,11 +110,5 @@ class BakoDeviceUtils{
       throw "could not lunch $url";
     }
   }
-  
-
-
-
-
-
 
 }
