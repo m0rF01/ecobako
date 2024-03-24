@@ -1,7 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 
 class BakoLocalStorage {
-  static final BakoLocalStorage _instance = BakoLocalStorage.internal();
+  static final BakoLocalStorage _instance = BakoLocalStorage._internal();
 
   factory BakoLocalStorage(){
     return _instance;

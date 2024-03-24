@@ -1,42 +1,42 @@
 import 'package:ecobako_app/features/authentication/screens/onboarding/widgets/onboarding_dot_navigation.dart';
+import 'package:ecobako_app/features/authentication/screens/onboarding/widgets/onboarding_next_button.dart';
 import 'package:ecobako_app/features/authentication/screens/onboarding/widgets/onboarding_page.dart';
 import 'package:ecobako_app/features/authentication/screens/onboarding/widgets/onboarding_skip.dart';
-import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
-import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
-import 'package:ecobako_app/utils/device/device_utility.dart';
-import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:get/get.dart';
+import '../../controllers.onboarding/onboarding_controller.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(OnBoardingController());
+
     return  Scaffold(
       body: Stack(
         children: [
         // Horizontal Scrollable Pages
           PageView(
+            controller: controller.pageController,
+            onPageChanged: controller.updatePageIndicator,
             children: const [
               OnBoardingPage(
                 image: BakoImages.onBoardingImage1, 
-                title: BakoText.onBoardingTitle1, 
-                subTitle: BakoText.onBoardingSubTitle1,
+                title: BakoTexts.onBoardingTitle1, 
+                subTitle: BakoTexts.onBoardingSubTitle1,
               ),
               OnBoardingPage(
                 image: BakoImages.onBoardingImage2, 
-                title: BakoText.onBoardingTitle2, 
-                subTitle: BakoText.onBoardingSubTitle2,
+                title: BakoTexts.onBoardingTitle2, 
+                subTitle: BakoTexts.onBoardingSubTitle2,
               ),
               OnBoardingPage(
                 image: BakoImages.onBoardingImage3, 
-                title: BakoText.onBoardingTitle3, 
-                subTitle: BakoText.onBoardingSubTitle3,
+                title: BakoTexts.onBoardingTitle3, 
+                subTitle: BakoTexts.onBoardingSubTitle3,
               ),
             ],
           ),
@@ -48,30 +48,10 @@ class OnBoardingScreen extends StatelessWidget {
         const OnBoardingDotNavigation(),
 
         // Circular Button
-        OnBoardingNextButton()
+        const OnBoardingNextButton()
         ],
       )
     );
-  }
-}
-
-class OnBoardingNextButton extends StatelessWidget {
-  const OnBoardingNextButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final dark = BakoHelperFunctions.isDarkMode(context);
-    return Positioned(
-      right: BakoSizes.defaultSpace,
-      bottom: BakoDeviceUtils.getBottomNavigationBarHeight(),
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(shape: const CircleBorder(), backgroundColor: dark ? BakoColors.primary : Colors.black),
-        child: const Icon(Iconsax.arrow_right_3),
-      ) 
-      );
   }
 }
 
