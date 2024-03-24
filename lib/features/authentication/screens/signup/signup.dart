@@ -27,7 +27,7 @@ class SignupScreen extends StatelessWidget {
               const SizedBox(height: BakoSizes.spaceBtwSections),
 
               //Form
-              BakoSignUpForm(),
+              const BakoSignUpForm(),
 
               // Divider
               BakoFormDivider(dividerText: BakoTexts.orSignUpWith.capitalize!),

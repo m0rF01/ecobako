@@ -1,4 +1,4 @@
-import 'package:ecobako_app/features/authentication/screens/signup/widget/signup.dart';
+import 'package:ecobako_app/features/authentication/screens/signup/signup.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
