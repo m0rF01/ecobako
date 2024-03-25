@@ -1,3 +1,4 @@
+import 'package:ecobako_app/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:ecobako_app/features/authentication/screens/signup/signup.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
@@ -49,7 +50,7 @@ class BakoLoginForm extends StatelessWidget {
                 ),
         
                 //forget password
-                TextButton(onPressed: (){}, child: const Text(BakoTexts.forgetPassword)),
+                TextButton(onPressed: () => Get.to(() => const ForgetPassword()), child: const Text(BakoTexts.forgetPassword)),
               ],
             ),
             const SizedBox(height: BakoSizes.spaceBtwSections),
