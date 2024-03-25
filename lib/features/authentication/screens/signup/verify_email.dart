@@ -1,5 +1,5 @@
 import 'package:ecobako_app/common/widget/success_screen/success_screen.dart';
-import 'package:ecobako_app/features/authentication/screens/login/login.dart';
+import 'package:ecobako_app/features/authentication/screens/login/login_user/login.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';

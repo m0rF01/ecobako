@@ -1,5 +1,5 @@
 
-import 'package:ecobako_app/features/authentication/screens/login/login.dart';
+import 'package:ecobako_app/features/authentication/screens/choose_role/choose_role.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +22,7 @@ class OnBoardingController extends GetxController{
   void nextPage() {
     if (currentPageIndex.value == 2) {
       //Get.offAll(const LoginScreen());
-      Get.offAll(() =>  const LoginScreen());
+      Get.offAll(() =>  const ChooseRole());
     } else {
       int page = currentPageIndex.value + 1;
       pageController.jumpToPage(page);

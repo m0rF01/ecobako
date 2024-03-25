@@ -20,6 +20,18 @@ class BakoTexts {
   static const String onBoardingSubTitle2 = "For Seamless Transactions, Choose Your Payment Path - Your Convenience, Our Priority!";
   static const String onBoardingSubTitle3 = "From Our Doorstep to Yours - Swift, Secure, and Contactless Delivery!";
 
+  // Choose role
+  static const String adminRole = "Admin";
+  static const String userRole = "User";
+  static const String chooseRoleTitle = "Welcome to EcoBako!";
+  static const String chooseRoleSubTitle = "A step closer to a greener lifestyle";
+  static const String chooseRoleDetails = "Choose your role";
+
+  //Admin login page details
+  static const String adminLoginTitle = "Welcome back Admin";
+  static const String adminLoginSubTitle = "Bright future start from here";
+  static const String adminID = "ID";
+
 
   // -- Authentication Forms
   static const String firstName = "First Name";
