@@ -1,6 +1,6 @@
 import 'package:ecobako_app/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:ecobako_app/features/authentication/screens/signup/signup.dart';
-import 'package:ecobako_app/navigation_menu.dart';
+import 'package:ecobako_app/user_navigation_menu.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ class BakoLoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => Get.to(() => const NavigationMenu()), 
+                onPressed: () => Get.to(() => const UserNavigationMenu()), 
                 child: const Text(BakoTexts.signIn)
               )
             ),

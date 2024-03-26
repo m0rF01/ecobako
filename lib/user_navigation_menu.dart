@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class NavigationMenu extends StatelessWidget {
-  const NavigationMenu({super.key});
+class UserNavigationMenu extends StatelessWidget {
+  const UserNavigationMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +25,9 @@ class NavigationMenu extends StatelessWidget {
         
           destinations: const [
             NavigationDestination(icon: Icon(Iconsax.home), label: "Home"),
-            NavigationDestination(icon: Icon(Iconsax.shop), label: "Store"),
+            NavigationDestination(icon: Icon(Iconsax.teacher), label: "Module"),
             NavigationDestination(icon: Icon(Iconsax.status_up), label: "Analytics"),
-            NavigationDestination(icon: Icon(Iconsax.receipt_add), label: "Allocate"),
+            NavigationDestination(icon: Icon(Iconsax.user), label: "Profile"),
           ],
         ),
       ),
