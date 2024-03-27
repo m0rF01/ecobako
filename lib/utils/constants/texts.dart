@@ -23,7 +23,7 @@ class BakoTexts {
   // Choose role
   static const String adminRole = "Admin";
   static const String userRole = "User";
-  static const String chooseRoleTitle = "Welcome to EcoBako!";
+  static const String chooseRoleTitle = "Welcome to EcoBako";
   static const String chooseRoleSubTitle = "A step closer to a greener lifestyle";
   static const String chooseRoleDetails = "Choose your role";
 
@@ -37,6 +37,10 @@ class BakoTexts {
   static const String firstName = "First Name";
   static const String lastName = "Last Name";
   static const String email = "E-Mail";
+  static const String homeAddress = "Address";
+  static const String postal = "Postal Code";
+  static const String country = "Country";
+  static const String age = "Age";
   static const String password = "Password";
   static const String newPassword = "New Password";
   static const String username = "Username";
@@ -56,8 +60,8 @@ class BakoTexts {
 
 
   // -- Authentication Headings
-  static const String loginTitle = "Welcome back,";
-  static const String loginSubTitle = "Discover Limitless Choices and Unmatched Convenience.";
+  static const String loginTitle = "Welcome back";
+  static const String loginSubTitle = "Act today, for a better future.";
   static const String signupTitle = "Let’s create your account";
   static const String forgetPasswordTitle = "Forget password";
   static const String forgetPasswordSubTitle = "Don’t worry sometimes people can forget too, enter your email and we will send you a password reset link.";
