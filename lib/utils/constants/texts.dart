@@ -74,8 +74,8 @@ class BakoTexts {
   static const String popularProducts = "Popular Products";
 
   // -- Home
-  static const String homeAppbarTitle = "Good day for shopping";
-  static const String homeAppbarSubTitle = "Taimoor Sikander";
+  static const String userHomeAppbarTitle = "Hello,";
+  static const String userHomeAppbarSubTitle = "Muhammad Faris";
 
 
 }

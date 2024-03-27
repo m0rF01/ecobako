@@ -1,18 +1,22 @@
 import 'package:ecobako_app/common/widget/custom_shape/containers/primary_header_container.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ecobako_app/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:flutter/material.dart';
 
 class AdminHomeScreen extends StatelessWidget {
   const AdminHomeScreen({super.key});
 
-  @override
+    @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             BakoPrimaryHeaderContainer(
-              child: Container() 
+              child: Column(
+                children: [
+                  BakoHomeAppBar()
+                ],
+              ) 
             ),
           ],
         ),
@@ -20,3 +24,6 @@ class AdminHomeScreen extends StatelessWidget {
     );
   }
 }
+
+
+

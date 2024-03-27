@@ -37,6 +37,7 @@ class BakoPrimaryHeaderContainer extends StatelessWidget {
                   backgroundColor: BakoColors.textWhite.withOpacity(0.1)
                 )
               ),
+              child,
             ],
           ),
         ),

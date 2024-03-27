@@ -1,4 +1,7 @@
 class BakoImages{
+
+  // user image
+  static const String userImage = "assets/images/content/user.png";
   
   // App logos
   static const String darkAppLogo = "assets/logos/t-store-splash-logo-black.png";
