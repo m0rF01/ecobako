@@ -9,7 +9,7 @@ class BakoVerticalImageText extends StatelessWidget {
     required this.image, 
     required this.title, 
     this.textColor = BakoColors.white, 
-    this.backgroundColor = BakoColors.white, 
+    this.backgroundColor, 
     this.onTap,
   });
 

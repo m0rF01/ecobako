@@ -41,6 +41,8 @@ class AdminHomeScreen extends StatelessWidget {
                         ],
                     ),
                     ),
+
+                    SizedBox(height: BakoSizes.spaceBtwSections,)
                 ],
               ) 
             ),
