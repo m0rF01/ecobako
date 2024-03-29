@@ -3,9 +3,12 @@ import 'package:ecobako_app/common/widget/custom_shape/containers/primary_header
 import 'package:ecobako_app/common/widget/list_tiles/settings_menu_tile.dart';
 import 'package:ecobako_app/common/widget/list_tiles/user_profile_tiles.dart';
 import 'package:ecobako_app/common/widget/texts/section_heading.dart';
+import 'package:ecobako_app/features/personalization/screens/profile/profile.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
 class UserSettingScreen extends StatelessWidget {
@@ -51,7 +54,7 @@ class UserSettingScreen extends StatelessWidget {
                     icon: Iconsax.user, 
                     title: "User Profile", 
                     subTitle: "Set user profile details", 
-                    onTap: (){},
+                    onTap: () => Get.to(() => const ProfileScreen()),
                   ),
 
                   // Redeem Point Options
@@ -115,18 +118,6 @@ class UserSettingScreen extends StatelessWidget {
                       child: const Text("Logout"),
                     ),
                   ),
-
-                  //Delete Account Button
-                  const SizedBox(height: BakoSizes.spaceBtwSections,),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {}, 
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red, side: const BorderSide(color: Colors.red)),
-                      child: const Text("Delete Account"),
-                    ),
-                  )
-
                 ],
               )
               ),

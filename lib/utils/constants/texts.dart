@@ -40,6 +40,7 @@ class BakoTexts {
   static const String homeAddress = "Address";
   static const String postal = "Postal Code";
   static const String country = "Country";
+  static const String gender = "Gender";
   static const String age = "Age";
   static const String password = "Password";
   static const String newPassword = "New Password";

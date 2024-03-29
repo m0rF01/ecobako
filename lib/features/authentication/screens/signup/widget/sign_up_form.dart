@@ -87,15 +87,40 @@ class BakoSignUpForm extends StatelessWidget {
               ),
               const SizedBox(height: BakoSizes.spaceBtwInputFields),
 
-              // Age
-              TextFormField(
-                  expands: false,
-                  decoration: const InputDecoration(
-                    labelText: BakoTexts.age, 
-                    prefixIcon: Icon(Iconsax.calendar)
+               Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      expands: false,
+                      decoration: const InputDecoration(
+                        labelText: BakoTexts.gender, 
+                        prefixIcon: Icon(Iconsax.link)
+                      ),
+                    ),
                   ),
+                  const SizedBox(width: BakoSizes.spaceBtwInputFields),
+                  Expanded(
+                    child: TextFormField(
+                      expands: false,
+                      decoration: const InputDecoration(
+                        labelText: BakoTexts.age, 
+                        prefixIcon: Icon(Iconsax.calendar)
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: BakoSizes.spaceBtwInputFields),
+
+              // // Age
+              // TextFormField(
+              //     expands: false,
+              //     decoration: const InputDecoration(
+              //       labelText: BakoTexts.age, 
+              //       prefixIcon: Icon(Iconsax.calendar)
+              //     ),
+              // ),
+              // const SizedBox(height: BakoSizes.spaceBtwInputFields),
     
               // Email
               TextFormField(
