@@ -3,26 +3,22 @@ import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/device/device_utility.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 
-class BakoSaerchContaier extends StatelessWidget {
-  const BakoSaerchContaier({
+class BakoPointContainer extends StatelessWidget {
+  const BakoPointContainer({
     super.key, 
-    required this.text, 
-    this.icon = Iconsax.search_normal, 
+    required this.point,  
     this.showBackground = true, 
     this.showBorder = true,
     this.onTap,
   });
 
-  final String text;
-  final IconData? icon;
+  final String point;
   final bool showBackground, showBorder;
   final VoidCallback? onTap;
 
-  @override
+@override
   Widget build(BuildContext context) {
-
     final dark = BakoHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
@@ -37,16 +33,16 @@ class BakoSaerchContaier extends StatelessWidget {
             borderRadius: BorderRadius.circular(BakoSizes.cardRadiusLg),
             border: showBorder ?  Border.all(color: BakoColors.grey) : null
           ),
-          child: Row(
-            children: [
-              Icon(icon, color: BakoColors.darkerGrey),
-              const SizedBox(width: BakoSizes.spaceBtwItems),
-              Text(text, style: Theme.of(context).textTheme.bodySmall),
-            ],
-          ),
+
+        child:  Column(
+          children: [
+            Text("EcoBako Points",style: Theme.of(context).textTheme.headlineSmall),
+            const SizedBox(height: BakoSizes.spaceBtwItems),
+            Text(point,style: Theme.of(context).textTheme.headlineLarge),
+          ],
         ),
-      
       ),
+      )
     );
   }
 }

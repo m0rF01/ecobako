@@ -6,18 +6,20 @@ class BakoSectionHeading extends StatelessWidget {
     this.textColor, 
     this.showActionButton = true, 
     required this.title, 
-    this.buttonTitle = "View all", 
+    this.icon, 
     this.onPressed,
   });
 
   final Color? textColor;
   final bool showActionButton;
-  final String title, buttonTitle;
+  final String title;
+  final IconData? icon;
   final void Function() ? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title, 
@@ -25,9 +27,9 @@ class BakoSectionHeading extends StatelessWidget {
           maxLines: 1, 
           overflow: TextOverflow.ellipsis
           ),
-        if(showActionButton) TextButton(
+        if(showActionButton) IconButton(
           onPressed: onPressed, 
-          child: Text(buttonTitle)
+          icon: Icon(icon)
           )
       ],
     

@@ -4,9 +4,7 @@ import 'package:ecobako_app/common/widget/texts/section_heading.dart';
 import 'package:ecobako_app/features/personalization/screens/profile/widget/profile_menu.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProfileScreen extends StatelessWidget {

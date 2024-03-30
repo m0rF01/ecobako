@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class BakoAppBar extends StatelessWidget implements PreferredSizeWidget{
-  const BakoAppBar({
+  const BakoAppBar( {
     super.key, 
     this.title,
     this.actions, 
