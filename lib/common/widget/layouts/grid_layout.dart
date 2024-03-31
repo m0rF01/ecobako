@@ -6,11 +6,13 @@ class BakoGridLayout extends StatelessWidget {
     super.key, 
     required this.itemCount, 
     this.mainAxisExtent = 288,
-     required this.itemBuilder
+    required this.itemBuilder, 
+    this.crossAxisCount = 2,
   });
 
   final int itemCount;
   final double? mainAxisExtent;
+  final int crossAxisCount;
   final Widget? Function(BuildContext, int) itemBuilder;
 
 
@@ -22,7 +24,7 @@ class BakoGridLayout extends StatelessWidget {
       padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: crossAxisCount,
         mainAxisExtent: mainAxisExtent,
         mainAxisSpacing: BakoSizes.gridViewSpacing,
         crossAxisSpacing: BakoSizes.gridViewSpacing

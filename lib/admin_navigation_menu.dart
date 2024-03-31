@@ -40,5 +40,5 @@ class AdminNavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const AdminHomeScreen(), Container(color: Colors.purple,), Container(color: Colors.orange,), Container(color: Colors.blue,)];
+  final screens = [const UserHomeScreen(), Container(color: Colors.purple,), Container(color: Colors.orange,), Container(color: Colors.blue,)];
 }

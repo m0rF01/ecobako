@@ -111,6 +111,7 @@ flutter:
     - assets/images/animations/
     - assets/icons/categories/
     - assets/images/content/
+    - assets/images/products/
 
 #--------------------------local fonts---------------------------#
 

@@ -14,7 +14,7 @@ class BakoPointSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BakoGridLayout(itemCount: 2, mainAxisExtent: 70, itemBuilder: (_, index){
+    return BakoGridLayout(itemCount: 2, mainAxisExtent: 70,itemBuilder: (_, index){
       return GestureDetector(
       onTap: () {},
       child: BakoRoundedContainer(

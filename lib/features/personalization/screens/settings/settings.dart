@@ -29,7 +29,7 @@ class UserSettingScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineMedium!.apply(color: BakoColors.white),
                     ),
                   ),
-                  const SizedBox(height: BakoSizes.spaceBtwSections),
+                  const SizedBox(height: BakoSizes.spaceBtwSections/2),
 
                   // User Profile card
                   const BakoUserProfileTile(),

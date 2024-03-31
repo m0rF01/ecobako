@@ -3,12 +3,13 @@ import 'package:ecobako_app/common/widget/custom_shape/containers/serach_contain
 import 'package:ecobako_app/common/widget/texts/section_heading.dart';
 import 'package:ecobako_app/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:ecobako_app/features/shop/screens/home/widgets/home_bakopoint_section.dart';
+import 'package:ecobako_app/features/shop/screens/home/widgets/home_transaction_history.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class AdminHomeScreen extends StatelessWidget {
-  const AdminHomeScreen({super.key});
+class UserHomeScreen extends StatelessWidget {
+  const UserHomeScreen({super.key});
 
     @override
   Widget build(BuildContext context) {
@@ -63,6 +64,8 @@ class AdminHomeScreen extends StatelessWidget {
                     const SizedBox(height: BakoSizes.spaceBtwSections),
                     BakoSectionHeading(title: "Transaction History", onPressed: (){}, icon: Iconsax.maximize_3,),
                     const SizedBox(height: BakoSizes.spaceBtwItems/1.5,),
+
+                    const UserHomeTransactionHistory(),
                   ],                  
                 ),
                 ),

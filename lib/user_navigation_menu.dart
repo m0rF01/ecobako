@@ -1,5 +1,6 @@
 import 'package:ecobako_app/features/personalization/screens/settings/settings.dart';
 import 'package:ecobako_app/features/shop/screens/home/home.dart';
+import 'package:ecobako_app/features/shop/screens/store/screen/module.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -41,5 +42,5 @@ class UserNavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const AdminHomeScreen(), Container(color: Colors.purple,), Container(color: Colors.orange,), const UserSettingScreen()];
+  final screens = [const UserHomeScreen(), const UserModuleScreen(), Container(color: Colors.orange,), const UserSettingScreen()];
 }
