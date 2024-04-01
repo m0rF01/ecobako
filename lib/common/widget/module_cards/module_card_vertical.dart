@@ -7,7 +7,6 @@ import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 
 class BakoModuleCardVertical extends StatelessWidget {
@@ -30,6 +29,7 @@ class BakoModuleCardVertical extends StatelessWidget {
         child: Column(
           children: [
             // Thumbnail
+            const SizedBox(height: BakoSizes.spaceBtwItems/2,),
             BakoRoundedContainer(
               height: 180,
               padding: const EdgeInsets.all(BakoSizes.sm),
@@ -37,27 +37,38 @@ class BakoModuleCardVertical extends StatelessWidget {
               child: const BakoRoundImage(imageUrl: BakoImages.productImage1, applyImageRadius: true,),
             ),
             const SizedBox(height: BakoSizes.spaceBtwItems/2,),
-      
+
+            // Title
              Padding(
               padding: const EdgeInsets.only(left: BakoSizes.sm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Main title
                   const BakoModuleTitleText(title: "Dunia Bahan terbuang", smallSize: false,),
                   const SizedBox(height: BakoSizes.spaceBtwItems/2),
                   Row(
+                    // Sub title
                     children: [
                       Text("Adult Module 1", overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(width: BakoSizes.xs),
                     ],
                   ),
-                  Row(
+                  
+                ],
+              ),
+              ),
+              const Spacer(),
+              Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "5 Minit",
-                         maxLines: 1, 
-                         overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall,
+                      Padding(
+                        padding: const EdgeInsets.only(left: BakoSizes.sm),
+                        child: Text(
+                          "5 Minit",
+                           maxLines: 1, 
+                           overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall,
+                        ),
                       ),
                       Container(
                       decoration: const BoxDecoration(
@@ -79,10 +90,6 @@ class BakoModuleCardVertical extends StatelessWidget {
                     ],
                     
                   )
-                ],
-              ),
-              
-              )
       
       
             // Details
