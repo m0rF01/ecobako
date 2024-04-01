@@ -1,6 +1,6 @@
 import 'package:ecobako_app/features/personalization/screens/settings/settings.dart';
-import 'package:ecobako_app/features/shop/screens/home/home.dart';
-import 'package:ecobako_app/features/shop/screens/store/screen/module.dart';
+import 'package:ecobako_app/features/module/screens/home/user/home.dart';
+import 'package:ecobako_app/features/module/screens/module/screen/user_module.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';

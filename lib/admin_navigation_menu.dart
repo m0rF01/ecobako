@@ -1,4 +1,6 @@
-import 'package:ecobako_app/features/shop/screens/home/home.dart';
+import 'package:ecobako_app/features/ecobako_point/ecopoint_allocation.dart';
+import 'package:ecobako_app/features/module/screens/home/admin/admin_home.dart';
+import 'package:ecobako_app/features/module/screens/home/user/home.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -40,5 +42,5 @@ class AdminNavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const UserHomeScreen(), Container(color: Colors.purple,), Container(color: Colors.orange,), Container(color: Colors.blue,)];
+  final screens = [const AdminHomeScreen(), Container(color: Colors.purple,), Container(color: Colors.orange,), const AdminPointAllocationScreen()];
 }

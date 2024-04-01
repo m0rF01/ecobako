@@ -35,7 +35,6 @@ class UserModuleScreen extends StatelessWidget {
               child: Column(
                 children: [
                   BakoGridLayout(itemCount: 12, itemBuilder: (_, index) => const BakoModuleCardVertical()),
-                  // BakoModuleCardVertical(),
                 ],
               ),
               )

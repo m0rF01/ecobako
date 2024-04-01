@@ -82,6 +82,17 @@ class BakoTexts {
   static const String userHomeAppbarTitle = "Hello,";
   static const String userHomeAppbarSubTitle = "Muhammad Faris";
 
+  // -- Point Allocation
+  static const String pointTitle = "EcoBako Point Allocation";
+  static const String userID = "User ID";
+  static const String weightPET = "Weight PET";
+  static const String weightHDPE = "Weight HDPE";
+  static const String weightPP = "Weight PP";
+  static const String generatePoint = "Generate";
+
+
+
+
 
 }
 
