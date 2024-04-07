@@ -2,7 +2,6 @@ import 'package:ecobako_app/common/styles/shadow.dart';
 import 'package:ecobako_app/common/widget/images/bako_roundimage.dart';
 import 'package:ecobako_app/common/widget/rounded_container/rounded_container.dart';
 import 'package:ecobako_app/common/widget/texts/module_item_title_text.dart';
-import 'package:ecobako_app/features/module/screens/widget/module_details.dart';
 import 'package:ecobako_app/features/store/screens/admin/product_details/product_details.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
@@ -12,15 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class BakoModuleCardVertical extends StatelessWidget {
-  const BakoModuleCardVertical({super.key});
+class BakoItemCardVertical extends StatelessWidget {
+  const BakoItemCardVertical({super.key});
 
   @override
   Widget build(BuildContext context) {
     final dark = BakoHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      onTap: () => Get.to(() => const ModuleDetails()),
+      onTap: () => Get.to(() => const AdminProductDetail()),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -37,7 +36,7 @@ class BakoModuleCardVertical extends StatelessWidget {
               height: 180,
               padding: const EdgeInsets.all(BakoSizes.sm),
               backgroundColor: dark ? BakoColors.dark : BakoColors.light,
-              child: const BakoRoundImage(imageUrl: BakoImages.dunia1, applyImageRadius: true,),
+              child: const BakoRoundImage(imageUrl: BakoImages.misegera, applyImageRadius: true,),
             ),
             const SizedBox(height: BakoSizes.spaceBtwItems/2,),
 
@@ -48,12 +47,12 @@ class BakoModuleCardVertical extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Main title
-                  const BakoModuleItemTitleText(title: "Dunia Bahan terbuang", smallSize: false,),
+                  const BakoModuleItemTitleText(title: "Mi Segera", smallSize: false,),
                   const SizedBox(height: BakoSizes.spaceBtwItems/2),
                   Row(
                     // Sub title
                     children: [
-                      Text("Adult Module 1", overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.bodyMedium),
+                      Text("600 Points", overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(width: BakoSizes.xs),
                     ],
                   ),
@@ -68,7 +67,7 @@ class BakoModuleCardVertical extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: BakoSizes.sm),
                         child: Text(
-                          "5 Minit",
+                          "Stock 26",
                            maxLines: 1, 
                            overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall,
                         ),

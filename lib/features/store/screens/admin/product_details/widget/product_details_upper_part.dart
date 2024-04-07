@@ -26,7 +26,7 @@ class ProductDeatilsUpperPart extends StatelessWidget {
                 padding: EdgeInsets.all(BakoSizes.productImageRadius*2),
                 child: Center(
                   child: Image(
-                    image: AssetImage(BakoImages.productImage1)
+                    image: AssetImage(BakoImages.misegera)
                   )
                 ),
               )

@@ -37,6 +37,8 @@ class BakoImages{
 
  // -- Products
   static const String productImage1 = "assets/images/products/nike-shoes.png";
+  static const String misegera = "assets/images/products/numee.png";
+  static const String dunia1 = "assets/images/products/dunia1.jpg";
   static const String productImage2 = "assets/images/products/product-1.png";
   static const String productImage3 = "assets/images/products/product-jacket.png";
   static const String productImage4 = "assets/images/products/product-jeans.png";

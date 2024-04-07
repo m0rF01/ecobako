@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BakoModuleTitleText extends StatelessWidget {
-  const BakoModuleTitleText({
+class BakoModuleItemTitleText extends StatelessWidget {
+  const BakoModuleItemTitleText({
     super.key, 
     required this.title, 
     this.smallSize = false, 

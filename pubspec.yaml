@@ -46,6 +46,7 @@ dependencies:
   url_launcher: ^6.2.5
   smooth_page_indicator: ^1.1.0
   flutter_native_splash: ^2.4.0
+  readmore: ^3.0.0
   
 
 dev_dependencies:
