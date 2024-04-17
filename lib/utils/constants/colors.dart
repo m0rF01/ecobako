@@ -4,7 +4,8 @@ class BakoColors{
   BakoColors._();
 
 // App Basic Colors
-  static const Color primary = Color(0xFF4B68FF);
+  // static const Color primary = Color(0xFF4B68FF);
+  static const Color primary = Color(0xFF6B8E23);
   static const Color secondary = Color(0xFFFFE24B);
   static const Color accent = Color(0xFFb0c7FF);
 
@@ -34,7 +35,8 @@ class BakoColors{
   static Color darkContainer = Colors.white.withOpacity(0.1);
 
 // Button Colors
-  static const Color buttonPrimary = Color(0xFF4B68FF);
+  // static const Color buttonPrimary = Color(0xFF4B68FF);
+  static const Color buttonPrimary = Color(0xFF8FBC8B);
   static const Color buttonSecondary = Color(0xFF6C757D);
   static const Color buttonDisable = Color(0xFFC4C4C4);
 

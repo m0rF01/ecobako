@@ -1,4 +1,5 @@
 import 'package:ecobako_app/admin_navigation_menu.dart';
+import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,9 @@ class AdminLoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => Get.to(() => const AdminNavigationMenu()), 
+                onPressed: () => Get.to(() => const AdminNavigationMenu()),
+                style: ElevatedButton.styleFrom(
+                backgroundColor: BakoColors.buttonPrimary), 
                 child: const Text(BakoTexts.signIn)
               )
             ),

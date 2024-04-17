@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "387596651021",
+    "project_id": "ecobakoapp",
+    "storage_bucket": "ecobakoapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387596651021:android:8ad1077efafbdedf016344",
+        "android_client_info": {
+          "package_name": "com.example.ecobako_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387596651021-bsvguc8q31h3s142eq0nuekl07n1h1s1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ecobako_app",
+            "certificate_hash": "e7ebaf0982447fc348b00b87ffdb88f1c0f06779"
+          }
+        },
+        {
+          "client_id": "387596651021-os0bq9t9ug45p41mvels7kb3a7g5esju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMYnUuxcY3l8mYMNe2UNsfzk_cjxjpz_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "387596651021-os0bq9t9ug45p41mvels7kb3a7g5esju.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "387596651021-ujvpm7dds4ckebcg6q3gmo5qgjlkupdn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ecobakoApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

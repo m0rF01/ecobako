@@ -87,7 +87,9 @@ class AdminPointAllocationScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity, 
                         child: ElevatedButton(
-                          onPressed: (){}, 
+                          onPressed: (){},
+                           style: ElevatedButton.styleFrom(
+                backgroundColor: BakoColors.buttonPrimary), 
                           child: const Text(BakoTexts.generatePoint),
                         ),
                       ),

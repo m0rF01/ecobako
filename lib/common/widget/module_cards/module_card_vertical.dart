@@ -3,7 +3,6 @@ import 'package:ecobako_app/common/widget/images/bako_roundimage.dart';
 import 'package:ecobako_app/common/widget/rounded_container/rounded_container.dart';
 import 'package:ecobako_app/common/widget/texts/module_item_title_text.dart';
 import 'package:ecobako_app/features/module/screens/widget/module_details.dart';
-import 'package:ecobako_app/features/store/screens/admin/product_details/product_details.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';

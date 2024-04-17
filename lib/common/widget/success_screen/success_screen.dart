@@ -1,4 +1,5 @@
 import 'package:ecobako_app/common/styles/spacing_styles.dart';
+import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
@@ -46,6 +47,8 @@ class SuccessScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: onPressed, 
+                   style: ElevatedButton.styleFrom(
+                backgroundColor: BakoColors.buttonPrimary),
                   child: const Text(BakoTexts.tContinue),
                   ),
               )

@@ -1,4 +1,3 @@
-import 'package:ecobako_app/common/widget/texts/module_item_title_text.dart';
 import 'package:ecobako_app/common/widget/texts/section_heading.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
@@ -16,7 +15,10 @@ class ModuleDeatilsLowerPart extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Name of the product
-        BakoSectionHeading(title: "Dunia Bahan Terbuang", showActionButton: false,),
+        BakoSectionHeading(
+          title: "Dunia Bahan Terbuang",
+          showActionButton: false,
+        ),
         SizedBox(height: BakoSizes.spaceBtwSections),
 
         ReadMoreText(
@@ -28,7 +30,7 @@ class ModuleDeatilsLowerPart extends StatelessWidget {
           // trimExpandedText: " Show less",
           // moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
           // lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-          )
+        )
       ],
     );
   }

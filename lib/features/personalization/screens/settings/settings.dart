@@ -3,7 +3,11 @@ import 'package:ecobako_app/common/widget/custom_shape/containers/primary_header
 import 'package:ecobako_app/common/widget/list_tiles/settings_menu_tile.dart';
 import 'package:ecobako_app/common/widget/list_tiles/user_profile_tiles.dart';
 import 'package:ecobako_app/common/widget/texts/section_heading.dart';
+import 'package:ecobako_app/features/personalization/screens/app_information/app_information.dart';
+import 'package:ecobako_app/features/personalization/screens/policy_n_privacy/policy_n_privacy.dart';
 import 'package:ecobako_app/features/personalization/screens/profile/profile.dart';
+import 'package:ecobako_app/features/personalization/screens/terms_n_condition/terms_n_condition.dart';
+import 'package:ecobako_app/features/store/screens/admin/store/user_store.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +65,7 @@ class UserSettingScreen extends StatelessWidget {
                     icon: Iconsax.convert, 
                     title: "Redeem Points", 
                     subTitle: "Redeem goods from the stores", 
-                    onTap: (){},
+                    onTap: ()=> Get.to(() => const UserStoreScreen()),
                   ),
 
                   // Collect Points Options
@@ -89,7 +93,7 @@ class UserSettingScreen extends StatelessWidget {
                     icon: Iconsax.document_copy, 
                     title: "Terms & Conditions", 
                     subTitle: "Details of terms & conditions of the application", 
-                    onTap: (){},
+                    onTap: ()=> Get.to(() => const TermsNConditionScreen()),
                   ),
 
                   // Policy & Privacy Options
@@ -97,7 +101,7 @@ class UserSettingScreen extends StatelessWidget {
                     icon: Iconsax.shield_tick, 
                     title: "Policy & Privacy", 
                     subTitle: "Details of privacy & policy of the application", 
-                    onTap: (){},
+                    onTap: ()=> Get.to(() => const PolicyNPrivacyScreen()),
                   ),
 
                   //App Information Options
@@ -105,7 +109,7 @@ class UserSettingScreen extends StatelessWidget {
                     icon: Iconsax.info_circle, 
                     title: "App Information",  
                     subTitle: "Details information about the application", 
-                    onTap: (){},
+                    onTap: ()=> Get.to(() => const AppInformationScreen()),
                   ),
 
                   //Logout Button

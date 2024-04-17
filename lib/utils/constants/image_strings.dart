@@ -12,9 +12,12 @@ class BakoImages{
   static const String facebook = "assets/logos/facebook-icon.png";
 
   // Onboarding
-  static const onBoardingImage1 = "assets/images/on_boarding_images/sammy-line-searching.gif";
-  static const onBoardingImage2 = "assets/images/on_boarding_images/sammy-line-shopping.gif";
-  static const onBoardingImage3 = "assets/images/on_boarding_images/sammy-line-delivery.gif";
+  // static const onBoardingImage1 = "assets/images/on_boarding_images/sammy-line-searching.gif";
+  static const onBoardingImage1 = "assets/images/on_boarding_images/new1.png";
+  // static const onBoardingImage2 = "assets/images/on_boarding_images/sammy-line-shopping.gif";
+  static const onBoardingImage2 = "assets/images/on_boarding_images/4new.png";
+  // static const onBoardingImage3 = "assets/images/on_boarding_images/sammy-line-delivery.gif";
+  static const onBoardingImage3 = "assets/images/on_boarding_images/3new.png";
 
   // -- Animations
   static const String productsIllustration = "assets/images/animations/sammy-line-workout.gif";

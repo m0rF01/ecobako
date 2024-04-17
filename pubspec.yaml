@@ -47,6 +47,9 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   flutter_native_splash: ^2.4.0
   readmore: ^3.0.0
+
+  #-------------------------- Firebase Packages ---------------------------#
+  firebase_core: ^2.30.0
   
 
 dev_dependencies:

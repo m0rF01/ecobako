@@ -1,6 +1,5 @@
 import 'package:ecobako_app/features/ecobako_point/ecopoint_allocation.dart';
 import 'package:ecobako_app/features/home/screens/admin/admin_home.dart';
-import 'package:ecobako_app/features/home/screens/user/home.dart';
 import 'package:ecobako_app/features/store/screens/admin/store/admin_store.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
