@@ -1,8 +1,9 @@
-import 'package:ecobako_app/features/authentication/screens/signup/verify_email.dart';
+import 'package:ecobako_app/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:ecobako_app/features/authentication/screens/signup/widget/terms_conditions_checkbox.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
+import 'package:ecobako_app/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -14,7 +15,9 @@ class BakoSignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SignupController());
     return Form(
+      key: controller.signupFormKey,
       child: Column(
         children: [
           // First Name & last name
@@ -22,6 +25,8 @@ class BakoSignUpForm extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
+                  controller: controller.firstName,
+                  validator: (value) => BakoValidator.validateEmptyText("First name", value),
                   expands: false,
                   decoration: const InputDecoration(
                     labelText: BakoTexts.firstName, 
@@ -32,6 +37,8 @@ class BakoSignUpForm extends StatelessWidget {
               const SizedBox(width: BakoSizes.spaceBtwInputFields),
               Expanded(
                 child: TextFormField(
+                  controller: controller.lastName,
+                  validator: (value) => BakoValidator.validateEmptyText("Last name", value),
                   expands: false,
                   decoration: const InputDecoration(
                     labelText: BakoTexts.lastName, 
@@ -45,6 +52,8 @@ class BakoSignUpForm extends StatelessWidget {
     
               // Username
               TextFormField(
+                  validator: (value) => BakoValidator.validateEmptyText("Username", value),
+                  controller: controller.username,
                   expands: false,
                   decoration: const InputDecoration(
                     labelText: BakoTexts.username, 
@@ -55,6 +64,8 @@ class BakoSignUpForm extends StatelessWidget {
 
               // Address line 1
               TextFormField(
+                  validator: (value) => BakoValidator.validateEmptyText("Home address", value),
+                  controller: controller.homeAddress,
                   expands: false,
                   decoration: const InputDecoration(
                     labelText: BakoTexts.homeAddress, 
@@ -67,6 +78,8 @@ class BakoSignUpForm extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      controller: controller.postal,
+                      validator: (value) => BakoValidator.validateEmptyText("Postal code", value),
                       expands: false,
                       decoration: const InputDecoration(
                         labelText: BakoTexts.postal, 
@@ -77,6 +90,8 @@ class BakoSignUpForm extends StatelessWidget {
                   const SizedBox(width: BakoSizes.spaceBtwInputFields),
                   Expanded(
                     child: TextFormField(
+                      validator: (value) => BakoValidator.validateEmptyText("Country", value),
+                      controller: controller.country,
                       expands: false,
                       decoration: const InputDecoration(
                         labelText: BakoTexts.country, 
@@ -92,6 +107,8 @@ class BakoSignUpForm extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      controller: controller.gender,
+                      validator: (value) => BakoValidator.validateEmptyText("Gender", value),
                       expands: false,
                       decoration: const InputDecoration(
                         labelText: BakoTexts.gender, 
@@ -102,6 +119,8 @@ class BakoSignUpForm extends StatelessWidget {
                   const SizedBox(width: BakoSizes.spaceBtwInputFields),
                   Expanded(
                     child: TextFormField(
+                      controller: controller.age,
+                      validator: (value) => BakoValidator.validateEmptyText("Age", value),
                       expands: false,
                       decoration: const InputDecoration(
                         labelText: BakoTexts.age, 
@@ -113,18 +132,10 @@ class BakoSignUpForm extends StatelessWidget {
               ),
               const SizedBox(height: BakoSizes.spaceBtwInputFields),
 
-              // // Age
-              // TextFormField(
-              //     expands: false,
-              //     decoration: const InputDecoration(
-              //       labelText: BakoTexts.age, 
-              //       prefixIcon: Icon(Iconsax.calendar)
-              //     ),
-              // ),
-              // const SizedBox(height: BakoSizes.spaceBtwInputFields),
-    
               // Email
               TextFormField(
+                  controller: controller.email,
+                  validator: (value) => BakoValidator.validateEmail(value),
                   expands: false,
                   decoration: const InputDecoration(
                     labelText: BakoTexts.email, 
@@ -135,6 +146,8 @@ class BakoSignUpForm extends StatelessWidget {
     
               // Phone Number
               TextFormField(
+                  controller: controller.phoneNo,
+                  validator: (value) => BakoValidator.validatePhoneNumber(value),
                   expands: false,
                   decoration: const InputDecoration(
                     labelText: BakoTexts.phoneNo, 
@@ -144,14 +157,21 @@ class BakoSignUpForm extends StatelessWidget {
               const SizedBox(height: BakoSizes.spaceBtwInputFields),
     
               //Password
-              TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: BakoTexts.password, 
-                    prefixIcon: Icon(Iconsax.password_check),
-                    suffixIcon: Icon(Iconsax.eye_slash),
-                  ),
-              ),
+              Obx(
+                () => TextFormField(
+                    controller: controller.password,
+                    validator: (value) => BakoValidator.validatePassword(value),
+                    obscureText: controller.hidePassword.value,
+                    decoration: InputDecoration(
+                      labelText: BakoTexts.password, 
+                      prefixIcon: const Icon(Iconsax.password_check),
+                      suffixIcon: IconButton(
+                        onPressed: () => controller.hidePassword.value = !controller.hidePassword.value,
+                        icon: Icon(controller.hidePassword.value ? Iconsax.eye_slash : Iconsax.eye)
+                      ),
+                      ),
+                    ),
+                ),
               const SizedBox(height: BakoSizes.spaceBtwInputFields),
     
               //Terms and Conditions Checkbox
@@ -163,7 +183,7 @@ class BakoSignUpForm extends StatelessWidget {
               SizedBox(
                 width: double.infinity, 
                 child: ElevatedButton(
-                  onPressed: () => Get.to(() => const VerifyEmailScreen()), 
+                  onPressed: () => controller.signup(), 
                    style: ElevatedButton.styleFrom(
                 backgroundColor: BakoColors.buttonPrimary),
                   child: const Text(BakoTexts.createAccount),

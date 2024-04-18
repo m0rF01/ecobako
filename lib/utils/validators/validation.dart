@@ -1,4 +1,13 @@
 class BakoValidator {
+
+  static String? validateEmptyText(String? fieldName, String? value) {
+    if (value == null || value.isEmpty){
+      return "$fieldName is required.";
+    }
+
+    return null;
+  }
+
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return "Email is required";
@@ -43,10 +52,10 @@ class BakoValidator {
       return "Phone number is required";
     }
 
-    final phoneRegExp = RegExp(r'^\d{10}$');
+    final phoneRegExp = RegExp(r'^\d{10,}$');
 
     if (!phoneRegExp.hasMatch(value)) {
-      return "Invalid phone number format (10 digits required)";
+      return "Invalid phone number format (10 digits or more required)";
     }
 
     return null;

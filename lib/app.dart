@@ -1,4 +1,4 @@
-import 'package:ecobako_app/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:ecobako_app/bindings/general_bindings.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +13,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: BakoAppTheme.lightTheme,
       darkTheme: BakoAppTheme.darkTheme,
+      initialBinding: GeneralBindings(),
       home: const Scaffold(
         backgroundColor: BakoColors.primary,
         body: Center(
