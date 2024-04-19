@@ -98,7 +98,5 @@ class BakoTexts {
 
 
 
-
-
 }
 

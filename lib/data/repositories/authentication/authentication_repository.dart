@@ -1,7 +1,8 @@
 import 'package:ecobako_app/features/authentication/screens/choose_role/choose_role.dart';
 import 'package:ecobako_app/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:ecobako_app/features/authentication/screens/signup/verify_email.dart';
+import 'package:ecobako_app/user_navigation_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -17,22 +18,32 @@ class AuthenticationRepository extends GetxController{
   // called from main.dart on app launch
   @override
   void onReady() {
+    // Remove the native splash screen
     FlutterNativeSplash.remove();
+    // Redirect to the appropriate screen
     screenRedirect();
   }
 
 
   // Function to show relevent Screen 
   screenRedirect() async {
+    final user = _auth.currentUser;
+    if (user != null){
+      if(user.emailVerified){
+        Get.offAll(() => const UserNavigationMenu());
+      } else {
+        Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
+      }
+    } else{
+      deviceStorage.writeIfNull("isFirstTime", true);
+      // check if the user is first time launching the app
+      deviceStorage.read("isFirstTime") != true 
+        ? Get.offAll(() => const ChooseRole()) // redirect to choose role screen
+        : Get.offAll(() => const OnBoardingScreen()); // redirect to on boarding screen if the user is first time
+    }
     // local storage
 
-    if (kDebugMode) {
-      print("==================GET STORAGE Auth Repo =================");
-      print(deviceStorage.read("isFirstTime"));
-    }
-
-    deviceStorage.writeIfNull("isFirstTime", true);
-    deviceStorage.read("isFirstTime") != true ? Get.offAll(() => const ChooseRole()) : Get.offAll(() => const OnBoardingScreen());                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
   }
 
   /*-------------------------------- Email & Password sign-in -------------------------------*/
@@ -75,6 +86,21 @@ class AuthenticationRepository extends GetxController{
   /// reauth - reauth user
    
   /// emailVerification - email verification
+  Future<void> sendEmailVerification() async {
+    try{
+      await _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (_) {
+      throw "Error1 - EV";
+    } on FirebaseException catch (_) {
+      throw "Error 2 - EV";
+    } on FormatException catch (_) {
+      throw "Error 3 - EV";
+    } on PlatformException catch (_){
+      throw "Error 4 - EV";
+    } catch (e) {
+      throw "Something went wrong, Please try again - ";
+    }
+  }
   
   /// emailAuthentication - forgot password
    
@@ -87,6 +113,21 @@ class AuthenticationRepository extends GetxController{
    /*-------------------------------- End Federated identity & social sign in -------------------------------*/
 
   // LogoutUser - Valid for any authentication.
+   Future<void> logout() async {
+    try{
+      await FirebaseAuth.instance.signOut();
+    } on FirebaseAuthException catch (_) {
+      throw "Error1 - EV";
+    } on FirebaseException catch (_) {
+      throw "Error 2 - EV";
+    } on FormatException catch (_) {
+      throw "Error 3 - EV";
+    } on PlatformException catch (_){
+      throw "Error 4 - EV";
+    } catch (e) {
+      throw "Something went wrong, Please try again - ";
+    }
+  }
 
   // DeleteUser - Remove user Auth and Firestore Account
 }
