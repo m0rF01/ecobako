@@ -1,4 +1,5 @@
 import 'package:ecobako_app/features/authentication/screens/choose_role/choose_role.dart';
+import 'package:ecobako_app/features/authentication/screens/login/login_user/login.dart';
 import 'package:ecobako_app/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:ecobako_app/features/authentication/screens/signup/verify_email.dart';
 import 'package:ecobako_app/user_navigation_menu.dart';
@@ -49,6 +50,22 @@ class AuthenticationRepository extends GetxController{
   /*-------------------------------- Email & Password sign-in -------------------------------*/
 
   /// Email auth - sign in
+  /// 
+  Future<UserCredential> loginWithEmailAndPassword(String email, String password) async{
+    try{
+      return await _auth.signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (_) {
+      throw "Error1 - AR";
+    } on FirebaseException catch (_) {
+      throw "Error 2 - AR";
+    } on FormatException catch (_) {
+      throw "Error 3 - AR";
+    } on PlatformException catch (_){
+      throw "Error 4 - AR";
+    } catch (e) {
+      throw "Something went wrong, Please try again - AR";
+    }
+  }
    
   /// Email auth - registration
   // Future<UserCredential> registerWithEmailAndPassword(String email, String password) async{
@@ -116,6 +133,7 @@ class AuthenticationRepository extends GetxController{
    Future<void> logout() async {
     try{
       await FirebaseAuth.instance.signOut();
+      Get.offAll(() => const LoginScreen());
     } on FirebaseAuthException catch (_) {
       throw "Error1 - EV";
     } on FirebaseException catch (_) {
