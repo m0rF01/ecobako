@@ -23,6 +23,7 @@ class UserLoginController extends GetxController {
     super.onInit();
   }
 
+// Email and Password Signin
   Future<void> emailAndPasswordSignIn() async {
     try {
       // Start loading
@@ -53,7 +54,7 @@ class UserLoginController extends GetxController {
       }
 
       // Login user using Email & Password Auth
-      final userCredential = await AuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+      final userCredentials = await AuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 
       // Remove Loader
       BakoFullScreenLoader.stopLoading();
@@ -64,6 +65,26 @@ class UserLoginController extends GetxController {
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
       BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+    }
+  }
+
+// Google SignIn Authentication
+  Future<void> googleSignIn() async{
+    try {
+      // start loading animation
+      BakoFullScreenLoader.openLoadingDialog("Logging you in...", BakoImages.docerAnimation);
+
+      // Check internet connection
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        BakoFullScreenLoader.stopLoading();
+        return;
+      }
+
+      // Google authentication
+      final userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
+    } catch (e) {
+      BakoLoaders.errorSnackBar(title: "Oh Snap", message:e.toString());
     }
   }
 }

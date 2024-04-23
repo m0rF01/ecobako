@@ -1,7 +1,9 @@
+import 'package:ecobako_app/features/authentication/controllers/login/user_login/user_login_controller.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BakoSocialButton extends StatelessWidget {
   const BakoSocialButton({
@@ -10,6 +12,7 @@ class BakoSocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserLoginController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -19,7 +22,7 @@ class BakoSocialButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(100)
           ),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () => controller.googleSignIn(),
             icon: const Image (
               width: BakoSizes.iconMd,
               height: BakoSizes.iconMd,

@@ -8,8 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthenticationRepository extends GetxController{
+class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
   // variables
@@ -25,48 +26,49 @@ class AuthenticationRepository extends GetxController{
     screenRedirect();
   }
 
-
-  // Function to show relevent Screen 
+  // Function to show relevent Screen
   screenRedirect() async {
     final user = _auth.currentUser;
-    if (user != null){
-      if(user.emailVerified){
+    if (user != null) {
+      if (user.emailVerified) {
         Get.offAll(() => const UserNavigationMenu());
       } else {
         Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
       }
-    } else{
+    } else {
       deviceStorage.writeIfNull("isFirstTime", true);
       // check if the user is first time launching the app
-      deviceStorage.read("isFirstTime") != true 
-        ? Get.offAll(() => const ChooseRole()) // redirect to choose role screen
-        : Get.offAll(() => const OnBoardingScreen()); // redirect to on boarding screen if the user is first time
+      deviceStorage.read("isFirstTime") != true
+          ? Get.offAll(
+              () => const ChooseRole()) // redirect to choose role screen
+          : Get.offAll(() =>
+              const OnBoardingScreen()); // redirect to on boarding screen if the user is first time
     }
     // local storage
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
   }
 
   /*-------------------------------- Email & Password sign-in -------------------------------*/
 
   /// Email auth - sign in
-  /// 
-  Future<UserCredential> loginWithEmailAndPassword(String email, String password) async{
-    try{
-      return await _auth.signInWithEmailAndPassword(email: email, password: password);
+  ///
+  Future<UserCredential> loginWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      return await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
     } on FirebaseAuthException catch (_) {
       throw "Error1 - AR";
     } on FirebaseException catch (_) {
       throw "Error 2 - AR";
     } on FormatException catch (_) {
       throw "Error 3 - AR";
-    } on PlatformException catch (_){
+    } on PlatformException catch (_) {
       throw "Error 4 - AR";
     } catch (e) {
       throw "Something went wrong, Please try again - AR";
     }
   }
-   
+
   /// Email auth - registration
   // Future<UserCredential> registerWithEmailAndPassword(String email, String password) async{
   //   try{
@@ -84,27 +86,29 @@ class AuthenticationRepository extends GetxController{
   //   }
   // }
 
-   Future<UserCredential> registerWithEmailAndPassword(String email, String password) async{
-    try{
-      return await _auth.createUserWithEmailAndPassword(email: email, password: password);
+  Future<UserCredential> registerWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      return await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
     } on FirebaseAuthException catch (_) {
       throw "Error1 - AR";
     } on FirebaseException catch (_) {
       throw "Error 2 - AR";
     } on FormatException catch (_) {
       throw "Error 3 - AR";
-    } on PlatformException catch (_){
+    } on PlatformException catch (_) {
       throw "Error 4 - AR";
     } catch (e) {
       throw "Something went wrong, Please try again - AR";
     }
   }
-   
+
   /// reauth - reauth user
-   
+
   /// emailVerification - email verification
   Future<void> sendEmailVerification() async {
-    try{
+    try {
       await _auth.currentUser?.sendEmailVerification();
     } on FirebaseAuthException catch (_) {
       throw "Error1 - EV";
@@ -112,26 +116,69 @@ class AuthenticationRepository extends GetxController{
       throw "Error 2 - EV";
     } on FormatException catch (_) {
       throw "Error 3 - EV";
-    } on PlatformException catch (_){
+    } on PlatformException catch (_) {
       throw "Error 4 - EV";
     } catch (e) {
       throw "Something went wrong, Please try again - ";
     }
   }
-  
+
   /// emailAuthentication - forgot password
-   
+    Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw "Error1 - RP ${e.message}";
+    } on FirebaseException catch (e) {
+      throw "Error 2 - RP ${e.message}";
+    } on FormatException catch (e) {
+      throw "Error 3 - RP ${e.message}";
+    } on PlatformException catch (_) {
+      throw "Error 4 - RP";
+    } catch (e) {
+      throw "Something went wrong, Please try again - ";
+    }
+  }
+
   /*-------------------------------- Federated identity & social sign in -------------------------------*/
 
   // GoogleAuth - Google
+  Future<UserCredential?> signInWithGoogle() async {
+    try {
+      // trigger the auth flow
+      final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await userAccount?.authentication;
+
+      // Create a new credential
+      final credentials = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+
+      // Once signed in, return user credentials
+      return await _auth.signInWithCredential(credentials);
+    } on FirebaseAuthException catch (e) {
+      throw "Error1 - GA ${e.message}";
+    } on FirebaseException catch (e) {
+      throw "Error 2 - GA ${e.message}";
+    } on FormatException catch (e) {
+      throw "Error 3 - GA ${e.message}";
+    } on PlatformException catch (_) {
+      throw "Error 4 - GA";
+    } catch (e) {
+      throw "Something went wrong, Please try again - GA ";
+    }
+  }
 
   // FacebookAuth - Facebook
 
-   /*-------------------------------- End Federated identity & social sign in -------------------------------*/
+  /*-------------------------------- End Federated identity & social sign in -------------------------------*/
 
   // LogoutUser - Valid for any authentication.
-   Future<void> logout() async {
-    try{
+  Future<void> logout() async {
+    try {
+      await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => const LoginScreen());
     } on FirebaseAuthException catch (_) {
@@ -140,7 +187,7 @@ class AuthenticationRepository extends GetxController{
       throw "Error 2 - EV";
     } on FormatException catch (_) {
       throw "Error 3 - EV";
-    } on PlatformException catch (_){
+    } on PlatformException catch (_) {
       throw "Error 4 - EV";
     } catch (e) {
       throw "Something went wrong, Please try again - ";

@@ -1,6 +1,7 @@
-import 'package:ecobako_app/features/authentication/screens/password_configuration/reset_password.dart';
+import 'package:ecobako_app/features/authentication/controllers/forget_password/forget_password_controller.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
+import 'package:ecobako_app/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -10,6 +11,7 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ForgetPasswordController());
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -31,10 +33,15 @@ class ForgetPassword extends StatelessWidget {
             const SizedBox(height: BakoSizes.spaceBtwSections * 2),
 
             //Text Fields
-            TextFormField (
-              decoration: const InputDecoration(
-                labelText: BakoTexts.email, 
-                prefixIcon: Icon(Iconsax.direct_right)
+            Form(
+              key: controller.forgetPasswordFormKey,
+              child: TextFormField (
+                controller: controller.email,
+                validator: BakoValidator.validateEmail,
+                decoration: const InputDecoration(
+                  labelText: BakoTexts.email, 
+                  prefixIcon: Icon(Iconsax.direct_right)
+                ),
               ),
             ),
             const SizedBox(height: BakoSizes.spaceBtwSections),
@@ -43,7 +50,7 @@ class ForgetPassword extends StatelessWidget {
             SizedBox(
               width: double.infinity, 
               child: ElevatedButton(
-                onPressed: () => Get.off(() => const ResetPassword()),
+                onPressed: () => controller.sendPasswordResetEmail(),
                 child: const Text(BakoTexts.submit),
               ),
             )
