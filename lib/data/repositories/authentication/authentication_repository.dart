@@ -1,3 +1,4 @@
+import 'package:ecobako_app/data/repositories/user/user_repository.dart';
 import 'package:ecobako_app/features/authentication/screens/choose_role/choose_role.dart';
 import 'package:ecobako_app/features/authentication/screens/login/login_user/login.dart';
 import 'package:ecobako_app/features/authentication/screens/onboarding/onboarding.dart';
@@ -16,6 +17,9 @@ class AuthenticationRepository extends GetxController {
   // variables
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
+
+  // Get authenticate user data
+  User? get authUser => _auth.currentUser;
 
   // called from main.dart on app launch
   @override
@@ -105,6 +109,24 @@ class AuthenticationRepository extends GetxController {
   }
 
   /// reauth - reauth user
+  Future<void> reAuthenticateEmailAndPassword(
+      String email, String password) async {
+    try {
+      AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
+      // Reauthenticate
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (_) {
+      throw "Error1 - ReA";
+    } on FirebaseException catch (_) {
+      throw "Error 2 - ReA";
+    } on FormatException catch (_) {
+      throw "Error 3 - ReA";
+    } on PlatformException catch (_) {
+      throw "Error 4 - ReA";
+    } catch (e) {
+      throw "Something went wrong, Please try again - AR";
+    }
+  }
 
   /// emailVerification - email verification
   Future<void> sendEmailVerification() async {
@@ -195,4 +217,22 @@ class AuthenticationRepository extends GetxController {
   }
 
   // DeleteUser - Remove user Auth and Firestore Account
+  Future<void> deleteAccount() async {
+    try {
+      await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
+      await _auth.currentUser?.delete();
+      Get.offAll(() => const LoginScreen());
+    } on FirebaseAuthException catch (_) {
+      throw "Error1 - DA";
+    } on FirebaseException catch (_) {
+      throw "Error 2 - DA";
+    } on FormatException catch (_) {
+      throw "Error 3 - DA";
+    } on PlatformException catch (_) {
+      throw "Error 4 - DA";
+    } catch (e) {
+      throw "Something went wrong, Please try again - DA ";
+      
+    }
+  }
 }

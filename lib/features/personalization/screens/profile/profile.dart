@@ -1,10 +1,13 @@
 import 'package:ecobako_app/common/widget/appbar/appbar.dart';
 import 'package:ecobako_app/common/widget/images/bako_circular_image.dart';
 import 'package:ecobako_app/common/widget/texts/section_heading.dart';
+import 'package:ecobako_app/features/personalization/controllers/user_controller.dart';
+import 'package:ecobako_app/features/personalization/screens/profile/widget/change_name.dart';
 import 'package:ecobako_app/features/personalization/screens/profile/widget/profile_menu.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -12,6 +15,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Scaffold(
       appBar: const BakoAppBar(
         showBackArrow: true,
@@ -39,9 +43,9 @@ class ProfileScreen extends StatelessWidget {
             const BakoSectionHeading(title: "Profile Information", showActionButton: false,),
             const SizedBox(height: BakoSizes.spaceBtwItems),
 
-            BakoProfileMenu(title: 'Name', value: 'Muhammad Faris Musa', onPressed: () {}),
-            BakoProfileMenu(title: 'Username', value: 'Muhammad Faris', onPressed: () {},),
-            BakoProfileMenu(title: 'UserID', value: 'A0001', icon: Iconsax.copy, onPressed: () {},),
+            BakoProfileMenu(title: 'Name', value: controller.user.value.fullName, onPressed: () => Get.to(()=> const ChangeName())),
+            BakoProfileMenu(title: 'Username', value: controller.user.value.username, onPressed: () {},),
+            BakoProfileMenu(title: 'UserID', value: controller.user.value.id, icon: Iconsax.copy, onPressed: () {},),
 
             const SizedBox(height: BakoSizes.spaceBtwItems),
             const Divider(),
@@ -50,20 +54,20 @@ class ProfileScreen extends StatelessWidget {
             const BakoSectionHeading(title: "Personal Information", showActionButton: false,),
             const SizedBox(height: BakoSizes.spaceBtwItems),
 
-            BakoProfileMenu(title: 'Address', value: '25 Jalan Unimas......', onPressed: () {}),
-            BakoProfileMenu(title: 'Postal Code', value: '41200', onPressed: () {}),
-            BakoProfileMenu(title: 'Country', value: 'Malaysia', onPressed: () {}),
-            BakoProfileMenu(title: 'Gender', value: 'Male', onPressed: () {}),
-            BakoProfileMenu(title: 'Age', value: '23', onPressed: () {}),
-            BakoProfileMenu(title: 'Email', value: 'farismusa51@gmail.com', onPressed: () {}),
-            BakoProfileMenu(title: 'Phone Number', value: '+601135314516', onPressed: () {}),
+            BakoProfileMenu(title: 'Address', value: controller.user.value.homeAddress, onPressed: () {}),
+            BakoProfileMenu(title: 'Postal Code', value: controller.user.value.postal, onPressed: () {}),
+            BakoProfileMenu(title: 'Country', value: controller.user.value.country, onPressed: () {}),
+            BakoProfileMenu(title: 'Gender', value: controller.user.value.gender, onPressed: () {}),
+            BakoProfileMenu(title: 'Age', value: controller.user.value.age, onPressed: () {}),
+            BakoProfileMenu(title: 'Email', value: controller.user.value.email, onPressed: () {}),
+            BakoProfileMenu(title: 'Phone Number', value: controller.user.value.phoneNo, onPressed: () {}),
 
             const Divider(),
             const SizedBox(height: BakoSizes.spaceBtwItems),
 
             Center(
               child: TextButton(
-                onPressed: () {}, 
+                onPressed: () => controller.deleteAccountWarningPopup(), 
                 child: const Text("Delete Account", style: TextStyle(color: Colors.red)),
               ),
             )

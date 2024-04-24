@@ -40,7 +40,7 @@ class UserSettingScreen extends StatelessWidget {
                   const SizedBox(height: BakoSizes.spaceBtwSections / 2),
 
                   // User Profile card
-                  const BakoUserProfileTile(),
+                  BakoUserProfileTile(onPressed: () => Get.to(() => const ProfileScreen())),
                   const SizedBox(
                     height: BakoSizes.spaceBtwSections,
                   ),
