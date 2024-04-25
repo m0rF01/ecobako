@@ -11,6 +11,7 @@ import 'package:ecobako_app/utils/popups/full_screen_loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();
@@ -19,6 +20,7 @@ class UserController extends GetxController {
   Rx<UserModel> user = UserModel.empty().obs;
 
   final hidePassword = false.obs;
+  final imageUploading = false.obs;
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
   final userRepository = Get.put(UserRepository());
@@ -46,6 +48,7 @@ class UserController extends GetxController {
 // Save user record from any registation provider
   Future<void> saveUserRecord(UserCredential? userCredentials) async {
     try {
+      await fetchUserRecord();
       if (userCredentials != null) {
         // Converts name to first name and last name
         final nameParts =
@@ -130,29 +133,59 @@ class UserController extends GetxController {
 
   Future<void> reAuthenticateEmaiAndPassword() async {
     try {
-      BakoFullScreenLoader.openLoadingDialog("Processing", BakoImages.docerAnimation);
+      BakoFullScreenLoader.openLoadingDialog(
+          "Processing", BakoImages.docerAnimation);
 
       // Check internet connection
       final isConnected = await NetworkManager.instance.isConnected();
-      if(!isConnected) {
+      if (!isConnected) {
         BakoFullScreenLoader.stopLoading();
         return;
       }
 
-      if (!reAuthFormKey.currentState!.validate()){
+      if (!reAuthFormKey.currentState!.validate()) {
         BakoFullScreenLoader.stopLoading();
         return;
       }
 
-      await AuthenticationRepository.instance.reAuthenticateEmailAndPassword(verifyEmail.text.trim(), verifyPassword.text.trim());
+      await AuthenticationRepository.instance.reAuthenticateEmailAndPassword(
+          verifyEmail.text.trim(), verifyPassword.text.trim());
       await AuthenticationRepository.instance.deleteAccount();
       BakoFullScreenLoader.stopLoading();
       Get.offAll(() => const LoginScreen());
-      
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
       BakoLoaders.warningSnackBar(title: "Oh Snap", message: e.toString());
-      
+    }
+  }
+
+  uploadUserProfilePicture() async {
+    try {
+      final image = await ImagePicker().pickImage(
+          source: ImageSource.gallery,
+          imageQuality: 70,
+          maxHeight: 512,
+          maxWidth: 512);
+      if (image != null) {
+        imageUploading.value = true;
+        final imageUrl =
+            await userRepository.uploadImage("Users/Images/Profile/", image);
+
+        //Update user image Record
+        Map<String, dynamic> json = {"ProfilePicture": imageUrl};
+        await userRepository.updateSingleField(json);
+
+        user.value.profilePicture = imageUrl;
+        user.refresh();
+        BakoLoaders.successSnackBar(
+            title: "Congratulations",
+            message: "Your profile picture has been updated successfully!");
+      }
+    } catch (e) {
+      BakoLoaders.errorSnackBar(
+          title: "Oh Snap!", message: "Something went wrong!: $e");
+    } finally{
+      imageUploading.value = false;
     }
   }
 }

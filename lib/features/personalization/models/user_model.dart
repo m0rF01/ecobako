@@ -106,7 +106,7 @@ class UserModel {
         age: data["Age"] ?? "",
         email: data["Email"] ?? "",
         phoneNo: data["PhoneNumber"] ?? "",
-        profilePicture: data["profilePicture"] ?? "",
+        profilePicture: data["ProfilePicture"] ?? "",
         ecoPoint: data["EcoPoint"] ?? "",
       );
     } else {

@@ -7,7 +7,6 @@ import 'package:ecobako_app/utils/constants/shimmer.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class BakoHomeAppBar extends StatelessWidget {
   const BakoHomeAppBar({
@@ -47,12 +46,30 @@ class BakoHomeAppBar extends StatelessWidget {
               }),
             ],
           ),
-          const BakoCircularImage(
-            image: BakoImages.userImage,
-            width: 50,
-            height: 50,
-            padding: 0,
-          ),
+          Obx(() {
+                    final networkImage = controller.user.value.profilePicture;
+                    final image = networkImage.isNotEmpty
+                        ? networkImage
+                        : BakoImages.userImage;
+                    return controller.imageUploading.value
+                        ? const BakoShimmerEffect(
+                            width: 80,
+                            height: 80,
+                            radius: 80,
+                          )
+                        : BakoCircularImage(
+                            image: image,
+                            width: 50,
+                            height: 50,
+                            isNetworkImage: networkImage.isNotEmpty,
+                          );
+                  }),
+          // const BakoCircularImage(
+          //   image: BakoImages.userImage,
+          //   width: 50,
+          //   height: 50,
+          //   padding: 0,
+          // ),
         ],
       ),
     );

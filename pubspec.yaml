@@ -49,13 +49,18 @@ dependencies:
   readmore: ^3.0.0
   connectivity_plus: ^6.0.2
   lottie: ^3.1.0
+  image_picker: ^1.1.0
+  shimmer: ^3.0.0
 
   #-------------------------- Firebase Packages ---------------------------#
   firebase_core: ^2.30.0
   firebase_auth: ^4.19.2
   cloud_firestore: ^4.17.0
   google_sign_in: ^6.2.1
-  shimmer: ^3.0.0
+  firebase_storage: ^11.7.3
+  cached_network_image: ^3.3.1
+  
+  
 
   
 
