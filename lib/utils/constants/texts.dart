@@ -94,7 +94,7 @@ class BakoTexts {
   static const String weightPET = "Weight PET";
   static const String weightHDPE = "Weight HDPE";
   static const String weightPP = "Weight PP";
-  static const String generatePoint = "Generate";
+  static const String addPoint = "Add";
 
 
 

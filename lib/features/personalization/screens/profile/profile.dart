@@ -1,8 +1,11 @@
 import 'package:ecobako_app/common/widget/appbar/appbar.dart';
 import 'package:ecobako_app/common/widget/images/bako_circular_image.dart';
+import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/common/widget/texts/section_heading.dart';
 import 'package:ecobako_app/features/personalization/controllers/user_controller.dart';
+import 'package:ecobako_app/features/personalization/screens/profile/widget/change_homeaddress.dart';
 import 'package:ecobako_app/features/personalization/screens/profile/widget/change_name.dart';
+import 'package:ecobako_app/features/personalization/screens/profile/widget/change_username.dart';
 import 'package:ecobako_app/features/personalization/screens/profile/widget/profile_menu.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/constants/shimmer.dart';
@@ -70,13 +73,16 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: BakoSizes.spaceBtwItems),
 
             BakoProfileMenu(
-                title: 'Name',
-                value: controller.user.value.fullName,
-                onPressed: () => Get.to(() => const ChangeName())),
+              title: 'Name',
+              value: controller.user.value.fullName,
+              onPressed: () => Get.to(() => const ChangeName()),
+              icon: Iconsax.edit,
+            ),
             BakoProfileMenu(
               title: 'Username',
               value: controller.user.value.username,
-              onPressed: () {},
+              onPressed: () => Get.to(() => const ChangeUserName()),
+              icon: Iconsax.edit,
             ),
             BakoProfileMenu(
               title: 'UserID',
@@ -96,33 +102,43 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: BakoSizes.spaceBtwItems),
 
             BakoProfileMenu(
-                title: 'Address',
-                value: controller.user.value.homeAddress,
-                onPressed: () {}),
+              title: 'Address',
+              value: controller.user.value.homeAddress,
+              onPressed: ()  => Get.to(() => const ChangeHomeAddress()),
+              icon: Iconsax.edit,
+            ),
             BakoProfileMenu(
-                title: 'Postal Code',
-                value: controller.user.value.postal,
-                onPressed: () {}),
+              title: 'Gender',
+              value: controller.user.value.gender,
+              onPressed: () {
+                BakoLoaders.cannotEdit(title: "Oh Snap", message:"Sorry this detail cannot be edited");
+              },
+              icon: Iconsax.lock,
+            ),
             BakoProfileMenu(
-                title: 'Country',
-                value: controller.user.value.country,
-                onPressed: () {}),
+              title: 'Age',
+              value: controller.user.value.age,
+              onPressed: () {
+                BakoLoaders.cannotEdit(title: "Oh Snap", message:"Sorry this detail cannot be edited");
+              },
+              icon: Iconsax.lock,
+            ),
             BakoProfileMenu(
-                title: 'Gender',
-                value: controller.user.value.gender,
-                onPressed: () {}),
+              title: 'Email',
+              value: controller.user.value.email,
+              onPressed: () {
+                BakoLoaders.cannotEdit(title: "Oh Snap", message:"Sorry this detail cannot be edited");
+              },
+              icon: Iconsax.lock,
+            ),
             BakoProfileMenu(
-                title: 'Age',
-                value: controller.user.value.age,
-                onPressed: () {}),
-            BakoProfileMenu(
-                title: 'Email',
-                value: controller.user.value.email,
-                onPressed: () {}),
-            BakoProfileMenu(
-                title: 'Phone Number',
-                value: controller.user.value.phoneNo,
-                onPressed: () {}),
+              title: 'Phone Number',
+              value: controller.user.value.phoneNo,
+              onPressed: () {
+                BakoLoaders.cannotEdit(title: "Oh Snap", message:"Sorry this detail cannot be edited");
+              },
+              icon: Iconsax.lock,
+            ),
 
             const Divider(),
             const SizedBox(height: BakoSizes.spaceBtwItems),

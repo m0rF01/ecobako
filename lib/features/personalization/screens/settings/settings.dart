@@ -40,7 +40,8 @@ class UserSettingScreen extends StatelessWidget {
                   const SizedBox(height: BakoSizes.spaceBtwSections / 2),
 
                   // User Profile card
-                  BakoUserProfileTile(onPressed: () => Get.to(() => const ProfileScreen())),
+                  BakoUserProfileTile(
+                      onPressed: () => Get.to(() => const ProfileScreen())),
                   const SizedBox(
                     height: BakoSizes.spaceBtwSections,
                   ),
@@ -78,13 +79,13 @@ class UserSettingScreen extends StatelessWidget {
                       onTap: () => Get.to(() => const UserStoreScreen()),
                     ),
 
-                    // Collect Points Options
-                    BakoSettingMenuTile(
-                      icon: Iconsax.receipt_add,
-                      title: "Collect Points",
-                      subTitle: "Claim EcoBako points",
-                      onTap: () {},
-                    ),
+                    // // Collect Points Options
+                    // BakoSettingMenuTile(
+                    //   icon: Iconsax.receipt_add,
+                    //   title: "Collect Points",
+                    //   subTitle: "Claim EcoBako points",
+                    //   onTap: () {},
+                    // ),
 
                     // Language Options
                     BakoSettingMenuTile(
@@ -140,6 +141,9 @@ class UserSettingScreen extends StatelessWidget {
                       child: OutlinedButton(
                         onPressed: () =>
                             AuthenticationRepository.instance.logout(),
+                        style: OutlinedButton.styleFrom(
+                            side: const BorderSide(
+                                color: BakoColors.buttonPrimary)),
                         child: const Text("Logout"),
                       ),
                     ),

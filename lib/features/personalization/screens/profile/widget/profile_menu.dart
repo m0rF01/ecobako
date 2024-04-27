@@ -5,7 +5,8 @@ import 'package:iconsax/iconsax.dart';
 class BakoProfileMenu extends StatelessWidget {
   const BakoProfileMenu({
     super.key, 
-    this.icon = Iconsax.arrow_right_34,
+    // this.icon = Iconsax.arrow_right_34,
+    required this.icon,
     required this.onPressed, 
     required this.title, 
     required this.value,

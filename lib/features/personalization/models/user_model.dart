@@ -5,10 +5,8 @@ class UserModel {
   final String id;
   String firstName;
   String lastName;
-  final String username;
+  String username;
   String homeAddress;
-  String postal;
-  String country;
   String gender;
   String age;
   final String email;
@@ -22,8 +20,6 @@ class UserModel {
     required this.lastName,
     required this.username,
     required this.homeAddress,
-    required this.postal,
-    required this.country,
     required this.gender,
     required this.age,
     required this.email,
@@ -60,8 +56,6 @@ class UserModel {
         lastName: "",
         username: "",
         homeAddress: "",
-        postal: "",
-        country: "",
         gender: "",
         age: "",
         email: "",
@@ -77,8 +71,6 @@ class UserModel {
       "LastName": lastName,
       "Username": username,
       "Address": homeAddress,
-      "PostalCode": postal,
-      "Country": country,
       "Gender": gender,
       "Age": age,
       "Email": email,
@@ -100,8 +92,6 @@ class UserModel {
         lastName: data["LastName"] ?? "",
         username: data["Username"] ?? "",
         homeAddress: data["Address"] ?? "",
-        postal: data["PostalCode"] ?? "",
-        country: data["Country"] ?? "",
         gender: data["Gender"] ?? "",
         age: data["Age"] ?? "",
         email: data["Email"] ?? "",

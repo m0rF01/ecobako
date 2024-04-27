@@ -22,7 +22,8 @@ class SignupController extends GetxController{
   final homeAddress = TextEditingController(); // controller for address input 
   final postal = TextEditingController(); // controller for postal code input
   final country = TextEditingController(); // controller for country input 
-  final gender = TextEditingController(); // controller for gender input
+  // final gender = TextEditingController(); // controller for gender input
+  final gender = Rx<String?>(null); // controller for gender input
   final age = TextEditingController(); // controller for age input
   final email = TextEditingController(); // controller for email input
   final phoneNo = TextEditingController(); // controller for phone number input
@@ -67,9 +68,8 @@ class SignupController extends GetxController{
         lastName: lastName.text.trim(),
         username: username.text.trim(),
         homeAddress: homeAddress.text.trim(),
-        postal: postal.text.trim(),
-        country: country.text.trim(),
-        gender: gender.text.trim(),
+        // gender: gender.text.trim(),
+        gender: gender.value?.trim() ??"",
         age: age.text.trim(),
         email: email.text.trim(),
         phoneNo: phoneNo.text.trim(),

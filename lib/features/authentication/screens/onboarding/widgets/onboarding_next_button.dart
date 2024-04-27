@@ -15,17 +15,16 @@ class OnBoardingNextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = BakoHelperFunctions.isDarkMode(context);
     return Positioned(
-      right: BakoSizes.defaultSpace,
-      bottom: BakoDeviceUtils.getBottomNavigationBarHeight(),
-      child: ElevatedButton(
-        onPressed: () => OnBoardingController.instance.nextPage(),
-        style: ElevatedButton.styleFrom(
-          shape: const CircleBorder(), 
-          backgroundColor: dark ? BakoColors.primary : Colors.black,
+        right: BakoSizes.defaultSpace,
+        bottom: BakoDeviceUtils.getBottomNavigationBarHeight(),
+        child: ElevatedButton(
+          onPressed: () => OnBoardingController.instance.nextPage(),
+          style: ElevatedButton.styleFrom(
+            shape: const CircleBorder(),
+            backgroundColor: dark ? BakoColors.primary : Colors.black,
+            side: const BorderSide(color: BakoColors.buttonPrimary),
           ),
-        child: const Icon(Iconsax.arrow_right_3),
-      ) 
-      );
+          child: const Icon(Iconsax.arrow_right_3),
+        ));
   }
 }
-

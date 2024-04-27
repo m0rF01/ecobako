@@ -8,12 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChooseRoleHeader extends StatelessWidget {
-  const ChooseRoleHeader({
-    super.key,
-    
-    required this.dark
-    
-  });
+  const ChooseRoleHeader({super.key, required this.dark});
 
   final bool dark;
 
@@ -24,8 +19,9 @@ class ChooseRoleHeader extends StatelessWidget {
       children: [
         // image
         Image(
-          height: 150,
-          image: AssetImage(dark ? BakoImages.lightAppLogo : BakoImages.darkAppLogo)),
+            height: 150,
+            image: AssetImage(
+                dark ? BakoImages.lightAppLogo : BakoImages.darkAppLogo)),
         const SizedBox(height: BakoSizes.spaceBtwSections),
         // title and subtitle
         Text(
@@ -33,42 +29,44 @@ class ChooseRoleHeader extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineLarge,
         ),
         const SizedBox(height: BakoSizes.spaceBtwItems),
-    
+
         Text(
-          BakoTexts.chooseRoleSubTitle, 
+          BakoTexts.chooseRoleSubTitle,
           style: Theme.of(context).textTheme.labelMedium,
         ),
         const SizedBox(height: BakoSizes.spaceBtwSections * 10),
 
         Text(
-          BakoTexts.chooseRoleDetails, 
+          BakoTexts.chooseRoleDetails,
           style: Theme.of(context).textTheme.labelMedium,
         ),
         const SizedBox(height: BakoSizes.spaceBtwItems),
-        
-        // button for user
-      SizedBox(
-        width: double.infinity, 
-        child: ElevatedButton(
-          onPressed: () => Get.to(() => const LoginScreen()),
-          style: ElevatedButton.styleFrom(
-          backgroundColor: BakoColors.buttonPrimary),
-          child: const Text(BakoTexts.userRole),
-        ),
-      ),
-      const SizedBox(height: BakoSizes.spaceBtwSections),
-    
+
         // button for user
         SizedBox(
-          width: double.infinity, 
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () => Get.to(() => const LoginScreen()),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: BakoColors.buttonPrimary,
+                side: const BorderSide(color: BakoColors.buttonPrimary)),
+            child: const Text(BakoTexts.userRole),
+          ),
+        ),
+        const SizedBox(height: BakoSizes.spaceBtwSections),
+
+        // button for user
+        SizedBox(
+          width: double.infinity,
           child: ElevatedButton(
             onPressed: () => Get.to(() => const AdminLoginScreen()),
             style: ElevatedButton.styleFrom(
-            backgroundColor: BakoColors.buttonPrimary),
+                backgroundColor: BakoColors.buttonPrimary,
+                side: const BorderSide(color: BakoColors.buttonPrimary)),
             child: const Text(BakoTexts.adminRole),
           ),
         ),
-      const SizedBox(height: BakoSizes.spaceBtwSections),
+        const SizedBox(height: BakoSizes.spaceBtwSections),
       ],
     );
   }

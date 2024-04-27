@@ -83,7 +83,9 @@ class BakoLoginForm extends StatelessWidget {
                 child: ElevatedButton(
                     onPressed: () => controller.emailAndPasswordSignIn(),
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: BakoColors.buttonPrimary),
+                        backgroundColor: BakoColors.buttonPrimary,
+                        side:
+                            const BorderSide(color: BakoColors.buttonPrimary)),
                     child: const Text(BakoTexts.signIn))),
             const SizedBox(
               height: BakoSizes.spaceBtwItems,
@@ -94,6 +96,9 @@ class BakoLoginForm extends StatelessWidget {
                 width: double.infinity,
                 child: OutlinedButton(
                     onPressed: () => Get.to(() => const SignupScreen()),
+                    style: OutlinedButton.styleFrom(
+                        side:
+                            const BorderSide(color: BakoColors.buttonPrimary)),
                     child: const Text(BakoTexts.createAccount))),
             const SizedBox(height: BakoSizes.spaceBtwItems),
           ],

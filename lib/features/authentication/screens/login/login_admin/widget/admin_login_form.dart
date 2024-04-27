@@ -15,39 +15,42 @@ class AdminLoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: BakoSizes.spaceBtwSections),
+        padding:
+            const EdgeInsets.symmetric(vertical: BakoSizes.spaceBtwSections),
         child: Column(
           children: [
             //Email
             TextFormField(
               decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.direct_right), 
+                prefixIcon: Icon(Iconsax.direct_right),
                 labelText: BakoTexts.adminID,
               ),
             ),
             const SizedBox(height: BakoSizes.spaceBtwInputFields),
-        
+
             //Password
             TextFormField(
               decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.password_check), 
+                prefixIcon: Icon(Iconsax.password_check),
                 labelText: BakoTexts.password,
                 suffixIcon: Icon(Iconsax.eye_slash),
               ),
             ),
             const SizedBox(height: BakoSizes.spaceBtwSections),
-        
+
             // Sign in Button
             SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () => Get.to(() => const AdminNavigationMenu()),
-                style: ElevatedButton.styleFrom(
-                backgroundColor: BakoColors.buttonPrimary), 
-                child: const Text(BakoTexts.signIn)
-              )
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () => Get.to(() => const AdminNavigationMenu()),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: BakoColors.buttonPrimary,
+                        side:
+                            const BorderSide(color: BakoColors.buttonPrimary)),
+                    child: const Text(BakoTexts.signIn))),
+            const SizedBox(
+              height: BakoSizes.spaceBtwItems,
             ),
-            const SizedBox(height: BakoSizes.spaceBtwItems,),
           ],
         ),
       ),

@@ -14,7 +14,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserController extends GetxController {
-  static UserController get instance => Get.find();
+  //static UserController get instance => Get.find<UserController>();
+  static UserController get instance => Get.put(UserController());
 
   final profileLoading = false.obs;
   Rx<UserModel> user = UserModel.empty().obs;
@@ -63,8 +64,6 @@ class UserController extends GetxController {
           lastName: nameParts.length > 1 ? nameParts.sublist(1).join("") : "",
           username: username,
           homeAddress: "",
-          postal: "",
-          country: "",
           gender: "",
           age: "",
           email: userCredentials.user!.email ?? "",

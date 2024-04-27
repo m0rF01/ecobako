@@ -15,7 +15,7 @@ class BakoHomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UserController());
+    final controller = Get.find<UserController>();
     return BakoAppBar(
       // Adjust the spacing between title and leading widget
       title: Row(
