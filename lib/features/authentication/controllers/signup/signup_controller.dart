@@ -1,7 +1,7 @@
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecobako_app/data/repositories/user/user_repository.dart';
-import 'package:ecobako_app/features/authentication/screens/signup/verify_email.dart';
+import 'package:ecobako_app/features/authentication/screens/signup/user_signup/verify_email.dart';
 import 'package:ecobako_app/features/personalization/models/user_model.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/helpers/network_manager.dart';
@@ -20,8 +20,6 @@ class SignupController extends GetxController{
   final lastName = TextEditingController(); // controller for lastname input
   final username = TextEditingController(); // controller for username input
   final homeAddress = TextEditingController(); // controller for address input 
-  final postal = TextEditingController(); // controller for postal code input
-  final country = TextEditingController(); // controller for country input 
   // final gender = TextEditingController(); // controller for gender input
   final gender = Rx<String?>(null); // controller for gender input
   final age = TextEditingController(); // controller for age input
@@ -75,6 +73,7 @@ class SignupController extends GetxController{
         phoneNo: phoneNo.text.trim(),
         profilePicture: "",
         ecoPoint: "",
+        role: "user",
         );
 
         final userRepository = Get.put(UserRepository());

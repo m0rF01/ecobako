@@ -12,57 +12,107 @@ import 'package:iconsax/iconsax.dart';
 class UserHomeScreen extends StatelessWidget {
   const UserHomeScreen({super.key});
 
-    @override
+  @override
   Widget build(BuildContext context) {
     final controller = UserController.instance;
-    return  Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-             BakoPrimaryHeaderContainer(
-              child: Column(
-                children: [
-                  // appbar
-                  const BakoHomeAppBar(),
-                  const SizedBox(height: BakoSizes.spaceBtwSections),
+    // return  Scaffold(
+    //   body: SingleChildScrollView(
+    //     child: Column(
+    //       children: [
+    //          BakoPrimaryHeaderContainer(
+    //           child: Column(
+    //             children: [
+    //               // appbar
+    //               const BakoHomeAppBar(),
+    //               const SizedBox(height: BakoSizes.spaceBtwSections),
 
-                  // EcoBako Point 
-                  // BakoPointContainer(point: controller.user.value.ecoPoint),
-                  BakoPointContainer(point: controller.user.value.ecoPoint),
-                  const SizedBox(height: BakoSizes.spaceBtwSections*2),
-                ],
-              ) 
-            ),
+    //               // EcoBako Point
+    //               // BakoPointContainer(point: controller.user.value.ecoPoint),
+    //               BakoPointContainer(point: controller.user.value.ecoPoint),
+    //               const SizedBox(height: BakoSizes.spaceBtwSections*2),
+    //             ],
+    //           )
+    //         ),
 
-            //Body
+    //         //Body
+    //           Padding(
+    //             padding: const EdgeInsets.all(BakoSizes.defaultSpace),
+    //             child: Column(
+    //               children: [
+    //                 // EcoBako point section
+    //                 const BakoSectionHeading(title: "BakoPoint Section", showActionButton: false,),
+    //                 const SizedBox(height: BakoSizes.spaceBtwItems/1.5,),
+
+    //                 const BakoPointSection(),
+
+    //                 const SizedBox(height: BakoSizes.spaceBtwSections),
+    //                 BakoSectionHeading(title: "Transaction History", onPressed: (){}, icon: Iconsax.maximize_3,),
+    //                 const SizedBox(height: BakoSizes.spaceBtwItems/1.5,),
+
+    //                 //EcoBako Transaction History
+    //                 const UserHomeTransactionHistory(),
+    //               ],
+    //             ),
+    //             ),
+    //       ],
+    //     ),
+    //   ),
+    // );
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          controller.resetDataFetched(); // Reset dataFetched flag
+          await controller.fetchUserRecord(); // Fetch user record again
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              const BakoPrimaryHeaderContainer(
+                child: Column(
+                  children: [
+                    // Appbar
+                    BakoHomeAppBar(),
+                    SizedBox(height: BakoSizes.spaceBtwSections),
+
+                    // EcoBako Point
+                    BakoPointContainer(),
+                    SizedBox(height: BakoSizes.spaceBtwSections * 2),
+                  ],
+                ),
+              ),
+
+              // Body
               Padding(
                 padding: const EdgeInsets.all(BakoSizes.defaultSpace),
                 child: Column(
                   children: [
                     // EcoBako point section
-                    const BakoSectionHeading(title: "BakoPoint Section", showActionButton: false,),
-                    const SizedBox(height: BakoSizes.spaceBtwItems/1.5,),
+                    const BakoSectionHeading(
+                      title: "BakoPoint Section",
+                      showActionButton: false,
+                    ),
+                    const SizedBox(height: BakoSizes.spaceBtwItems / 1.5),
 
                     const BakoPointSection(),
 
                     const SizedBox(height: BakoSizes.spaceBtwSections),
-                    BakoSectionHeading(title: "Transaction History", onPressed: (){}, icon: Iconsax.maximize_3,),
-                    const SizedBox(height: BakoSizes.spaceBtwItems/1.5,),
+                    BakoSectionHeading(
+                      title: "Transaction History",
+                      onPressed: () {},
+                      icon: Iconsax.maximize_3,
+                    ),
+                    const SizedBox(height: BakoSizes.spaceBtwItems / 1.5),
 
-                    //EcoBako Transaction History
+                    // EcoBako Transaction History
                     const UserHomeTransactionHistory(),
-                  ],                  
+                  ],
                 ),
-                ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-
-
-
-
-

@@ -19,6 +19,7 @@ class UserController extends GetxController {
 
   final profileLoading = false.obs;
   Rx<UserModel> user = UserModel.empty().obs;
+  bool dataFetched = false;
 
   final hidePassword = false.obs;
   final imageUploading = false.obs;
@@ -34,16 +35,35 @@ class UserController extends GetxController {
   }
 
   // fetch user record
+  // Future<void> fetchUserRecord() async {
+  //   try {
+  //     profileLoading.value = true;
+  //     final user = await userRepository.fetchUserDetails();
+  //     this.user(user);
+  //   } catch (e) {
+  //     user(UserModel.empty());
+  //   } finally {
+  //     profileLoading.value = false;
+  //   }
+  // }
+
   Future<void> fetchUserRecord() async {
     try {
       profileLoading.value = true;
-      final user = await userRepository.fetchUserDetails();
-      this.user(user);
+      if (!dataFetched) {
+        final user = await userRepository.fetchUserDetails();
+        this.user(user);
+        dataFetched = true;
+      }
     } catch (e) {
       user(UserModel.empty());
     } finally {
       profileLoading.value = false;
     }
+  }
+
+  void resetDataFetched() {
+    dataFetched = false;
   }
 
 // Save user record from any registation provider
@@ -70,6 +90,7 @@ class UserController extends GetxController {
           phoneNo: userCredentials.user!.phoneNumber ?? "",
           profilePicture: userCredentials.user!.photoURL ?? "",
           ecoPoint: "",
+          role: "user",
         );
 
         // save user data
@@ -183,7 +204,7 @@ class UserController extends GetxController {
     } catch (e) {
       BakoLoaders.errorSnackBar(
           title: "Oh Snap!", message: "Something went wrong!: $e");
-    } finally{
+    } finally {
       imageUploading.value = false;
     }
   }

@@ -1,3 +1,4 @@
+import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -19,10 +20,26 @@ Future<void> main() async{
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Todo: Initialize Firebase & Authentication
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,).then(
-  (FirebaseApp value) => Get.put(AuthenticationRepository()),
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,).then(
+  // (FirebaseApp value) => Get.put(AuthenticationRepository()),
+  // );
+
+  //  await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,).then(
+  // (FirebaseApp value) => Get.put(AdminAuthenticationRepository()),
+  // );
+
+    // Initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+    // Initialize Authentication Repositories
+  final authenticationRepository = AuthenticationRepository();
+  final adminAuthenticationRepository = AdminAuthenticationRepository();
+
+    // Initialize GetX Controllers
+  Get.put(authenticationRepository);
+  Get.put(adminAuthenticationRepository);
 
   runApp(const App());
 }

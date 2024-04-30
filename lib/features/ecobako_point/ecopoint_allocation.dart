@@ -1,5 +1,6 @@
 import 'package:ecobako_app/common/widget/appbar/appbar.dart';
 import 'package:ecobako_app/common/widget/custom_shape/containers/primary_header_container.dart';
+import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
@@ -92,8 +93,24 @@ class AdminPointAllocationScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: BakoSizes.spaceBtwSections),
               ],
-            ))
+            )),
+            const SizedBox(
+                      height: BakoSizes.spaceBtwSections,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () =>
+                            AdminAuthenticationRepository.instance.logout(),
+                        style: OutlinedButton.styleFrom(
+                            side: const BorderSide(
+                                color: BakoColors.buttonPrimary)),
+                        child: const Text("Logout"),
+                      ),
+                    ),
+            
           ],
+          
         ),
       )
     ])));

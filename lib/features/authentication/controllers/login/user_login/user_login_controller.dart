@@ -18,8 +18,8 @@ class UserLoginController extends GetxController {
 
   @override
   void onInit() {
-    email.text = localStorage.read("REMEMBER_ME_EMAIL") ??"";
-    password.text = localStorage.read("REMEMBER_ME_PASSWORD") ??"";	
+    email.text = localStorage.read("REMEMBER_ME_EMAIL") ?? "";
+    password.text = localStorage.read("REMEMBER_ME_PASSWORD") ?? "";
     super.onInit();
   }
 
@@ -54,25 +54,39 @@ class UserLoginController extends GetxController {
       }
 
       // Login user using Email & Password Auth
-      final userCredentials = await AuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+      final userCredentials = await AuthenticationRepository.instance
+          .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-      // Remove Loader
-      BakoFullScreenLoader.stopLoading();
+      // // Check user role after successful login
+      final role = await AuthenticationRepository.instance
+          .getUserRole(userCredentials.user?.uid ?? "");
 
-      // redirect user login page -> user homepage
-
-      AuthenticationRepository.instance.screenRedirect();
+      // Handle redirection based on role
+      redirectToHomePage(role);
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
       BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
     }
   }
 
+  void redirectToHomePage(String? role) async {
+    if (role == "user") {
+      BakoFullScreenLoader.stopLoading();
+      await AuthenticationRepository.instance.screenRedirect();
+    } else {
+      BakoFullScreenLoader.stopLoading();
+      BakoLoaders.errorSnackBar(
+          title: "Invalid role", 
+          message: "This account/credential does not have access to this account.");
+    }
+  }
+
 // Google SignIn Authentication
-  Future<void> googleSignIn() async{
+  Future<void> googleSignIn() async {
     try {
       // start loading animation
-      BakoFullScreenLoader.openLoadingDialog("Logging you in...", BakoImages.docerAnimation);
+      BakoFullScreenLoader.openLoadingDialog(
+          "Logging you in...", BakoImages.docerAnimation);
 
       // Check internet connection
       final isConnected = await NetworkManager.instance.isConnected();
@@ -82,9 +96,10 @@ class UserLoginController extends GetxController {
       }
 
       // Google authentication
-      final userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
+      final userCredentials =
+          await AuthenticationRepository.instance.signInWithGoogle();
     } catch (e) {
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message:e.toString());
+      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
     }
   }
 }

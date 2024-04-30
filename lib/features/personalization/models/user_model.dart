@@ -13,6 +13,7 @@ class UserModel {
   String phoneNo;
   String profilePicture;
   String ecoPoint;
+  final String role;
 
   UserModel({
     required this.id,
@@ -26,6 +27,7 @@ class UserModel {
     required this.phoneNo,
     required this.profilePicture,
     required this.ecoPoint,
+    required this.role,
   });
 
   // helper fx to get full name
@@ -62,6 +64,7 @@ class UserModel {
         phoneNo: "",
         profilePicture: "",
         ecoPoint: "",
+        role: "",
       );
 
   // convert model to JSON structure for storing data in firebase
@@ -77,6 +80,7 @@ class UserModel {
       "PhoneNumber": phoneNo,
       "ProfilePicture": profilePicture,
       "EcoPoint": ecoPoint,
+      "Role": role,
     };
   }
 
@@ -98,6 +102,7 @@ class UserModel {
         phoneNo: data["PhoneNumber"] ?? "",
         profilePicture: data["ProfilePicture"] ?? "",
         ecoPoint: data["EcoPoint"] ?? "",
+        role: data["Role"] ?? "",
       );
     } else {
       throw Exception("Document data is null");

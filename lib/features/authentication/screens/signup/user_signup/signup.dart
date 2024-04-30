@@ -1,6 +1,6 @@
 import 'package:ecobako_app/common/widget/login_signup/form_divider.dart';
 import 'package:ecobako_app/common/widget/login_signup/social_buttons.dart';
-import 'package:ecobako_app/features/authentication/screens/signup/widget/sign_up_form.dart';
+import 'package:ecobako_app/features/authentication/screens/signup/user_signup/widget/sign_up_form.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:flutter/material.dart';

@@ -12,7 +12,7 @@ class AdminNavigationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NavigationController());
+    final controller = Get.put(AdminNavigationController());
     final darkMode = BakoHelperFunctions.isDarkMode(context);
 
     return Scaffold(
@@ -39,7 +39,7 @@ class AdminNavigationMenu extends StatelessWidget {
   }
 }
 
-class NavigationController extends GetxController{
+class AdminNavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [const AdminHomeScreen(), const AdminStoreScreen(), Container(color: Colors.orange,), const AdminPointAllocationScreen()];

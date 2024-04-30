@@ -12,7 +12,7 @@ class UserNavigationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NavigationController());
+    final controller = Get.put(UserNavigationController());
     final darkMode = BakoHelperFunctions.isDarkMode(context);
 
     return Scaffold(
@@ -39,7 +39,7 @@ class UserNavigationMenu extends StatelessWidget {
   }
 }
 
-class NavigationController extends GetxController{
+class UserNavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [const UserHomeScreen(), const UserModuleScreen(), Container(color: Colors.orange,), const UserSettingScreen()];

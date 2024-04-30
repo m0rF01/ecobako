@@ -10,15 +10,15 @@ import 'package:get/get.dart';
 class BakoPointContainer extends StatelessWidget {
   const BakoPointContainer({
     super.key,
-    required this.point,
     this.showBackground = true,
     this.showBorder = true,
     this.onTap,
+    this.textColor,
   });
 
-  final String point;
   final bool showBackground, showBorder;
   final VoidCallback? onTap;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +52,11 @@ class BakoPointContainer extends StatelessWidget {
                     return const BakoShimmerEffect(width: 100, height: 100);
                   } else {
                     return Text(
-                      point,
+                      controller.user.value.ecoPoint,
                       style: Theme.of(context)
                           .textTheme
                           .headlineLarge!
-                          .apply(color: BakoColors.white),
+                          .apply(color: textColor),
                     );
                   }
                 }),

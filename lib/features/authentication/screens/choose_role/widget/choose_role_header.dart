@@ -55,7 +55,7 @@ class ChooseRoleHeader extends StatelessWidget {
         ),
         const SizedBox(height: BakoSizes.spaceBtwSections),
 
-        // button for user
+        // button for admin
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
