@@ -95,22 +95,19 @@ class AdminPointAllocationScreen extends StatelessWidget {
               ],
             )),
             const SizedBox(
-                      height: BakoSizes.spaceBtwSections,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: OutlinedButton(
-                        onPressed: () =>
-                            AdminAuthenticationRepository.instance.logout(),
-                        style: OutlinedButton.styleFrom(
-                            side: const BorderSide(
-                                color: BakoColors.buttonPrimary)),
-                        child: const Text("Logout"),
-                      ),
-                    ),
-            
+              height: BakoSizes.spaceBtwSections,
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                onPressed: () =>
+                    AdminAuthenticationRepository.instance.logout(),
+                style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: BakoColors.buttonPrimary)),
+                child: const Text("Logout"),
+              ),
+            ),
           ],
-          
         ),
       )
     ])));

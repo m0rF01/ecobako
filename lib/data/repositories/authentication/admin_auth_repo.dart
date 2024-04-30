@@ -141,24 +141,24 @@ class AdminAuthenticationRepository extends GetxController {
   }
 
   /// reauth - reauth user
-  Future<void> reAuthenticateEmailAndPassword(
-      String email, String password) async {
-    try {
-      AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
-      // Reauthenticate
-      await _auth.currentUser!.reauthenticateWithCredential(credential);
-    } on FirebaseAuthException catch (_) {
-      throw "Error1 - ReA";
-    } on FirebaseException catch (_) {
-      throw "Error 2 - ReA";
-    } on FormatException catch (_) {
-      throw "Error 3 - ReA";
-    } on PlatformException catch (_) {
-      throw "Error 4 - ReA";
-    } catch (e) {
-      throw "Something went wrong, Please try again - AR";
-    }
-  }
+  // Future<void> reAuthenticateEmailAndPassword(
+  //     String email, String password) async {
+  //   try {
+  //     AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
+  //     // Reauthenticate
+  //     await _auth.currentUser!.reauthenticateWithCredential(credential);
+  //   } on FirebaseAuthException catch (_) {
+  //     throw "Error1 - ReA";
+  //   } on FirebaseException catch (_) {
+  //     throw "Error 2 - ReA";
+  //   } on FormatException catch (_) {
+  //     throw "Error 3 - ReA";
+  //   } on PlatformException catch (_) {
+  //     throw "Error 4 - ReA";
+  //   } catch (e) {
+  //     throw "Something went wrong, Please try again - AR";
+  //   }
+  // }
 
   /// emailVerification - email verification
   Future<void> sendEmailVerification() async {
@@ -177,22 +177,22 @@ class AdminAuthenticationRepository extends GetxController {
     }
   }
 
-  /// emailAuthentication - forgot password
-    Future<void> sendPasswordResetEmail(String email) async {
-    try {
-      await _auth.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (e) {
-      throw "Error1 - RP ${e.message}";
-    } on FirebaseException catch (e) {
-      throw "Error 2 - RP ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error 3 - RP ${e.message}";
-    } on PlatformException catch (_) {
-      throw "Error 4 - RP";
-    } catch (e) {
-      throw "Something went wrong, Please try again - ";
-    }
-  }
+  // /// emailAuthentication - forgot password
+  //   Future<void> sendPasswordResetEmail(String email) async {
+  //   try {
+  //     await _auth.sendPasswordResetEmail(email: email);
+  //   } on FirebaseAuthException catch (e) {
+  //     throw "Error1 - RP ${e.message}";
+  //   } on FirebaseException catch (e) {
+  //     throw "Error 2 - RP ${e.message}";
+  //   } on FormatException catch (e) {
+  //     throw "Error 3 - RP ${e.message}";
+  //   } on PlatformException catch (_) {
+  //     throw "Error 4 - RP";
+  //   } catch (e) {
+  //     throw "Something went wrong, Please try again - ";
+  //   }
+  // }
 
   /*-------------------------------- Federated identity & social sign in -------------------------------*/
 
@@ -232,7 +232,7 @@ class AdminAuthenticationRepository extends GetxController {
   // LogoutUser - Valid for any authentication.
   Future<void> logout() async {
     try {
-      await GoogleSignIn().signOut();
+      // await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => const AdminLoginScreen());
     } on FirebaseAuthException catch (_) {
@@ -249,22 +249,22 @@ class AdminAuthenticationRepository extends GetxController {
   }
 
   // DeleteUser - Remove user Auth and Firestore Account
-  Future<void> deleteAccount() async {
-    try {
-      await AdminRepository.instance.removeAdminRecord(_auth.currentUser!.uid);
-      await _auth.currentUser?.delete();
-      Get.offAll(() => const LoginScreen());
-    } on FirebaseAuthException catch (_) {
-      throw "Error1 - DA";
-    } on FirebaseException catch (_) {
-      throw "Error 2 - DA";
-    } on FormatException catch (_) {
-      throw "Error 3 - DA";
-    } on PlatformException catch (_) {
-      throw "Error 4 - DA";
-    } catch (e) {
-      throw "Something went wrong, Please try again - DA ";
+  // Future<void> deleteAccount() async {
+  //   try {
+  //     await AdminRepository.instance.removeAdminRecord(_auth.currentUser!.uid);
+  //     await _auth.currentUser?.delete();
+  //     Get.offAll(() => const LoginScreen());
+  //   } on FirebaseAuthException catch (_) {
+  //     throw "Error1 - DA";
+  //   } on FirebaseException catch (_) {
+  //     throw "Error 2 - DA";
+  //   } on FormatException catch (_) {
+  //     throw "Error 3 - DA";
+  //   } on PlatformException catch (_) {
+  //     throw "Error 4 - DA";
+  //   } catch (e) {
+  //     throw "Something went wrong, Please try again - DA ";
       
-    }
-  }
+  //   }
+  // }
 }

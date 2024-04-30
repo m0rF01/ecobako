@@ -15,7 +15,8 @@ class BakoAdminHomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<AdminController>();
+    // final controller = Get.find<AdminController>();
+    final controller = Get.put(AdminController());
     return BakoAppBar(
       // Adjust the spacing between title and leading widget
       title: Row(

@@ -1,4 +1,4 @@
-import 'package:ecobako_app/features/authentication/controllers/signup/admin_signup_controller.dart';
+import 'package:ecobako_app/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
@@ -14,9 +14,11 @@ class BakoAdminSignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AdminSignupController());
+    // final controller = Get.put(AdminSignupController());
+    final controller = Get.put(SignupController());
     return Form(
-        key: controller.adminSignupFormKey,
+        // key: controller.adminSignupFormKey,
+        key: controller.signupFormKey,
         child: Column(
           children: [      // Username
             TextFormField(

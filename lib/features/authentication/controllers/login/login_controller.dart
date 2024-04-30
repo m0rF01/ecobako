@@ -1,4 +1,5 @@
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
+import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/helpers/network_manager.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class UserLoginController extends GetxController {
+class LoginController extends GetxController {
   // variables
   final rememberMe = false.obs;
   final hidePassword = true.obs;
@@ -69,17 +70,19 @@ class UserLoginController extends GetxController {
     }
   }
 
-  void redirectToHomePage(String? role) async {
-    if (role == "user") {
-      BakoFullScreenLoader.stopLoading();
-      await AuthenticationRepository.instance.screenRedirect();
-    } else {
-      BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(
-          title: "Invalid role", 
-          message: "This account/credential does not have access to this account.");
-    }
-  }
+  // void redirectToHomePage(String? role) async {
+  //   if (role == "user") {
+  //     BakoFullScreenLoader.stopLoading();
+  //     await AuthenticationRepository.instance.screenRedirect();
+  //   } else {
+  //     BakoFullScreenLoader.stopLoading();
+  //     BakoLoaders.errorSnackBar(
+  //         title: "Invalid role", 
+  //         message: "This account/credential does not have access to this account.");
+  //   }
+  // }
+
+
 
 // Google SignIn Authentication
   Future<void> googleSignIn() async {
@@ -102,4 +105,61 @@ class UserLoginController extends GetxController {
       BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
     }
   }
+
+  // Email and Password Signin
+  Future<void> adminEmailAndPasswordSignIn() async {
+    try {
+      // Start loading
+      BakoFullScreenLoader.openLoadingDialog(
+          "Logging you in....", BakoImages.docerAnimation);
+
+      //Check Internet Connection
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        BakoFullScreenLoader.stopLoading();
+        return;
+      }
+
+      // Form Validation
+      // if (!userLoginFormKey.currentState!.validate()) {
+      //   BakoFullScreenLoader.stopLoading();
+      //   return;
+      // }
+      if (userLoginFormKey.currentState?.validate() ?? false) {
+        BakoFullScreenLoader.stopLoading();
+        return;
+      }
+
+      // Login user using Email & Password Auth
+      final adminCredentials = await AdminAuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+
+         // // Check user role after successful login
+      final role = await AdminAuthenticationRepository.instance
+          .getAdminRole(adminCredentials.user?.uid ?? "");
+      
+      redirectToHomePage(role);
+    } catch (e) {
+      BakoFullScreenLoader.stopLoading();
+      BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+    }
+  }
+
+
+    void redirectToHomePage(String? role) async {
+    if (role == "user") {
+      BakoFullScreenLoader.stopLoading();
+      await AuthenticationRepository.instance.screenRedirect();
+    } else if (role == "admin"){
+      BakoFullScreenLoader.stopLoading();
+      await AdminAuthenticationRepository.instance.screenRedirect();
+    } 
+    else {
+      BakoFullScreenLoader.stopLoading();
+      BakoLoaders.errorSnackBar(
+          title: "Invalid role", 
+          message: "This account/credential does not have access to this account.");
+      return;
+    }
+  }
+
 }

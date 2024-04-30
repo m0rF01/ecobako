@@ -18,8 +18,9 @@ class ProductDetailsActionButton extends StatelessWidget {
             onPressed: () {
               // Add your first FAB button logic here
             },
-            backgroundColor: BakoColors.white,
-            child: const Icon(Iconsax.scan_barcode),
+            backgroundColor: BakoColors.primary,
+            child: const Icon(Iconsax.scan_barcode,
+            color:Colors.white,),
           ),
         ),
         Positioned(
@@ -29,8 +30,8 @@ class ProductDetailsActionButton extends StatelessWidget {
             onPressed: () {
               // Add your second FAB button logic here
             },
-            backgroundColor: BakoColors.white,
-            child: const Icon(Iconsax.edit),
+            backgroundColor: BakoColors.primary,
+            child: const Icon(Iconsax.edit, color: BakoColors.white,),
           ),
         ),
       ],

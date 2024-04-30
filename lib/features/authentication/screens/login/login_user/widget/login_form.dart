@@ -1,4 +1,4 @@
-import 'package:ecobako_app/features/authentication/controllers/login/user_login/user_login_controller.dart';
+import 'package:ecobako_app/features/authentication/controllers/login/login_controller.dart';
 import 'package:ecobako_app/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:ecobako_app/features/authentication/screens/signup/user_signup/signup.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
@@ -16,7 +16,7 @@ class BakoLoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UserLoginController());
+    final controller = Get.put(LoginController());
     return Form(
       child: Padding(
         padding:

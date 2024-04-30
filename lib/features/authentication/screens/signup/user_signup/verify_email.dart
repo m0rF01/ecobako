@@ -79,10 +79,7 @@ class VerifyEmailScreen extends StatelessWidget {
                   onPressed: () => controller.sendEmailVerification(), 
                   child: const Text(BakoTexts.resendEmail),
                 ),
-              ),
-
-
-               
+              ),      
             ],
           ),
         ),

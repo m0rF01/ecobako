@@ -96,6 +96,14 @@ class BakoTexts {
   static const String weightPP = "Weight PP";
   static const String addPoint = "Add";
 
+  //-- Add Item
+  static const String itemName = "Name of Item";
+  static const String itemDesc = "Item Description";
+  static const String itemPoint = "Item Points";
+  static const String itemQuantity = "Number of Quantity";
+  static const String addItem = "Add Item";
+
+
 
 
 }

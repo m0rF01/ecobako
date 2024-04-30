@@ -1,6 +1,5 @@
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 
 class BakoProfileMenu extends StatelessWidget {
   const BakoProfileMenu({

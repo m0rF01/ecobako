@@ -1,4 +1,4 @@
-import 'package:ecobako_app/features/authentication/controllers/login/user_login/user_login_controller.dart';
+import 'package:ecobako_app/features/authentication/controllers/login/login_controller.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
@@ -12,7 +12,7 @@ class BakoSocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UserLoginController());
+    final controller = Get.put(LoginController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
