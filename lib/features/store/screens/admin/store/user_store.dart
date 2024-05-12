@@ -1,18 +1,21 @@
 import 'package:ecobako_app/common/widget/appbar/appbar.dart';
 import 'package:ecobako_app/common/widget/custom_shape/containers/primary_header_container.dart';
-import 'package:ecobako_app/common/widget/items_cards/item_card_vertical.dart';
+import 'package:ecobako_app/common/widget/items_cards/user_item_card_verticle.dart';
 import 'package:ecobako_app/common/widget/layouts/grid_layout.dart';
+import 'package:ecobako_app/common/widget/shimmers/vertical_product_shimmer.dart';
 import 'package:ecobako_app/common/widget/texts/section_heading.dart';
+import 'package:ecobako_app/features/store/controllers/product_controller.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class UserStoreScreen extends StatelessWidget {
   const UserStoreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.put(ProductController());
+    final controller = Get.put(ProductController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -40,7 +43,16 @@ class UserStoreScreen extends StatelessWidget {
                 children: [
                   const BakoSectionHeading(title: "Redeemable Items", showActionButton: false,),
                   const SizedBox(height: BakoSizes.spaceBtwSections),
-                  BakoGridLayout(itemCount: 12, itemBuilder: (_, index) => const BakoItemCardVertical()),
+                  Obx((){
+                    if (controller.isLoading.value) return const BakoVerticalProductShimmer();
+                    if (controller.storeProducts.isEmpty){
+                      return Center(
+                        child: Text("No Data Found!", style: Theme.of(context).textTheme.bodyMedium));
+                    }
+                    // return BakoGridLayout(itemCount: controller.storeProducts.length, itemBuilder: (_, index) => BakoItemCardVertical(product: controller.storeProducts[index]),
+                    return BakoGridLayout(itemCount: controller.storeProducts.length, itemBuilder: (_, index) => BakoUserItemCardVertical(product:controller.storeProducts[index]),
+                    );
+                  }),
                 ],
               ) ,
              ),

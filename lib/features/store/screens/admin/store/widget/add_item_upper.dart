@@ -1,9 +1,8 @@
-import 'package:ecobako_app/common/widget/custom_shape/curved_edges/curved_edges_widget.dart';
-import 'package:ecobako_app/utils/constants/colors.dart';
-import 'package:ecobako_app/utils/constants/image_strings.dart';
-import 'package:ecobako_app/utils/constants/sizes.dart';
-import 'package:ecobako_app/utils/helpers/helper_functions.dart';
+import 'dart:io';
+import 'package:ecobako_app/features/store/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 
 class AddItemUpper extends StatelessWidget {
   const AddItemUpper({
@@ -12,27 +11,36 @@ class AddItemUpper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = BakoHelperFunctions.isDarkMode(context);
-    return BakoCurvedEdgeWidget(
-      child: Container(
-        color: dark? BakoColors.darkerGrey : BakoColors.light,
-        child: const Stack(
-          children: [
-            // main large image
-            SizedBox(
-              height: 400,
-              child: Padding(
-                padding: EdgeInsets.all(BakoSizes.productImageRadius*2),
-                child: Center(
-                  child: Image(
-                    image: AssetImage(BakoImages.misegera)
+    return GestureDetector(
+      onTap: () {
+        Get.find<ProductController>().selectProductImage().then((value) {
+          if (value != null) {
+            Get.find<ProductController>().setImagePath(value);
+          }
+        });
+      },
+      child: Obx(() {
+        final imagePath = Get.find<ProductController>().imagePath.value;
+        return Container(
+          height: 400,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.grey[200],
+          ),
+          child: Center(
+            child: imagePath.isEmpty
+                ? Icon(
+                    Icons.add_photo_alternate,
+                    size: 50,
+                    color: Colors.grey[400],
                   )
-                ),
-              )
-            ),
-          ],
-        ),
-      ),
+                : Image.file(
+                    File(imagePath),
+                    fit: BoxFit.cover,
+                  ),
+          ),
+        );
+      }),
     );
   }
 }

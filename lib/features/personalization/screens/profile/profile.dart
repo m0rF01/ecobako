@@ -8,7 +8,7 @@ import 'package:ecobako_app/features/personalization/screens/profile/widget/chan
 import 'package:ecobako_app/features/personalization/screens/profile/widget/change_username.dart';
 import 'package:ecobako_app/features/personalization/screens/profile/widget/profile_menu.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
-import 'package:ecobako_app/utils/constants/shimmer.dart';
+import 'package:ecobako_app/common/widget/shimmers/shimmer.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

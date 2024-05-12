@@ -94,4 +94,26 @@ class AdminController extends GetxController {
       imageUploading.value = false;
     }
   }
+
+  // uploadItemPicture() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(
+  //       source: ImageSource.gallery,
+  //       imageQuality: 70,
+  //       maxHeight: 512,
+  //       maxWidth: 512,
+  //     );
+  //     if (image != null) {
+  //       imageUploading.value = true;
+  //       final imageUrl = await adminRepository.uploadStoreItemImage("Store/Images/Items",image);
+  //       return imageUrl;
+  //     }
+  //   } catch (e) {
+  //        BakoLoaders.errorSnackBar(
+  //         title: "Oh Snap!", message: "Something went wrong when uploading item image!: $e");
+  //   } finally{
+  //     imageUploading.value = false;
+
+  //   }
+  // }
 }

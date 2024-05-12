@@ -22,9 +22,8 @@ class AdminVerifyEmailScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            onPressed: () => AdminAuthenticationRepository.instance.logout(), 
-            icon: const Icon(CupertinoIcons.clear)
-          )
+              onPressed: () => AdminAuthenticationRepository.instance.logout(),
+              icon: const Icon(CupertinoIcons.clear))
         ],
       ),
       body: SingleChildScrollView(
@@ -33,61 +32,51 @@ class AdminVerifyEmailScreen extends StatelessWidget {
           child: Column(
             children: [
               // Image
-              Image(image: const AssetImage(
-                BakoImages.deliveredEmailIllustration), 
-                width: BakoHelperFunctions.screenWidth()*0.6,
+              Image(
+                image: const AssetImage(BakoImages.deliveredEmailIllustration),
+                width: BakoHelperFunctions.screenWidth() * 0.6,
               ),
               const SizedBox(height: BakoSizes.spaceBtwSections),
 
               // Title & Subtitle
-              Text(
-                BakoTexts.confirmEmail, 
-                style: Theme.of(context).textTheme.headlineMedium, 
-                textAlign: TextAlign.center
-              ),
+              Text(BakoTexts.confirmEmail,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center),
               const SizedBox(height: BakoSizes.spaceBtwItems),
 
-              Text(
-                email?? "", 
-                style: Theme.of(context).textTheme.labelLarge, 
-                textAlign: TextAlign.center
-              ),
+              Text(email ?? "",
+                  style: Theme.of(context).textTheme.labelLarge,
+                  textAlign: TextAlign.center),
               const SizedBox(height: BakoSizes.spaceBtwItems),
 
-              Text(
-                BakoTexts.confirmEmailSubTitle, 
-                style: Theme.of(context).textTheme.labelMedium, 
-                textAlign: TextAlign.center
-              ),
+              Text(BakoTexts.confirmEmailSubTitle,
+                  style: Theme.of(context).textTheme.labelMedium,
+                  textAlign: TextAlign.center),
               const SizedBox(height: BakoSizes.spaceBtwItems),
 
               // Buttons
               SizedBox(
-                width: double.infinity, 
+                width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => controller.checkEmailVerificationStatus(),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: BakoColors.buttonPrimary), 
+                      backgroundColor: BakoColors.buttonPrimary),
                   child: const Text(BakoTexts.tContinue),
                 ),
               ),
               const SizedBox(height: BakoSizes.spaceBtwItems),
 
               SizedBox(
-                width: double.infinity, 
+                width: double.infinity,
                 child: TextButton(
-                  onPressed: () => controller.sendEmailVerification(), 
+                  onPressed: () => controller.sendEmailVerification(),
                   child: const Text(BakoTexts.resendEmail),
                 ),
               ),
-
-
-               
             ],
           ),
         ),
       ),
-
-      );
+    );
   }
 }

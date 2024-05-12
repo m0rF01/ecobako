@@ -60,4 +60,18 @@ class BakoValidator {
 
     return null;
   }
+
+    static String? validateInteger(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Value is required";
+    }
+
+    final intRegExp = RegExp(r'^[0-9]+$');
+
+    if (!intRegExp.hasMatch(value)) {
+      return "Invalid integer format";
+    }
+
+    return null;
+  }
 }

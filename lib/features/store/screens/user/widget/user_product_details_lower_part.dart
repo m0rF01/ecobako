@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:readmore/readmore.dart';
 
-class ProductDeatilsLowerPart extends StatelessWidget {
-  const ProductDeatilsLowerPart({super.key, required this.product});
+class UserProductDeatilsLowerPart extends StatelessWidget {
+  const UserProductDeatilsLowerPart({super.key, required this.product});
 
   final ProductModel product;
 
@@ -24,15 +24,6 @@ class ProductDeatilsLowerPart extends StatelessWidget {
           showActionButton: false,
         ),
         const SizedBox(height: BakoSizes.spaceBtwItems),
-
-        Row(children: [
-          const BakoModuleItemTitleText(title: "Product ID:"),
-          const SizedBox(width: BakoSizes.spaceBtwItems),
-          BakoModuleItemTitleText(title: product.id),
-        ]),
-        const SizedBox(
-          height: BakoSizes.spaceBtwItems,
-        ),
 
         // Product Name
         Row(children: [

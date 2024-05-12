@@ -70,20 +70,6 @@ class LoginController extends GetxController {
     }
   }
 
-  // void redirectToHomePage(String? role) async {
-  //   if (role == "user") {
-  //     BakoFullScreenLoader.stopLoading();
-  //     await AuthenticationRepository.instance.screenRedirect();
-  //   } else {
-  //     BakoFullScreenLoader.stopLoading();
-  //     BakoLoaders.errorSnackBar(
-  //         title: "Invalid role", 
-  //         message: "This account/credential does not have access to this account.");
-  //   }
-  // }
-
-
-
 // Google SignIn Authentication
   Future<void> googleSignIn() async {
     try {
@@ -144,7 +130,7 @@ class LoginController extends GetxController {
     }
   }
 
-
+  // Chechk role for admin and user then redirect to dedicated home page
     void redirectToHomePage(String? role) async {
     if (role == "user") {
       BakoFullScreenLoader.stopLoading();

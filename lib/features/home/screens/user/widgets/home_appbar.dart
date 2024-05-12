@@ -3,7 +3,7 @@ import 'package:ecobako_app/common/widget/images/bako_circular_image.dart';
 import 'package:ecobako_app/features/personalization/controllers/user_controller.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
-import 'package:ecobako_app/utils/constants/shimmer.dart';
+import 'package:ecobako_app/common/widget/shimmers/shimmer.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

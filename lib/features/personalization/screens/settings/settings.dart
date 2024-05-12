@@ -79,14 +79,6 @@ class UserSettingScreen extends StatelessWidget {
                       onTap: () => Get.to(() => const UserStoreScreen()),
                     ),
 
-                    // // Collect Points Options
-                    // BakoSettingMenuTile(
-                    //   icon: Iconsax.receipt_add,
-                    //   title: "Collect Points",
-                    //   subTitle: "Claim EcoBako points",
-                    //   onTap: () {},
-                    // ),
-
                     // Language Options
                     BakoSettingMenuTile(
                       icon: Iconsax.text_block,

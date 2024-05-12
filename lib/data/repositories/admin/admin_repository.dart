@@ -135,4 +135,21 @@ class AdminRepository extends GetxController {
       throw "Something went wrong, Please try again - UI";
     }
   }
+
+  //  Future<String> uploadStoreItemImage(String path, XFile image) async {
+  //   try {
+  //     final ref = FirebaseStorage.instance.ref(path).child(image.name);
+  //     await ref.putFile(File(image.path));
+  //     final url = await ref.getDownloadURL();
+  //     return url;
+  //   } on FirebaseException catch (e) {
+  //     throw "Error1 - UI ${e.message}";
+  //   } on FormatException catch (e) {
+  //     throw "Error2 - UI ${e.message}";
+  //   } on PlatformException catch (e) {
+  //     throw "Error3 - UI ${e.message}";
+  //   } catch (e) {
+  //     throw "Something went wrong, Please try again - UI";
+  //   }
+  // }
 }

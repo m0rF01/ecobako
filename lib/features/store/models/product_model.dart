@@ -3,59 +3,64 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ProductModel {
   String id;
   String productName;
-  String imageProduct;
+  String productImage;
+  // String point;
   int point;
   String productDescription;
   int stock;
-  String imageQr;
+  // String stock;
+  String productQR;
 
   ProductModel({
     required this.id,
     required this.productName,
-    required this.imageProduct,
+    required this.productImage,
     required this.point,
     required this.productDescription,
     required this.stock,
-    required this.imageQr,
+    required this.productQR,
   });
 
   // Empty funct for clean code
   static ProductModel empty() => ProductModel(
         id: "",
         productName: "",
-        imageProduct: "",
+        productImage: "",
+        // point: 0,
         point: 0,
         productDescription: "",
+        // stock: 0,
         stock: 0,
-        imageQr: "",
+        productQR: "",
       );
 
   // Json Format
   toJson() {
-    return {
-      "ProductName": productName,
-      "Image": imageProduct,
-      "EkoPoint": point,
+    return { 
+      "productName": productName,
+      "Image": productImage,
+      "EcoPoint": point,
       "Description": productDescription,
       "Stock": stock,
-      "Qr": imageQr,
+      "Qr": productQR,
     };
   }
 
   // Map Json oriented document snapshot from Firebase to Model
   factory ProductModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
+    if (document.data() == null) return ProductModel.empty();
     final data = document.data()!;
     return ProductModel(
-        id: document.id,
-        productName: data["productName"],
-        imageProduct: data["imageProduct"],
-        // point: int.parse((data["point"] ?? 0).toString()),
-        point: data["point"] ?? 0,
-        productDescription: data["productDescription"],
-        stock: data["stock"] ?? 0,
-        imageQr: data["imageQr"]);
+      id: document.id,
+      productName: data["productName"]??"",
+      productImage: data["Image"] ??"",
+      point: data["EcoPoint"] ?? "",
+      // point: data["EcoPoint"] ?? 0,
+      productDescription: data["Description"]?? "",
+      // stock: data["Stock"] ?? 0,
+      stock: data["Stock"] ?? "",
+      productQR: data["Qr"] ?? "",
+    );
   }
-
- 
 }

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
-import 'package:ecobako_app/utils/constants/shimmer.dart';
+import 'package:ecobako_app/common/widget/shimmers/shimmer.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';

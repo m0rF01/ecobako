@@ -24,7 +24,6 @@ class SignupController extends GetxController{
   final lastName = TextEditingController(); // controller for lastname input
   final username = TextEditingController(); // controller for username input
   final homeAddress = TextEditingController(); // controller for address input 
-  // final gender = TextEditingController(); // controller for gender input
   final gender = Rx<String?>(null); // controller for gender input
   final age = TextEditingController(); // controller for age input
   final email = TextEditingController(); // controller for email input
@@ -122,7 +121,7 @@ class SignupController extends GetxController{
         return;
       }
 
-      // Register user in the Firebase Aurhentication & Save user data in the Firebase
+      // Register admin in the Firebase Aurhentication & Save admin data in the Firebase
       final userCredential = await AdminAuthenticationRepository.instance
           .registerWithEmailAndPassword(
               email.text.trim(), password.text.trim());
@@ -148,7 +147,6 @@ class SignupController extends GetxController{
               "Your account has been created successfully! Verify email to continue");
 
       // Move to Verify Email Screen
-      // Get.to(() => AdminVerifyEmailScreen(email: email.text.trim()));
       Get.to(() => AdminVerifyEmailScreen(email: email.text.trim()));
     } catch (e) {
       // Remove loader
