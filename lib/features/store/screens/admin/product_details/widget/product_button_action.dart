@@ -1,11 +1,18 @@
+
+import 'package:ecobako_app/features/store/screens/admin/product_details/widget/product_edit_details.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ecobako_app/features/store/models/product_model.dart';
 
 class ProductDetailsActionButton extends StatelessWidget {
   const ProductDetailsActionButton({
     super.key,
+    required this.product,
   });
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +26,10 @@ class ProductDetailsActionButton extends StatelessWidget {
               // Add your first FAB button logic here
             },
             backgroundColor: BakoColors.primary,
-            child: const Icon(Iconsax.scan_barcode,
-            color:Colors.white,),
+            child: const Icon(
+              Iconsax.scan_barcode,
+              color: Colors.white,
+            ),
           ),
         ),
         Positioned(
@@ -28,10 +37,14 @@ class ProductDetailsActionButton extends StatelessWidget {
           right: 16.0,
           child: FloatingActionButton(
             onPressed: () {
-              // Add your second FAB button logic here
+              Get.to(() => AdminEditItemScreen(product: product),
+                  arguments: product);
             },
             backgroundColor: BakoColors.primary,
-            child: const Icon(Iconsax.edit, color: BakoColors.white,),
+            child: const Icon(
+              Iconsax.edit,
+              color: BakoColors.white,
+            ),
           ),
         ),
       ],

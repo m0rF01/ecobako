@@ -89,4 +89,53 @@ class ProductRepository extends GetxController{
     }
   }
 
+  //   Future<void> updateProductRecord(ProductModel product) async {
+  //   try {
+  //     // Reference to the products collection
+  //     final productsRef = _db.collection('Products');
+      
+  //     // Update the document with the given product ID
+  //     await productsRef.doc(product.id).update(product.toMap());
+  //   } catch (e) {
+  //     // Handle errors, such as network issues or permission errors
+  //     throw Exception("Failed to update product: $e");
+  //   }
+  // }
+
+  Future<void> updateProductRecord(ProductModel products) async {
+    try {
+      await _db.collection("Products").doc(products.id).update(products.toJson());
+    } on FirebaseException catch (e) {
+      throw "Firebase Error: ${e.message}";
+    } on PlatformException catch (e) {
+      throw "Platform Error: ${e.message}";
+    } catch (e) {
+      throw "Error: $e";
+    }
+  }
+
+//   Future<void> updateProductRecord(ProductModel product) async {
+//   try {
+//     // Retrieve the product document from the database
+//     final productDoc = await _db.collection("Products").doc(product.id).get();
+
+//     // Update the fields of the document with the new values from the product object
+//     final updatedData = {
+//       "Image" : product.productImage,
+//       "productName": product.productName,
+//       "productDescription": product.productDescription,
+//       "point": product.point,
+//       "stock": product.stock,
+//       // Add more fields as needed
+//     };
+
+//     // Save the updated data back to the database
+//     await productDoc.reference.update(updatedData);
+//   } catch (e) {
+//     // Handle any errors that occur during the update process
+//     throw "Error updating product: $e";
+//   }
+// }
+
+
 }

@@ -19,11 +19,11 @@ class ProductController extends GetxController {
   final imagePath = "".obs;
   final imageUploading = false.obs;
   final productRepository = Get.put(ProductRepository());
-  final productID = TextEditingController(); // controller for first name input
-  final productName = TextEditingController(); // controller for lastname input
-  final productDesc = TextEditingController(); // controller for username input
-  final productPoint = TextEditingController(); // controller for address input
-  final productQuantity = TextEditingController(); // controller for age input
+  final productID = TextEditingController();
+  final productName = TextEditingController();
+  final productDesc = TextEditingController();
+  final productPoint = TextEditingController();
+  final productQuantity = TextEditingController();
   GlobalKey<FormState> addProductFormKey = GlobalKey<FormState>();
   RxList<ProductModel> storeProducts = <ProductModel>[].obs;
   bool productDataFetched = false;
@@ -34,14 +34,20 @@ class ProductController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    productID.dispose();
+    productName.dispose();
+    productDesc.dispose();
+    productPoint.dispose();
+    productQuantity.dispose();
+    super.onClose();
+  }
 
   Future<void> fetchStoreProducts() async {
     try {
-      // show loader UI while waiting for the product to be fetched
       isLoading.value = true;
-      // fetch the product
       final products = await productRepository.getAllProducts();
-      // Assign the product
       storeProducts.assignAll(products);
     } catch (e) {
       BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
@@ -66,26 +72,20 @@ class ProductController extends GetxController {
 
   void addNewProduct() async {
     try {
-      // Loading animation
       BakoFullScreenLoader.openLoadingDialog(
           "We are processing your request", BakoImages.docerAnimation);
 
-      // Check Internet connectivity
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         BakoFullScreenLoader.stopLoading();
         return;
       }
 
-      // Form validation
       if (!addProductFormKey.currentState!.validate()) {
-        // Remove loader
         BakoFullScreenLoader.stopLoading();
         return;
       }
 
-
-      // Upload product image
       if (imagePath.value.isEmpty) {
         BakoLoaders.errorSnackBar(
           title: "Error",
@@ -107,15 +107,15 @@ class ProductController extends GetxController {
         productQR: "",
       );
 
-      // final productRepository = Get.put(ProductRepository());
-      final bool isUnique = await productRepository.isIdUnique(productID.text.trim());
+      final bool isUnique =
+          await productRepository.isIdUnique(productID.text.trim());
       if (!isUnique) {
         BakoFullScreenLoader.stopLoading();
         BakoLoaders.errorSnackBar(
           title: "Error",
-          message: "The Id have been used on other products, please try again with other id",
-        );// ID is not unique, show error message to admin
-        // Handle error: ID is not unique
+          message:
+              "The Id has been used on other products, please try again with another id",
+        );
         return;
       }
 
@@ -123,54 +123,117 @@ class ProductController extends GetxController {
 
       BakoFullScreenLoader.stopLoading();
 
-      // Show Success Message
       BakoLoaders.successSnackBar(
           title: "Congratulations",
-          message: "Your product has been successfully aadded to the store.");
+          message: "Your product has been successfully added to the store.");
 
       clearFormData();
     } catch (e) {
-      // Remove loader
       BakoFullScreenLoader.stopLoading();
-      // Show some generic error message to the user
+      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+    }
+  }
+
+  void updateProduct(ProductModel oldProduct) async {
+    try {
+      // Start loading animations
+      BakoFullScreenLoader.openLoadingDialog(
+          "We are processing your request", BakoImages.docerAnimation);
+
+      // Check internet connection
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        BakoFullScreenLoader.stopLoading();
+        return;
+      }
+
+      // Check all form is fill in
+      if (!addProductFormKey.currentState!.validate()) {
+        BakoFullScreenLoader.stopLoading();
+        return;
+      }
+
+      // Check if new image is pick
+      if (imagePath.value.isNotEmpty) {
+        oldProduct.productImage = await uploadImageToStorage(imagePath.value);
+      }
+
+      // Update the new data to database
+      final updatedProduct = ProductModel(
+        id: productID.text.trim(),
+        productName: productName.text.trim(),
+        productImage: oldProduct.productImage,
+        point: int.tryParse(productPoint.text) ?? 0,
+        productDescription: productDesc.text.trim(),
+        stock: int.tryParse(productQuantity.text) ?? 0,
+        productQR: oldProduct.productQR,
+      );
+
+      // command to push changes to database
+      await productRepository.updateProductRecord(updatedProduct);
+
+      BakoFullScreenLoader.stopLoading();
+
+      BakoLoaders.successSnackBar(
+          title: "Congratulations",
+          message: "Your product has been successfully updated.");
+    } catch (e) {
+      BakoFullScreenLoader.stopLoading();
       BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
     }
   }
 
   Future<String> uploadImageToStorage(String imagePath) async {
     try {
-      final uuid = Uuid();
-      final uniqueId = uuid.v1();
-      final file = File(imagePath);
-      final storageRef =
-          FirebaseStorage.instance.ref().child('Products/images/$uniqueId');
-      final uploadTask = storageRef.putFile(file);
-      final snapshot = await uploadTask.whenComplete(() => null);
-      final downloadUrl = await snapshot.ref.getDownloadURL();
-      return downloadUrl;
+      imageUploading.value = true;
+      final reference = FirebaseStorage.instance
+          .ref()
+          .child("ProductImages")
+          .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+      final uploadTask = reference.putFile(File(imagePath));
+      final snapshot = await uploadTask.whenComplete(() {});
+
+      imageUploading.value = false;
+      return await snapshot.ref.getDownloadURL();
     } catch (e) {
-      throw Exception("Failed to upload image: $e");
+      imageUploading.value = false;
+      BakoLoaders.errorSnackBar(
+          title: "Oh Snap", message: "Failed to upload image: $e");
+      throw Exception("Image upload failed");
     }
   }
 
-  String generateQR(String productId) {
-    // Implement QR code generation logic here
-    return "generated_qr_code_for_$productId";
+  void updateProductID(String newID) {
+    productID.text = newID;
+  }
+
+  void updateProductName(String newName) {
+    productName.text = newName;
+  }
+
+  void updateProductDesc(String newDesc) {
+    productDesc.text = newDesc;
+  }
+
+  void updateProductPoint(String newPoint) {
+    productPoint.text = newPoint;
+  }
+
+  void updateProductQuantity(String newQuantity) {
+    productQuantity.text = newQuantity;
+  }
+
+  void saveFormDetails() {
+    // Save or process the form details if needed
   }
 
   void clearFormData() {
-    // Clear text editing controllers
-    // Get.find<ProductController>().productID.clear();
-    // Get.find<ProductController>().productName.clear();
-    // Get.find<ProductController>().productDesc.clear();
-    // Get.find<ProductController>().productPoint.clear();
-    // Get.find<ProductController>().productQuantity.clear();
-    // Get.find<ProductController>().imagePath.value = '';
     productID.clear();
     productName.clear();
     productDesc.clear();
     productPoint.clear();
     productQuantity.clear();
-    imagePath.value = '';
+    imagePath.value = "";
   }
 }

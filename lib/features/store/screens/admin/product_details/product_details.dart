@@ -39,9 +39,12 @@ class AdminProductDetail extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: const ProductDetailsActionButton(),
+      floatingActionButton: ProductDetailsActionButton(product: product),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
+
+
+
 

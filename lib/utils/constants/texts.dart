@@ -104,6 +104,7 @@ class BakoTexts {
   static const String productPoint = "Product Points";
   static const String productQuantity = "Product Quantity";
   static const String addProduct = "Add Product";
+  static const String updateProduct = "Update Product";
 
 
 
