@@ -17,10 +17,11 @@ class AdminEditItemScreen extends StatefulWidget {
   final ProductModel product;
 
   @override
-  _AdminEditItemScreenState createState() => _AdminEditItemScreenState();
+  
+  AdminEditItemScreenState createState() => AdminEditItemScreenState();
 }
 
-class _AdminEditItemScreenState extends State<AdminEditItemScreen> {
+class AdminEditItemScreenState extends State<AdminEditItemScreen> {
   late ProductController controller;
 
   @override

@@ -134,4 +134,36 @@ class UserRepository extends GetxController {
       throw "Something went wrong, Please try again - UI";
     }
   }
+
+
+  Future<int> fetchUserEcoPoints(String userid) async {
+  try {
+    final documentSnapshot = await _db.collection("Users").doc(userid).get();
+    if (documentSnapshot.exists) {
+      final userData = documentSnapshot.data();
+      if (userData != null && userData.containsKey('EcoPoint')) {
+        final ecoPointsString = userData['EcoPoint'] as String?;
+        if (ecoPointsString != null) {
+          return int.tryParse(ecoPointsString) ?? 0;
+        }
+      }
+    }
+    return 0;
+  } catch (e) {
+    throw "Error fetching user EcoPoint: $e";
+  }
 }
+
+  Future<void> updateUserEcoPoints(String userid, int newPoints) async {
+  try {
+    final documentReference = _db.collection("Users").doc(userid);
+    // Convert newPoints to String
+    String ecoPointsAsString = newPoints.toString();
+    // Update EcoPoint field with the converted value
+    await documentReference.update({'EcoPoint': ecoPointsAsString});
+  } catch (e) {
+    throw "Error updating user EcoPoint: $e";
+  }
+}
+}
+

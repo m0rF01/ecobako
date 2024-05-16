@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/product/product_repository.dart';
 import 'package:ecobako_app/features/store/models/product_model.dart';
@@ -10,7 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
+
 
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();

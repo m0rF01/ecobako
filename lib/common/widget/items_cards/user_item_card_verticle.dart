@@ -51,7 +51,7 @@ class BakoUserItemCardVertical extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Main title
-                  BakoModuleItemTitleText(title:product.productName, smallSize: false,),
+                  BakoModuleItemTitleText(title:product.productName, smallSize: false, maxLines: 1,),
                   const SizedBox(height: BakoSizes.spaceBtwItems/2),
                   Row(
                     // Sub title
