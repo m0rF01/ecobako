@@ -2,6 +2,7 @@ import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecobako_app/data/repositories/user/user_repository.dart';
 import 'package:ecobako_app/features/authentication/screens/login/login_user/login.dart';
+import 'package:ecobako_app/features/authentication/screens/qrcode/user/user_qr.dart';
 import 'package:ecobako_app/features/personalization/models/user_model.dart';
 import 'package:ecobako_app/features/personalization/screens/profile/widget/re_authenticate_user_login.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
@@ -90,7 +91,8 @@ class UserController extends GetxController {
           phoneNo: userCredentials.user!.phoneNumber ?? "",
           profilePicture: userCredentials.user!.photoURL ?? "",
           ecoPoint: "0",
-          role: "user",
+          role: "user", 
+          userQR: "",
         );
 
         // save user data
@@ -208,4 +210,24 @@ class UserController extends GetxController {
       imageUploading.value = false;
     }
   }
+
+// get user qr image and redirect to userQrCode page
+Future<String> generateAndSaveQRCode(String userId) async {
+    try {
+      final downloadUrl = await userRepository.generateAndSaveQRCode(userId);
+      user.update((val) {
+        val?.userQR = downloadUrl; 
+      });
+
+      Get.to(() => const UserQrCode());
+
+      return downloadUrl;
+      
+    } catch (e) {
+      BakoFullScreenLoader.stopLoading();
+      BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+      rethrow;
+    }
+  }
+
 }

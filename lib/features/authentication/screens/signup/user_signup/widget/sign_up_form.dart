@@ -73,36 +73,7 @@ class BakoSignUpForm extends StatelessWidget {
                   prefixIcon: Icon(Iconsax.location)),
             ),
             const SizedBox(height: BakoSizes.spaceBtwInputFields),
-
-            //  Row(
-            //   children: [
-            //     Expanded(
-            //       child: TextFormField(
-            //         controller: controller.postal,
-            //         validator: (value) => BakoValidator.validateEmptyText("Postal code", value),
-            //         expands: false,
-            //         decoration: const InputDecoration(
-            //           labelText: BakoTexts.postal,
-            //           prefixIcon: Icon(Iconsax.signpost)
-            //         ),
-            //       ),
-            //     ),
-            //     const SizedBox(width: BakoSizes.spaceBtwInputFields),
-            //     Expanded(
-            //       child: TextFormField(
-            //         validator: (value) => BakoValidator.validateEmptyText("Country", value),
-            //         controller: controller.country,
-            //         expands: false,
-            //         decoration: const InputDecoration(
-            //           labelText: BakoTexts.country,
-            //           prefixIcon: Icon(Iconsax.global)
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(height: BakoSizes.spaceBtwInputFields),
-
+   
             Row(
               children: [
                 Expanded(

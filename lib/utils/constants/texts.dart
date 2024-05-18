@@ -106,6 +106,10 @@ class BakoTexts {
   static const String addProduct = "Add Product";
   static const String updateProduct = "Update Product";
 
+  //--- Qr image
+  static const String qrImage = "Scan user QR code";
+
+
 
 
 

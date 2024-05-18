@@ -7,7 +7,7 @@ import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-class VerifyEmailController extends GetxController{
+class VerifyEmailController extends GetxController {
   static VerifyEmailController get instance => Get.find();
 
   @override
@@ -21,47 +21,51 @@ class VerifyEmailController extends GetxController{
   sendEmailVerification() async {
     try {
       await AuthenticationRepository.instance.sendEmailVerification();
-      BakoLoaders.successSnackBar(title: "Email Sent", message: "Please Check your inbox and verify your email");
-
-    }catch (e) {
+      BakoLoaders.successSnackBar(
+          title: "Email Sent",
+          message: "Please Check your inbox and verify your email");
+    } catch (e) {
       BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
     }
   }
 
   // Timer to auto redirect on email verification
-  setTimerForAuthRedirect(){
-    Timer.periodic(
-      const Duration (seconds: 1), 
-      (timer) async { 
-        await FirebaseAuth.instance.currentUser?.reload();
-        final user = FirebaseAuth.instance.currentUser;
-        if (user?.emailVerified ?? false) {
-          timer.cancel();
-          Get.off(
-            () => SuccessScreen(
-              image: BakoImages.sccessfullyRegisterAnimation, 
-              title: BakoTexts.yourAccountCreatedTitle, 
-              subTitle: BakoTexts.yourAccountCreatedSubTitle, 
-              onPressed: () => AuthenticationRepository.instance.screenRedirect(),
-            ),
-          );
-        }
+  setTimerForAuthRedirect() {
+    Timer.periodic(const Duration(seconds: 1), (timer) async {
+      await FirebaseAuth.instance.currentUser?.reload();
+      final user = FirebaseAuth.instance.currentUser;
+      if (user?.emailVerified ?? false) {
+        timer.cancel();
+        Get.off(
+          () => SuccessScreen(
+            image: BakoImages.sccessfullyRegisterAnimation,
+            title: BakoTexts.yourAccountCreatedTitle,
+            subTitle: BakoTexts.yourAccountCreatedSubTitle,
+            onPressed: () => AuthenticationRepository.instance.screenRedirect(),
+          ),
+        );
       }
-    );
+    });
   }
 
   // normally check if email verified
-  checkEmailVerificationStatus() async{
+  checkEmailVerificationStatus() async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null && currentUser.emailVerified) {
+      // Generate and upload QR code
+      // final userRepository = Get.put(UserRepository());
+      // final qrCodeUrl =
+      //     await userRepository.generateAndUploadQRCode(currentUser.uid);
+      // await userRepository.updateUserQR(currentUser.uid, qrCodeUrl);
+
       Get.off(
         () => SuccessScreen(
-          image: BakoImages.sccessfullyRegisterAnimation,
-          title: BakoTexts.yourAccountCreatedTitle, 
-          subTitle: BakoTexts.yourAccountCreatedSubTitle,
-          onPressed: () => AuthenticationRepository.instance.screenRedirect()
-          ),
-        );
+            image: BakoImages.sccessfullyRegisterAnimation,
+            title: BakoTexts.yourAccountCreatedTitle,
+            subTitle: BakoTexts.yourAccountCreatedSubTitle,
+            onPressed: () =>
+                AuthenticationRepository.instance.screenRedirect()),
+      );
     }
   }
 }

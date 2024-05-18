@@ -4,6 +4,7 @@ import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/common/widget/shimmers/shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -36,13 +37,6 @@ class BakoUserProfileTile extends StatelessWidget {
                             isNetworkImage: networkImage.isNotEmpty,
                           );
                   }),
-      // leading: const BakoCircularImage(
-      //   image: BakoImages.userImage,
-      //   width: 50,
-      //   height: 50,
-      //   padding: 0,
-      // ),
-
       
       title: Text(
         controller.user.value.username, 
@@ -53,7 +47,7 @@ class BakoUserProfileTile extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyMedium!.apply(color: BakoColors.white),
       ),
       trailing: IconButton(
-        onPressed: () {}, 
+        onPressed: () => controller.generateAndSaveQRCode(controller.user.value.id), 
         icon: const Icon(
           Iconsax.scan_barcode, 
           color: BakoColors.white,),

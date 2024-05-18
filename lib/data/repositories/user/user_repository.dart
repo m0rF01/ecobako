@@ -6,11 +6,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final _storage = FirebaseStorage.instance;
 
   // //fx to save user data to firestore
   // Future<void> saveUserRecord(UserModel user) async {
@@ -135,35 +137,90 @@ class UserRepository extends GetxController {
     }
   }
 
-
+// Getting the user's current EcoBako point from database
   Future<int> fetchUserEcoPoints(String userid) async {
-  try {
-    final documentSnapshot = await _db.collection("Users").doc(userid).get();
-    if (documentSnapshot.exists) {
-      final userData = documentSnapshot.data();
-      if (userData != null && userData.containsKey('EcoPoint')) {
-        final ecoPointsString = userData['EcoPoint'] as String?;
-        if (ecoPointsString != null) {
-          return int.tryParse(ecoPointsString) ?? 0;
+    try {
+      final documentSnapshot = await _db.collection("Users").doc(userid).get();
+      if (documentSnapshot.exists) {
+        final userData = documentSnapshot.data();
+        if (userData != null && userData.containsKey('EcoPoint')) {
+          final ecoPointsString = userData['EcoPoint'] as String?;
+          if (ecoPointsString != null) {
+            return int.tryParse(ecoPointsString) ?? 0;
+          }
         }
       }
+      return 0;
+    } catch (e) {
+      throw "Error fetching user EcoPoint: $e";
     }
-    return 0;
-  } catch (e) {
-    throw "Error fetching user EcoPoint: $e";
   }
-}
 
+// Updating the new EcoBako point after claiming point
   Future<void> updateUserEcoPoints(String userid, int newPoints) async {
-  try {
-    final documentReference = _db.collection("Users").doc(userid);
-    // Convert newPoints to String
-    String ecoPointsAsString = newPoints.toString();
-    // Update EcoPoint field with the converted value
-    await documentReference.update({'EcoPoint': ecoPointsAsString});
-  } catch (e) {
-    throw "Error updating user EcoPoint: $e";
+    try {
+      final documentReference = _db.collection("Users").doc(userid);
+      // Convert newPoints to String
+      String ecoPointsAsString = newPoints.toString();
+      // Update EcoPoint field with the converted value
+      await documentReference.update({'EcoPoint': ecoPointsAsString});
+    } catch (e) {
+      throw "Error updating user EcoPoint: $e";
+    }
   }
-}
+
+// Function to check if the user already has a qr code id or not
+    Future<bool> checkUserQR(String userId) async {
+    try {
+      final docSnapshot = await _db.collection('Users').doc(userId).get();
+      final userQR = docSnapshot.data()?['UserQR'];
+      return userQR == null || userQR.isEmpty;
+    } catch (e) {
+      return true; // Assume QR is empty if an error occurs
+    }
+  }
+
+// Generate User qr code, render in image format and save in database
+   Future<String> generateAndSaveQRCode(String userId) async {
+    try {
+      // Generate QR code
+      final qrData = userId;
+      final qrPainter = QrPainter(
+        data: qrData,
+        version: QrVersions.auto,
+        gapless: true,
+        eyeStyle: const QrEyeStyle(
+          eyeShape: QrEyeShape.square,
+          color: Color(0xFF000000),
+        ),
+        dataModuleStyle: const QrDataModuleStyle(
+          dataModuleShape: QrDataModuleShape.square,
+          color: Color(0xFF000000),
+        ),
+      );
+
+      // Convert QR image to bytes
+      final picData = await qrPainter.toImageData(200);
+      final imageData = picData!.buffer.asUint8List();
+
+      // Upload QR code image to Firebase Storage
+      final storageRef = _storage.ref().child('Users/Images/qr_codes/$userId.png');
+      await storageRef.putData(imageData);
+
+      // Get download URL of the uploaded QR code image
+      final downloadUrl = await storageRef.getDownloadURL();
+
+      // Update UserQR field in Firestore with the download URL
+      await _db.collection('Users').doc(userId).update({
+        'UserQR': downloadUrl,
+      });
+
+      return downloadUrl;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  
 }
 
