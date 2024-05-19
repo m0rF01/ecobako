@@ -28,7 +28,7 @@ class QRScannerScreenState extends State<QRScannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Scanner'),
+        title: const Text('QR Scanner'),
       ),
       body: Column(
         children: <Widget>[
@@ -61,7 +61,7 @@ class QRScannerScreenState extends State<QRScannerScreen> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       // Handle scanned QR code data
-      print('Scanned data: ${scanData.code}');
+      // print('Scanned data: ${scanData.code}');
       // Update the form with the scanned data
       Get.back(result: scanData.code);
     });

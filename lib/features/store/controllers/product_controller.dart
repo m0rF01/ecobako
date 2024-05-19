@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/product/product_repository.dart';
 import 'package:ecobako_app/features/store/models/product_model.dart';
@@ -9,13 +10,16 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();
 
   final isLoading = false.obs;
   final imagePath = "".obs;
+  RxString productQrID = ''.obs;
+  RxString qrCodeUrl = ''.obs;
   final imageUploading = false.obs;
   final productRepository = Get.put(ProductRepository());
   final productID = TextEditingController();
@@ -69,6 +73,55 @@ class ProductController extends GetxController {
     imagePath.value = path;
   }
 
+  // Function to generate QR code as an image file
+  Future<String> generateQRCode(String productId) async {
+    try {
+      // Generate the QR code
+      final qrValidationResult = QrValidator.validate(
+        data: productId,
+        version: QrVersions.auto,
+        errorCorrectionLevel: QrErrorCorrectLevel.L,
+      );
+      final qrCode = qrValidationResult.qrCode;
+
+      // Convert to Image
+      final painter = QrPainter.withQr(
+        qr: qrCode!,
+        eyeStyle: const QrEyeStyle(
+          eyeShape: QrEyeShape.square,
+          color: Color(0xFF000000),
+        ),
+        gapless: true,
+      );
+
+      // Save to file
+      final tempDir = await getTemporaryDirectory();
+      final filePath = '${tempDir.path}/$productId.png';
+      final file = File(filePath);
+      final picData =
+          await painter.toImageData(300, format: ImageByteFormat.png);
+      await file.writeAsBytes(picData!.buffer.asUint8List());
+
+      // Upload the file to Firebase Storage
+      final qrImageUrl = await uploadQRCodeToStorage(filePath, productId);
+
+      return qrImageUrl;
+    } catch (e) {
+      throw "QR code generation failed: $e";
+    }
+  }
+
+// Function to upload QR code image to Firebase Storage
+  Future<String> uploadQRCodeToStorage(
+      String filePath, String productId) async {
+    final storageRef =
+        FirebaseStorage.instance.ref().child('product_qr_codes/$productId.png');
+    final uploadTask = storageRef.putFile(File(filePath));
+    final snapshot = await uploadTask.whenComplete(() => null);
+    final downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
   void addNewProduct() async {
     try {
       BakoFullScreenLoader.openLoadingDialog(
@@ -95,6 +148,7 @@ class ProductController extends GetxController {
       }
 
       final imageUrl = await uploadImageToStorage(imagePath.value);
+      final qrCodeUrl = await generateQRCode(productID.text.trim());
 
       final newProduct = ProductModel(
         id: productID.text.trim(),
@@ -103,7 +157,7 @@ class ProductController extends GetxController {
         point: int.tryParse(productPoint.text) ?? 0,
         productDescription: productDesc.text.trim(),
         stock: int.tryParse(productQuantity.text) ?? 0,
-        productQR: "",
+        productQR: qrCodeUrl,
       );
 
       final bool isUnique =
