@@ -2,6 +2,7 @@ import 'package:ecobako_app/common/widget/appbar/appbar.dart';
 import 'package:ecobako_app/common/widget/custom_shape/containers/primary_header_container.dart';
 import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ecobako_app/features/ecobako_point/controller/ecobako_point_controller.dart';
+import 'package:ecobako_app/features/ecobako_point/widget/eco_point_qr_scan.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
@@ -50,16 +51,36 @@ class AdminPointAllocationScreen extends StatelessWidget {
                 key: controller.addPointFormKey,
                 child: Column(
                   children: [
-                    // User ID
-                    TextFormField(
-                      controller: controller.userID,
-                      validator: (value) =>
-                          BakoValidator.validateEmptyText("User ID", value),
-                      expands: false,
-                      decoration: const InputDecoration(
-                          labelText: BakoTexts.userID,
-                          prefixIcon: Icon(Iconsax.user_edit)),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: controller.userID,
+                            validator: (value) =>
+                                BakoValidator.validateEmptyText(
+                                    "User ID", value),
+                            expands: false,
+                            decoration: const InputDecoration(
+                                labelText: BakoTexts.userID,
+                                prefixIcon: Icon(Iconsax.user_edit)),
+                          ),
+                          
+                        ),
+                        const SizedBox(width: BakoSizes.spaceBtwInputFields),
+                        GestureDetector(
+                          onTap: () async {
+                                final scannedData = await Get.to(
+                                    () => const QRScannerScreen());
+                                if (scannedData != null) {
+                                  controller.userID.text = scannedData;
+                                }
+                              },
+                          child: const Icon(Iconsax.scan_barcode, size: 35,),
+                        )
+                      ],
                     ),
+                    // User ID
+
                     const SizedBox(height: BakoSizes.spaceBtwInputFields),
 
                     // PET Weight
@@ -102,7 +123,10 @@ class AdminPointAllocationScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () => controller.addUserPoints(),
+                        onPressed: ()  async {
+                              await controller.addUserPoints();
+                              controller.clearFields();
+                            },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: BakoColors.buttonPrimary,
                             side: const BorderSide(
@@ -132,3 +156,5 @@ class AdminPointAllocationScreen extends StatelessWidget {
     ])));
   }
 }
+
+

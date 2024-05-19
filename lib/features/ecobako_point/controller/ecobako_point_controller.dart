@@ -16,7 +16,7 @@ class AdminPointController extends GetxController {
   GlobalKey<FormState> addPointFormKey = GlobalKey<FormState>();
   final userRepository = UserRepository();
 
-  void addUserPoints() async {
+  Future <void> addUserPoints() async {
     try {
       // Start loading
       BakoFullScreenLoader.openLoadingDialog(
@@ -93,11 +93,18 @@ class AdminPointController extends GetxController {
       BakoFullScreenLoader.stopLoading();
       BakoLoaders.successSnackBar(
           title: "Success",
-          message: "Point successfully added to the user account.");
+          message: "$roundedTotalPoints Point successfully added to the user account.");
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
       BakoLoaders.errorSnackBar(title: "Oh Snappppp", message: e.toString());
     }
+  }
+
+   void clearFields() {
+    userID.clear();
+    petWeight.clear();
+    hdpeWeight.clear();
+    ppWeight.clear();
   }
 }
 
@@ -106,3 +113,4 @@ class MaterialPrices {
   static const double hdpePrice = 0.8; // Price per kg for HDPE
   static const double ppPrice = 1.2; // Price per kg for PP
 }
+
