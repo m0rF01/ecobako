@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/product/product_repository.dart';
 import 'package:ecobako_app/features/store/models/product_model.dart';
+import 'package:ecobako_app/features/store/screens/admin/store/user_store.dart';
+import 'package:ecobako_app/features/store/screens/user/product_details/user_product_details.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/helpers/network_manager.dart';
 import 'package:ecobako_app/utils/popups/full_screen_loader.dart';
@@ -27,6 +29,8 @@ class ProductController extends GetxController {
   final productDesc = TextEditingController();
   final productPoint = TextEditingController();
   final productQuantity = TextEditingController();
+  final productIdController = TextEditingController();
+  final quantityController = TextEditingController();
   GlobalKey<FormState> addProductFormKey = GlobalKey<FormState>();
   RxList<ProductModel> storeProducts = <ProductModel>[].obs;
   bool productDataFetched = false;
@@ -289,4 +293,47 @@ class ProductController extends GetxController {
     productQuantity.clear();
     imagePath.value = "";
   }
+
+    void clearRedeemFormData() {
+    productIdController.clear();
+    quantityController.clear();
+  }
+
+  Future<void> updateDatabaseAfterRedeemProduct({
+    required String productId,
+    required int quantity,
+    required int totalCost,
+    required int newBalance,
+  }
+   
+  ) async {
+    
+    // Calculate new stock and new user balance
+
+    final int currentStock = await productRepository.getProductStock(productId);
+    final int newStock = currentStock - quantity;
+    final int newUserBalance = newBalance;
+
+    try {
+      // Update product stock
+      await productRepository.updateProductStock(productId, newStock);
+      // Update user's EcoPoint balance
+      await productRepository.updateUserEcoPointBalance(newUserBalance.toString());
+      // Show success message
+      BakoLoaders.successSnackBar(
+          title: "Congratulations",
+          message:
+              "You have successfully redeem the product.");
+      Get.to(() => const UserStoreScreen());
+      
+    } catch (e) {
+      // Show error message
+      BakoLoaders.errorSnackBar(
+          title: "Opps",
+          message:
+              "Failed to redeem the product. Please try again");
+    }
+  }
+
+  
 }

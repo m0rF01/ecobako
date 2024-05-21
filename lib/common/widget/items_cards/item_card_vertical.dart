@@ -21,9 +21,7 @@ class BakoItemCardVertical extends StatelessWidget {
     // final controller = ProductController.instance;
     final dark = BakoHelperFunctions.isDarkMode(context);
 
-    return Hero(
-      tag: "adminProduct",
-      child: GestureDetector(
+    return  GestureDetector(
         onTap: () => Get.to(() => AdminProductDetail(product: product)),
         child: Container(
           width: 180,
@@ -104,7 +102,6 @@ class BakoItemCardVertical extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

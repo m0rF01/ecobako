@@ -109,6 +109,12 @@ class BakoTexts {
   //--- Qr image
   static const String qrImage = "Scan user QR code";
 
+  //-- User Redeem Item
+  static const String redeemProductID = "Product ID";
+  static const String redeemProductQuantity = "Quantity";
+  static const String confirmRedeem = "Confirm";
+
+
 
 
 

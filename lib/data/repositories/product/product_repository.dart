@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecobako_app/data/services/firebase_storage_services.dart';
 import 'package:ecobako_app/features/store/models/product_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,7 @@ class ProductRepository extends GetxController {
 
   // Firestore instance for database interactions.
   final _db = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Get all products
   Future<List<ProductModel>> getAllProducts() async {
@@ -99,4 +101,77 @@ class ProductRepository extends GetxController {
       throw "Error: $e";
     }
   }
+
+   Future<Map<String, dynamic>> getProductData(String id) async {
+    try {
+      final DocumentSnapshot productDoc = await _db.collection('Products').doc(id).get();
+      if (!productDoc.exists) {
+        return {}; // Product not found
+      }
+      return productDoc.data() as Map<String, dynamic>;
+    } catch (e) {
+      print('Error fetching product data: $e');
+      return {};
+    }
+  }
+
+  Future<int> getProductStock(String productId) async {
+    try {
+      final DocumentSnapshot productDoc = await _db.collection('Products').doc(productId).get();
+      if (productDoc.exists) {
+        final productData = productDoc.data() as Map<String, dynamic>;
+        return productData['Stock'] as int;
+      } else {
+        throw Exception('Product not found');
+      }
+    } catch (e) {
+      print('Error fetching product stock: $e');
+      throw Exception('Failed to fetch product stock');
+    }
+  }
+
+  Future<String> getUserEcoPointBalance() async {
+  try {
+    final User? user = _auth.currentUser;
+    if (user == null) {
+      return '0'; // User not authenticated
+    }
+    final DocumentSnapshot userDoc = await _db.collection('Users').doc(user.uid).get();
+    if (!userDoc.exists) {
+      return '0'; // User data not found
+    }
+    final userData = userDoc.data() as Map<String, dynamic>;
+    print("This is the value of EcoPoints: ${userData["EcoPoint"]}");
+    return userData['EcoPoint'] as String;
+  } catch (e) {
+    print('Error fetching user EcoPoint balance: $e');
+    return '0';
+  }
+}
+
+  Future<void> updateProductStock(String id, int newStock) async {
+    try {
+      await _db.collection('Products').doc(id).update({
+        'Stock': newStock,
+      });
+    } catch (e) {
+      print('Error updating product stock: $e');
+    }
+  }
+
+  Future<void> updateUserEcoPointBalance(String newUserBalance) async {
+  try {
+    final User? user = _auth.currentUser;
+    if (user == null) {
+      return; // User not authenticated
+    }
+    await _db.collection('Users').doc(user.uid).update({
+      'EcoPoint': newUserBalance,
+    });
+  } catch (e) {
+    print('Error updating user balance: $e');
+  }
+}
+
+
 }

@@ -23,32 +23,35 @@ class ProductDetailsActionButton extends StatelessWidget {
         Positioned(
           bottom: 80.0, // adjust as needed
           right: 16.0,
-          child: FloatingActionButton(
-            onPressed: () {
-              Get.to(() => ProductQrCode(product: product));
-            },
-            backgroundColor: BakoColors.primary,
-            child: const Icon(
-              Iconsax.scan_barcode,
-              color: Colors.white,
+            child: FloatingActionButton(
+              onPressed: () {
+                Get.to(() => ProductQrCode(product: product));
+              },
+              backgroundColor: BakoColors.primary,
+              heroTag: 'floatingActionButton-hero-1-${product.id}',
+              child: const Icon(
+                Iconsax.scan_barcode,
+                color: Colors.white,
+              ),
             ),
           ),
-        ),
+
         Positioned(
           bottom: 16.0,
           right: 16.0,
-          child: FloatingActionButton(
-            onPressed: () {
-              Get.to(() => AdminEditItemScreen(product: product),
-                  arguments: product);
-            },
-            backgroundColor: BakoColors.primary,
-            child: const Icon(
-              Iconsax.edit,
-              color: BakoColors.white,
+            child: FloatingActionButton(
+              onPressed: () {
+                Get.to(() => AdminEditItemScreen(product: product),
+                    arguments: product);
+              },
+              backgroundColor: BakoColors.primary,
+              heroTag: 'floatingActionButton-hero-2-${product.id}',
+              child: const Icon(
+                Iconsax.edit,
+                color: BakoColors.white,
+              ),
             ),
           ),
-        ),
       ],
     );
   }

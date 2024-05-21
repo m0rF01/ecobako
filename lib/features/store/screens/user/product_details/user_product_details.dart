@@ -5,6 +5,7 @@ import 'package:ecobako_app/features/store/screens/user/widget/user_product_deta
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class UserProductDetail extends StatelessWidget {
   const UserProductDetail({super.key, required this.product});
@@ -14,27 +15,38 @@ class UserProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = BakoHelperFunctions.isDarkMode(context);
-    return  Scaffold(
+    // final heroTag =
+    //     Get.arguments['heroTag']; // Retrieve the hero tag from arguments
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             //-- 1 - product image
+            // UserProductDeatilsUpperPart(product: product),
             UserProductDeatilsUpperPart(product: product),
 
             //-- 2 product details
             Padding(
-              padding: const EdgeInsets.only(right: BakoSizes.defaultSpace, left: BakoSizes.defaultSpace, bottom: BakoSizes.defaultSpace),
+              padding: const EdgeInsets.only(
+                  right: BakoSizes.defaultSpace,
+                  left: BakoSizes.defaultSpace,
+                  bottom: BakoSizes.defaultSpace),
               child: Column(
                 children: [
                   // Title, price, stock
-                  UserProductDeatilsLowerPart(product: product,),
-                  const SizedBox(height: BakoSizes.spaceBtwItems,),
+                  UserProductDeatilsLowerPart(
+                    product: product,
+                  ),
+                  const SizedBox(
+                    height: BakoSizes.spaceBtwItems,
+                  ),
                 ],
               ),
             ),
 
-            const SizedBox(height: BakoSizes.spaceBtwItems*2,),
-
+            const SizedBox(
+              height: BakoSizes.spaceBtwItems * 2,
+            ),
           ],
         ),
       ),
@@ -43,4 +55,3 @@ class UserProductDetail extends StatelessWidget {
     );
   }
 }
-

@@ -15,9 +15,8 @@ class AdminProductDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = BakoHelperFunctions.isDarkMode(context);
     return Scaffold(
-      body: Hero(
-        tag: "adminProduct",
-        child: SingleChildScrollView(
+      body: 
+        SingleChildScrollView(
           child: Column(
             children: [
               //-- 1 - product image
@@ -38,7 +37,6 @@ class AdminProductDetail extends StatelessWidget {
             
           ),
         ),
-      ),
       floatingActionButton: ProductDetailsActionButton(product: product),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
