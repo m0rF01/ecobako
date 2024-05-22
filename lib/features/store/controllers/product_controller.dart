@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/product/product_repository.dart';
 import 'package:ecobako_app/features/store/models/product_model.dart';
+import 'package:ecobako_app/features/store/screens/admin/store/admin_store.dart';
 import 'package:ecobako_app/features/store/screens/admin/store/user_store.dart';
-import 'package:ecobako_app/features/store/screens/user/product_details/user_product_details.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/helpers/network_manager.dart';
 import 'package:ecobako_app/utils/popups/full_screen_loader.dart';
@@ -294,7 +294,7 @@ class ProductController extends GetxController {
     imagePath.value = "";
   }
 
-    void clearRedeemFormData() {
+  void clearRedeemFormData() {
     productIdController.clear();
     quantityController.clear();
   }
@@ -304,10 +304,7 @@ class ProductController extends GetxController {
     required int quantity,
     required int totalCost,
     required int newBalance,
-  }
-   
-  ) async {
-    
+  }) async {
     // Calculate new stock and new user balance
 
     final int currentStock = await productRepository.getProductStock(productId);
@@ -318,22 +315,60 @@ class ProductController extends GetxController {
       // Update product stock
       await productRepository.updateProductStock(productId, newStock);
       // Update user's EcoPoint balance
-      await productRepository.updateUserEcoPointBalance(newUserBalance.toString());
+      await productRepository
+          .updateUserEcoPointBalance(newUserBalance.toString());
       // Show success message
       BakoLoaders.successSnackBar(
           title: "Congratulations",
-          message:
-              "You have successfully redeem the product.");
-      Get.to(() => const UserStoreScreen());
-      
+          message: "You have successfully redeem the product.");
+      Get.off(() => const UserStoreScreen());
     } catch (e) {
       // Show error message
       BakoLoaders.errorSnackBar(
           title: "Opps",
-          message:
-              "Failed to redeem the product. Please try again");
+          message: "Failed to redeem the product. Please try again");
     }
   }
 
-  
+  void showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirm Deletion"),
+          content: const Text("Are you sure you want to delete this product?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                _deleteProduct(); // Perform the deletion
+              },
+              child: const Text("Confirm"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _deleteProduct() async {
+    final id = productID.text;
+    try {
+      await productRepository.deleteProduct(id);
+      BakoLoaders.successSnackBar(
+          title: "Success",
+          message: "The product have been deleted successfully");
+          Get.off(() => const AdminStoreScreen());
+    } catch (e) {
+      BakoLoaders.errorSnackBar(
+          title: "Opps",
+          message: "Failed to delete the product. Please try again");
+    }
+  }
 }

@@ -1,10 +1,7 @@
 import 'package:ecobako_app/features/store/controllers/product_controller.dart';
-import 'package:ecobako_app/features/store/controllers/redeem_item_controller.dart';
-import 'package:ecobako_app/features/store/screens/user/widget/user_product_qr_scanner.dart';
 import 'package:ecobako_app/features/store/screens/user/widget/user_redeem_item_form.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class UserProductDetailsActionButton extends StatelessWidget {

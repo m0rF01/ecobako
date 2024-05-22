@@ -1,5 +1,3 @@
-import 'package:ecobako_app/common/widget/appbar/appbar.dart';
-import 'package:ecobako_app/features/ecobako_point/widget/eco_point_qr_scan.dart';
 import 'package:ecobako_app/features/store/controllers/redeem_item_controller.dart';
 import 'package:ecobako_app/features/store/screens/user/widget/user_product_qr_scanner.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
@@ -7,7 +5,6 @@ import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:ecobako_app/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -56,7 +53,6 @@ class RedeemItemForm extends StatelessWidget {
                       );
                       
                       if (scannedData != null) {
-                        print("this is the result from ${scannedData.toString()}");
                         controller.productIdController.text = scannedData;
                       }
                     },

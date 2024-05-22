@@ -154,6 +154,23 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                           ),
                         ),
                         const SizedBox(height: BakoSizes.spaceBtwSections),
+
+                        // Delete Product button
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              controller.showDeleteConfirmationDialog(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:Colors.red,
+                              side: const BorderSide(
+                                  color: Colors.red),
+                            ),
+                            child: const Text("Delete Product"),
+                          ),
+                        ),
+                        const SizedBox(height: BakoSizes.spaceBtwSections),
                       ],
                     ),
                   ),
@@ -168,4 +185,8 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
       ),
     );
   }
+
+ 
 }
+
+

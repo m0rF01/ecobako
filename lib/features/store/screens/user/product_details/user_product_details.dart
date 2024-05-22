@@ -5,7 +5,7 @@ import 'package:ecobako_app/features/store/screens/user/widget/user_product_deta
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 
 class UserProductDetail extends StatelessWidget {
   const UserProductDetail({super.key, required this.product});

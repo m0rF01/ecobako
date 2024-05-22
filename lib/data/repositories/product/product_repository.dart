@@ -173,5 +173,16 @@ class ProductRepository extends GetxController {
   }
 }
 
+Future <void> deleteProduct(String id) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('Products') // Assuming your collection is named 'products'
+          .doc(id) // Use the product ID as the document ID
+          .delete();
+      return;
+    } catch (e) {
+      print('Error deleting product from database: $e');
+    }
+  }
 
 }
