@@ -42,7 +42,7 @@ class AdminVerifyEmailController extends GetxController{
               image: BakoImages.sccessfullyRegisterAnimation, 
               title: BakoTexts.yourAccountCreatedTitle, 
               subTitle: BakoTexts.yourAccountCreatedSubTitle, 
-              onPressed: () => AdminAuthenticationRepository.instance.screenRedirect(),
+              onPressed: () => AdminAuthenticationRepository.instance.adminScreenRedirect(),
             ),
           );
         }
@@ -59,7 +59,7 @@ class AdminVerifyEmailController extends GetxController{
           image: BakoImages.sccessfullyRegisterAnimation,
           title: BakoTexts.yourAccountCreatedTitle, 
           subTitle: BakoTexts.yourAccountCreatedSubTitle,
-          onPressed: () => AdminAuthenticationRepository.instance.screenRedirect()
+          onPressed: () => AdminAuthenticationRepository.instance.adminScreenRedirect()
           ),
         );
     }

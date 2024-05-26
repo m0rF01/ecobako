@@ -28,29 +28,120 @@ class AuthenticationRepository extends GetxController {
     // Remove the native splash screen
     FlutterNativeSplash.remove();
     // Redirect to the appropriate screen
-    screenRedirect();
+    userScreenRedirect();
   }
 
   // Function to show relevent Screen
-  screenRedirect() async {
-    final user = _auth.currentUser;
+  // screenRedirect() async {
+  //   final user = _auth.currentUser;
+  //   if (user != null) {
+  //     if (user.emailVerified) {
+  //       print("I lalu screenRedirect function user");
+  //       print(user);
+  //       Get.offAll(() => const UserNavigationMenu());
+  //       print("USer successfully logged in");
+  //     } else {
+  //       Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
+  //     }
+  //   } else {
+  //     deviceStorage.writeIfNull("isFirstTime", true);
+  //     // check if the user is first time launching the app
+  //     deviceStorage.read("isFirstTime") != true
+  //         ? Get.offAll(
+  //             () => const ChooseRole()) // redirect to choose role screen
+  //         : Get.offAll(() =>
+  //             const OnBoardingScreen()); // redirect to on boarding screen if the user is first time
+  //   }
+  //   // local storage
+  // }
+
+//     screenRedirect() async {
+//   final user = _auth.currentUser;
+//   if (user != null) {
+//     if (user.emailVerified) {
+//       // Get the user's role
+//       final role = await getUserRole(user.uid);
+//       if (role == "user") {
+//         // User is an admin, redirect to admin navigation menu
+//         Get.offAll(() => const UserNavigationMenu());
+//         print("authentic User successfully navigate");
+//       } else {
+//         // User is not an admin, redirect to ChooseRole page
+//         Get.offAll(() => const ChooseRole());
+//       }
+//     } else {
+//       // User email not verified, redirect to email verification screen
+//       Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
+//     }
+//   } else {
+//     // User not logged in, handle first-time launch or other scenarios
+//     deviceStorage.writeIfNull("isFirstTime", true);
+//     deviceStorage.read("isFirstTime") != true
+//         ? Get.offAll(() => const ChooseRole()) // Redirect to choose role screen
+//         : Get.offAll(() => const OnBoardingScreen()); // Redirect to onboarding screen if user is first time
+//   }
+// }
+
+// screenRedirect() async {
+//   final user = _auth.currentUser;
+//   if (user != null) {
+//     if (user.emailVerified) {
+//       // Get the user's role
+//       final role = await getUserRole(user.uid);
+//       if (role == "admin") {
+//         // User is an admin, redirect to AdminLoginScreen
+//         Get.offAll(() => const AdminLoginScreen());
+//         print("Admin successfully");
+//       } else if (role == "user") {
+//         // User is a regular user, redirect to LoginScreen
+//         Get.offAll(() => const LoginScreen());
+//         print("Authenticated User successfully");
+//       } else {
+//         // Role is neither admin nor user, handle appropriately (e.g., redirect to ChooseRole)
+//         Get.offAll(() => const ChooseRole());
+//       }
+//     } else {
+//       // User email not verified, redirect to email verification screen
+//       Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
+//     }
+//   } else {
+//     // User not logged in, handle first-time launch or other scenarios
+//     deviceStorage.writeIfNull("isFirstTime", true);
+//     deviceStorage.read("isFirstTime") != true
+//         ? Get.offAll(() => const ChooseRole()) // Redirect to choose role screen
+//         : Get.offAll(() => const OnBoardingScreen()); // Redirect to onboarding screen if user is first time
+//   }
+// }
+
+// safest choice
+Future<void> userScreenRedirect() async {
+  final user = _auth.currentUser;
+  final box = GetStorage();
+  final isUserLoggedIn = box.read('user_logged_in') ?? false; // Check login flag
     if (user != null) {
-      if (user.emailVerified) {
+    if (user.emailVerified && isUserLoggedIn) {
+        // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to ChooseRole
         Get.offAll(() => const UserNavigationMenu());
-      } else {
-        Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
-      }
+        return;
+      } else if (!isUserLoggedIn) {
+        // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to ChooseRole
+        Get.offAll(() => const ChooseRole());
+        return;
     } else {
+      // User email not verified, redirect to email verification screen
+      Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
+    }
+    } else {
+      // User not logged in, handle first-time launch or other scenarios
       deviceStorage.writeIfNull("isFirstTime", true);
-      // check if the user is first time launching the app
       deviceStorage.read("isFirstTime") != true
           ? Get.offAll(
-              () => const ChooseRole()) // redirect to choose role screen
+              () => const ChooseRole()) // Redirect to choose role screen
           : Get.offAll(() =>
-              const OnBoardingScreen()); // redirect to on boarding screen if the user is first time
+              const OnBoardingScreen()); // Redirect to onboarding screen if user is first time
     }
-    // local storage
   }
+
 
   /*-------------------------------- Email & Password sign-in -------------------------------*/
 
@@ -78,7 +169,8 @@ class AuthenticationRepository extends GetxController {
   Future<String?> getUserRole(String uid) async {
     try {
       // Get user document from Firestore
-      final userDoc = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
+      final userDoc =
+          await FirebaseFirestore.instance.collection("Users").doc(uid).get();
 
       // Check if user document exists
       if (userDoc.exists) {
@@ -141,7 +233,8 @@ class AuthenticationRepository extends GetxController {
   Future<void> reAuthenticateEmailAndPassword(
       String email, String password) async {
     try {
-      AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
       // Reauthenticate
       await _auth.currentUser!.reauthenticateWithCredential(credential);
     } on FirebaseAuthException catch (_) {
@@ -175,7 +268,7 @@ class AuthenticationRepository extends GetxController {
   }
 
   /// emailAuthentication - forgot password
-    Future<void> sendPasswordResetEmail(String email) async {
+  Future<void> sendPasswordResetEmail(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
@@ -261,7 +354,6 @@ class AuthenticationRepository extends GetxController {
       throw "Error 4 - DA";
     } catch (e) {
       throw "Something went wrong, Please try again - DA ";
-      
     }
   }
 }

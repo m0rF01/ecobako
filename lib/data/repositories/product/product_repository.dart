@@ -110,7 +110,6 @@ class ProductRepository extends GetxController {
       }
       return productDoc.data() as Map<String, dynamic>;
     } catch (e) {
-      print('Error fetching product data: $e');
       return {};
     }
   }
@@ -125,7 +124,6 @@ class ProductRepository extends GetxController {
         throw Exception('Product not found');
       }
     } catch (e) {
-      print('Error fetching product stock: $e');
       throw Exception('Failed to fetch product stock');
     }
   }
@@ -141,10 +139,8 @@ class ProductRepository extends GetxController {
       return '0'; // User data not found
     }
     final userData = userDoc.data() as Map<String, dynamic>;
-    print("This is the value of EcoPoints: ${userData["EcoPoint"]}");
     return userData['EcoPoint'] as String;
   } catch (e) {
-    print('Error fetching user EcoPoint balance: $e');
     return '0';
   }
 }

@@ -1,4 +1,3 @@
-import 'package:ecobako_app/features/store/controllers/product_controller.dart';
 import 'package:ecobako_app/features/store/screens/user/widget/user_redeem_item_form.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,7 @@ class UserProductDetailsActionButton extends StatelessWidget {
           child: FloatingActionButton(
             // onPressed: () => Get.to(() => const RedeemItemForm()),
              onPressed: () {
-              ProductController.instance.clearRedeemFormData();
+              // RedeemItemController.instance.clearRedeemFormData();
             showDialog(
               context: context,
               builder: (context) => const RedeemItemForm(),

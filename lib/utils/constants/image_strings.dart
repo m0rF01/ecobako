@@ -2,6 +2,9 @@ class BakoImages{
 
   // user image
   static const String userImage = "assets/images/content/user.png";
+
+  // Product redeem image
+  static const String productRedeemImage = "assets/images/content/product_redeem_icon.png";
   
   // App logos
   static const String darkAppLogo = "assets/logos/t-store-splash-logo-black.png";

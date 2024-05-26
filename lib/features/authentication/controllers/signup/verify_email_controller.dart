@@ -41,7 +41,7 @@ class VerifyEmailController extends GetxController {
             image: BakoImages.sccessfullyRegisterAnimation,
             title: BakoTexts.yourAccountCreatedTitle,
             subTitle: BakoTexts.yourAccountCreatedSubTitle,
-            onPressed: () => AuthenticationRepository.instance.screenRedirect(),
+            onPressed: () => AuthenticationRepository.instance.userScreenRedirect(),
           ),
         );
       }
@@ -64,7 +64,7 @@ class VerifyEmailController extends GetxController {
             title: BakoTexts.yourAccountCreatedTitle,
             subTitle: BakoTexts.yourAccountCreatedSubTitle,
             onPressed: () =>
-                AuthenticationRepository.instance.screenRedirect()),
+                AuthenticationRepository.instance.userScreenRedirect()),
       );
     }
   }

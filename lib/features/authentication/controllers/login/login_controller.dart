@@ -1,6 +1,6 @@
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
-import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
+import 'package:ecobako_app/features/authentication/screens/choose_role/choose_role.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/helpers/network_manager.dart';
 import 'package:ecobako_app/utils/popups/full_screen_loader.dart';
@@ -62,11 +62,34 @@ class LoginController extends GetxController {
       final role = await AuthenticationRepository.instance
           .getUserRole(userCredentials.user?.uid ?? "");
 
+      final box = GetStorage();
+      box.write('user_logged_in', true);
+
       // Handle redirection based on role
       redirectToHomePage(role);
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
       BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+    }
+  }
+
+   // Chechk role for admin and user then redirect to dedicated home page
+    void redirectToHomePage(String? role) async {
+
+    if (role == null || role.isEmpty) {
+      // Handle the case when the role is not found
+      BakoFullScreenLoader.stopLoading();
+      Get.offAll(() => const ChooseRole());
+    }else if (role == "user") {
+      BakoFullScreenLoader.stopLoading();
+      await AuthenticationRepository.instance.userScreenRedirect();
+    } 
+    else {
+      BakoFullScreenLoader.stopLoading();
+      BakoLoaders.errorSnackBar(
+          title: "Invalid role", 
+          message: "This account/credential does not have access to this account.");
+      return;
     }
   }
 
@@ -92,60 +115,44 @@ class LoginController extends GetxController {
     }
   }
 
-  // Email and Password Signin
-  Future<void> adminEmailAndPasswordSignIn() async {
-    try {
-      // Start loading
-      BakoFullScreenLoader.openLoadingDialog(
-          "Logging you in....", BakoImages.docerAnimation);
+  // // Email and Password Signin
+  // Future<void> adminEmailAndPasswordSignIn() async {
+  //   try {
+  //     // Start loading
+  //     BakoFullScreenLoader.openLoadingDialog(
+  //         "Logging you in....", BakoImages.docerAnimation);
 
-      //Check Internet Connection
-      final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) {
-        BakoFullScreenLoader.stopLoading();
-        return;
-      }
+  //     //Check Internet Connection
+  //     final isConnected = await NetworkManager.instance.isConnected();
+  //     if (!isConnected) {
+  //       BakoFullScreenLoader.stopLoading();
+  //       return;
+  //     }
 
-      // Form Validation
-      // if (!userLoginFormKey.currentState!.validate()) {
-      //   BakoFullScreenLoader.stopLoading();
-      //   return;
-      // }
-      if (userLoginFormKey.currentState?.validate() ?? false) {
-        BakoFullScreenLoader.stopLoading();
-        return;
-      }
+  //     // Form Validation
+  //     // if (!userLoginFormKey.currentState!.validate()) {
+  //     //   BakoFullScreenLoader.stopLoading();
+  //     //   return;
+  //     // }
+  //     if (userLoginFormKey.currentState?.validate() ?? false) {
+  //       BakoFullScreenLoader.stopLoading();
+  //       return;
+  //     }
 
-      // Login user using Email & Password Auth
-      final adminCredentials = await AdminAuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+  //     // Login user using Email & Password Auth
+  //     final adminCredentials = await AdminAuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-         // // Check user role after successful login
-      final role = await AdminAuthenticationRepository.instance
-          .getAdminRole(adminCredentials.user?.uid ?? "");
+  //        // // Check user role after successful login
+  //     final role = await AdminAuthenticationRepository.instance
+  //         .getAdminRole(adminCredentials.user?.uid ?? "");
       
-      redirectToHomePage(role);
-    } catch (e) {
-      BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
-    }
-  }
+  //     redirectToHomePage(role);
+  //   } catch (e) {
+  //     BakoFullScreenLoader.stopLoading();
+  //     BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+  //   }
+  // }
 
-  // Chechk role for admin and user then redirect to dedicated home page
-    void redirectToHomePage(String? role) async {
-    if (role == "user") {
-      BakoFullScreenLoader.stopLoading();
-      await AuthenticationRepository.instance.screenRedirect();
-    } else if (role == "admin"){
-      BakoFullScreenLoader.stopLoading();
-      await AdminAuthenticationRepository.instance.screenRedirect();
-    } 
-    else {
-      BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(
-          title: "Invalid role", 
-          message: "This account/credential does not have access to this account.");
-      return;
-    }
-  }
+ 
 
 }

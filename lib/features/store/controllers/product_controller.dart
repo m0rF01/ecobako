@@ -294,10 +294,7 @@ class ProductController extends GetxController {
     imagePath.value = "";
   }
 
-  void clearRedeemFormData() {
-    productIdController.clear();
-    quantityController.clear();
-  }
+  
 
   Future<void> updateDatabaseAfterRedeemProduct({
     required String productId,
@@ -308,6 +305,16 @@ class ProductController extends GetxController {
     // Calculate new stock and new user balance
 
     final int currentStock = await productRepository.getProductStock(productId);
+    // Check if currentStock is lower than the requested quantity
+    if (currentStock < quantity) {
+      // Show error message and stop the process
+      BakoLoaders.errorSnackBar(
+        title: "Insufficient Stock",
+        message: "The product stock is not sufficient to fulfill your request.",
+      );
+      return; // Exit the function early
+    }
+
     final int newStock = currentStock - quantity;
     final int newUserBalance = newBalance;
 
@@ -364,7 +371,7 @@ class ProductController extends GetxController {
       BakoLoaders.successSnackBar(
           title: "Success",
           message: "The product have been deleted successfully");
-          Get.off(() => const AdminStoreScreen());
+      Get.off(() => const AdminStoreScreen());
     } catch (e) {
       BakoLoaders.errorSnackBar(
           title: "Opps",

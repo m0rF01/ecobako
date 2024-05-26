@@ -49,7 +49,7 @@ class SummaryPage extends StatelessWidget {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const BakoCircularImage(
-              image: BakoImages.userImage,
+              image: BakoImages.productRedeemImage,
               width: 100,
               height: 100,
             ),

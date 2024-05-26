@@ -17,67 +17,64 @@ class UserStoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ProductController());
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            BakoPrimaryHeaderContainer(
-              child: Column(
-                children: [
-                  // appBar
-                  BakoAppBar(
-                    title: Text(
-                      "EcoBako Store",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .apply(color: BakoColors.white),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          controller.resetProductDataFetched();
+          await controller.fetchStoreProducts();
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              BakoPrimaryHeaderContainer(
+                child: Column(
+                  children: [
+                    // appBar
+                    BakoAppBar(
+                      title: Text(
+                        "EcoBako Store",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .apply(color: BakoColors.white),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: BakoSizes.spaceBtwSections),
-                ],
+                    const SizedBox(height: BakoSizes.spaceBtwSections),
+                  ],
+                ),
               ),
-            ),
-
-            //body
-            Padding(
-              padding: const EdgeInsets.all(BakoSizes.defaultSpace),
-              child: Column(
-                children: [
-                  const BakoSectionHeading(
-                    title: "Redeemable Items",
-                    showActionButton: false,
-                  ),
-                  const SizedBox(height: BakoSizes.spaceBtwSections),
-                  Obx(() {
-                    if (controller.isLoading.value)
-                      return const BakoVerticalProductShimmer();
-                    if (controller.storeProducts.isEmpty) {
-                      return Center(
-                          child: Text("No Data Found!",
-                              style: Theme.of(context).textTheme.bodyMedium));
-                    }
-                    // return BakoGridLayout(itemCount: controller.storeProducts.length, itemBuilder: (_, index) => BakoItemCardVertical(product: controller.storeProducts[index]),
-                    
-                    return BakoGridLayout(
-                      itemCount: controller.storeProducts.length,
-                      itemBuilder: (_, index) => BakoUserItemCardVertical(
-                          product: controller.storeProducts[index]),
-                    );
-                    // return BakoGridLayout(
-                    //   itemCount: controller.storeProducts.length,
-                    //   itemBuilder: (_, index) {
-                    //     final product = controller.storeProducts[index];
-                    //     return Hero(
-                    //       tag: 'product-hero-${product.id}', // Unique Hero tag
-                    //       child: BakoUserItemCardVertical(product: product),
-                    //     );
-                    //   }
-                    // );
-                  }),
-                ],
+        
+              //body
+              Padding(
+                padding: const EdgeInsets.all(BakoSizes.defaultSpace),
+                child: Column(
+                  children: [
+                    const BakoSectionHeading(
+                      title: "Redeemable Items",
+                      showActionButton: false,
+                    ),
+                    const SizedBox(height: BakoSizes.spaceBtwSections),
+                    Obx(() {
+                      if (controller.isLoading.value) {
+                        return const BakoVerticalProductShimmer();
+                      }
+                      if (controller.storeProducts.isEmpty) {
+                        return Center(
+                            child: Text("No Data Found!",
+                                style: Theme.of(context).textTheme.bodyMedium));
+                      }
+                      
+                      return BakoGridLayout(
+                        itemCount: controller.storeProducts.length,
+                        itemBuilder: (_, index) => BakoUserItemCardVertical(
+                            product: controller.storeProducts[index]),
+                      );
+                    }),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
