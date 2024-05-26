@@ -52,7 +52,7 @@ class BakoPointContainer extends StatelessWidget {
                     return const BakoShimmerEffect(width: 100, height: 100);
                   } else {
                     return Text(
-                      controller.user.value.ecoPoint,
+                      controller.user.value.ecoPoint.toString(),
                       style: Theme.of(context)
                           .textTheme
                           .headlineLarge!

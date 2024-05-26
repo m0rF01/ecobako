@@ -323,7 +323,7 @@ class ProductController extends GetxController {
       await productRepository.updateProductStock(productId, newStock);
       // Update user's EcoPoint balance
       await productRepository
-          .updateUserEcoPointBalance(newUserBalance.toString());
+          .updateUserEcoPointBalance(newUserBalance);
       // Show success message
       BakoLoaders.successSnackBar(
           title: "Congratulations",

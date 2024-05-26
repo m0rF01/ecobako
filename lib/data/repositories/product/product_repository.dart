@@ -128,20 +128,37 @@ class ProductRepository extends GetxController {
     }
   }
 
-  Future<String> getUserEcoPointBalance() async {
+//   Future<String> getUserEcoPointBalance() async {
+//   try {
+//     final User? user = _auth.currentUser;
+//     if (user == null) {
+//       return '0'; // User not authenticated
+//     }
+//     final DocumentSnapshot userDoc = await _db.collection('Users').doc(user.uid).get();
+//     if (!userDoc.exists) {
+//       return '0'; // User data not found
+//     }
+//     final userData = userDoc.data() as Map<String, dynamic>;
+//     return userData['EcoPoint'] as String;
+//   } catch (e) {
+//     return '0';
+//   }
+// }
+
+ Future<int> getUserEcoPointBalance() async {
   try {
     final User? user = _auth.currentUser;
     if (user == null) {
-      return '0'; // User not authenticated
+      return 0; // User not authenticated
     }
     final DocumentSnapshot userDoc = await _db.collection('Users').doc(user.uid).get();
     if (!userDoc.exists) {
-      return '0'; // User data not found
+      return 0; // User data not found
     }
     final userData = userDoc.data() as Map<String, dynamic>;
-    return userData['EcoPoint'] as String;
+    return userData['EcoPoint'] as int;
   } catch (e) {
-    return '0';
+    return 0;
   }
 }
 
@@ -155,7 +172,7 @@ class ProductRepository extends GetxController {
     }
   }
 
-  Future<void> updateUserEcoPointBalance(String newUserBalance) async {
+  Future<void> updateUserEcoPointBalance(int newUserBalance) async {
   try {
     final User? user = _auth.currentUser;
     if (user == null) {

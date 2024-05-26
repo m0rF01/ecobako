@@ -78,7 +78,7 @@ class SignupController extends GetxController {
         email: email.text.trim(),
         phoneNo: phoneNo.text.trim(),
         profilePicture: "",
-        ecoPoint: "0",
+        ecoPoint: 0,
         role: "user",
         userQR: '',
       );

@@ -144,9 +144,9 @@ class UserRepository extends GetxController {
       if (documentSnapshot.exists) {
         final userData = documentSnapshot.data();
         if (userData != null && userData.containsKey('EcoPoint')) {
-          final ecoPointsString = userData['EcoPoint'] as String?;
-          if (ecoPointsString != null) {
-            return int.tryParse(ecoPointsString) ?? 0;
+          final ecoPoints = userData['EcoPoint'] as int?;
+          if (ecoPoints != null) {
+            return ecoPoints;
           }
         }
       }
@@ -161,9 +161,10 @@ class UserRepository extends GetxController {
     try {
       final documentReference = _db.collection("Users").doc(userid);
       // Convert newPoints to String
-      String ecoPointsAsString = newPoints.toString();
+      // String ecoPointsAsString = newPoints.toString();
       // Update EcoPoint field with the converted value
-      await documentReference.update({'EcoPoint': ecoPointsAsString});
+      // await documentReference.update({'EcoPoint': ecoPointsAsString});
+      await documentReference.update({'EcoPoint': newPoints});
     } catch (e) {
       throw "Error updating user EcoPoint: $e";
     }

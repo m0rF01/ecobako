@@ -12,7 +12,7 @@ class UserModel {
   final String email;
   String phoneNo;
   String profilePicture;
-  String ecoPoint;
+  int ecoPoint;
   final String role;
   String userQR;
 
@@ -65,7 +65,7 @@ class UserModel {
         email: "",
         phoneNo: "",
         profilePicture: "",
-        ecoPoint: "",
+        ecoPoint: 0,
         role: "",
         userQR: "",
       );

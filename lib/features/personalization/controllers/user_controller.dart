@@ -90,7 +90,7 @@ class UserController extends GetxController {
           email: userCredentials.user!.email ?? "",
           phoneNo: userCredentials.user!.phoneNumber ?? "",
           profilePicture: userCredentials.user!.photoURL ?? "",
-          ecoPoint: "0",
+          ecoPoint: 0,
           role: "user", 
           userQR: "",
         );

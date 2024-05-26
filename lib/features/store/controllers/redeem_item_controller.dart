@@ -61,9 +61,12 @@ Future<Map<String, dynamic>> validateRedemption() async {
   final productPrice = productData['EcoPoint'] as int;
   final productName = productData['productName'] as String;
 
-  final userEcoPointBalanceString = await productRepository.getUserEcoPointBalance();
+  // final userEcoPointBalanceString = await productRepository.getUserEcoPointBalance();
 
-  final userEcoPointBalance = int.tryParse(userEcoPointBalanceString) ?? 0;
+  // final userEcoPointBalance = int.tryParse(userEcoPointBalanceString) ?? 0;
+  final userEcoPointBalance = await productRepository.getUserEcoPointBalance();
+
+  // final userEcoPointBalance = int.tryParse(userEcoPointBalanceString) ?? 0;
   final totalCost = productPrice * quantity;
 
 
