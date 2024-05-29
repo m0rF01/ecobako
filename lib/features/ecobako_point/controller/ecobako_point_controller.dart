@@ -1,4 +1,5 @@
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
+import 'package:ecobako_app/data/repositories/transaction/transaction_repository.dart';
 import 'package:ecobako_app/data/repositories/user/user_repository.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/helpers/network_manager.dart';
@@ -15,6 +16,7 @@ class AdminPointController extends GetxController {
   final ppWeight = TextEditingController();
   GlobalKey<FormState> addPointFormKey = GlobalKey<FormState>();
   final userRepository = UserRepository();
+   final transactionCollection = TransactionRepository();
 
   Future <void> addUserPoints() async {
     try {
@@ -87,6 +89,14 @@ class AdminPointController extends GetxController {
 
       // Update user points with new total points
       await userRepository.updateUserEcoPoints(userid, newTotalPoints);
+
+      // log for transaction data
+     
+      await transactionCollection.logTransaction(
+          userId: userid,
+          type: 'Add',
+          amount: roundedTotalPoints,
+          description: 'EcoBako Points Added');
 
 
       // Stop loading and show success message

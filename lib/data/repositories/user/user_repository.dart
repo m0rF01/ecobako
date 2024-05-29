@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecobako_app/features/personalization/models/user_model.dart';
+import 'package:ecobako_app/features/transaction/model/transaction_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ class UserRepository extends GetxController {
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final _storage = FirebaseStorage.instance;
+
 
   // //fx to save user data to firestore
   // Future<void> saveUserRecord(UserModel user) async {
@@ -221,6 +223,33 @@ class UserRepository extends GetxController {
       rethrow;
     }
   }
+
+// fetch transaction history data
+ Future<List<TransactionModel>> fetchTransactions(String userId) async {
+  try {
+    final querySnapshot = await _db
+        .collection('Transactions')
+        .where('userId', isEqualTo: userId)
+        // .orderBy('date', descending: true) 
+        .get();
+    if (querySnapshot.docs.isNotEmpty) {
+      return querySnapshot.docs
+          .map((doc) => TransactionModel.fromSnapshot(doc))
+          .toList();
+    } else {
+      return [];
+    }
+  } on FirebaseException catch (e) {
+    throw "Error1 - FT ${e.message}";
+  } on FormatException catch (e) {
+    throw "Error2 - FT ${e.message}";
+  } on PlatformException catch (e) {
+    throw "Error3 - FT ${e.message}";
+  } catch (e) {
+    throw "Something went wrong, Please try again - FT";
+  }
+}
+
 
   
 }

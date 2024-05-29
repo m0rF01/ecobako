@@ -5,6 +5,7 @@ import 'package:ecobako_app/features/authentication/screens/login/login_user/log
 import 'package:ecobako_app/features/authentication/screens/qrcode/user/user_qr.dart';
 import 'package:ecobako_app/features/personalization/models/user_model.dart';
 import 'package:ecobako_app/features/personalization/screens/profile/widget/re_authenticate_user_login.dart';
+import 'package:ecobako_app/features/transaction/model/transaction_model.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/helpers/network_manager.dart';
@@ -21,6 +22,9 @@ class UserController extends GetxController {
   final profileLoading = false.obs;
   Rx<UserModel> user = UserModel.empty().obs;
   bool dataFetched = false;
+
+  final RxList<TransactionModel> transactions = <TransactionModel>[].obs;
+  final RxBool dataFetched2 = false.obs;
 
   final hidePassword = false.obs;
   final imageUploading = false.obs;
@@ -63,6 +67,38 @@ class UserController extends GetxController {
     }
   }
 
+
+  Future<void> fetchTransactions() async {
+  try {
+    final userId = await getCurrentUserId(); // Function to retrieve current user ID
+    print("I check dataFetched");
+    dataFetched2.value = false;
+    transactions.value = await userRepository.fetchTransactions(userId);
+  } catch (e) {
+    print('Error fetching transactions: $e');
+    transactions.value = [];
+  } finally {
+    dataFetched2.value = true;
+  }
+}
+
+  Future<String> getCurrentUserId() async {
+  final user = FirebaseAuth.instance.currentUser;
+  if (user != null) {
+    return user.uid;
+  } else {
+    // Handle case where user is not signed in
+    throw Exception("User is not signed in");
+  }
+}
+
+   
+  // void resetDataFetched2() {
+  //   dataFetched2.value = false;
+  // }
+
+
+
   void resetDataFetched() {
     dataFetched = false;
   }
@@ -91,7 +127,7 @@ class UserController extends GetxController {
           phoneNo: userCredentials.user!.phoneNumber ?? "",
           profilePicture: userCredentials.user!.photoURL ?? "",
           ecoPoint: 0,
-          role: "user", 
+          role: "user",
           userQR: "",
         );
 
@@ -212,22 +248,20 @@ class UserController extends GetxController {
   }
 
 // get user qr image and redirect to userQrCode page
-Future<String> generateAndSaveQRCode(String userId) async {
+  Future<String> generateAndSaveQRCode(String userId) async {
     try {
       final downloadUrl = await userRepository.generateAndSaveQRCode(userId);
       user.update((val) {
-        val?.userQR = downloadUrl; 
+        val?.userQR = downloadUrl;
       });
 
       Get.to(() => const UserQrCode());
 
       return downloadUrl;
-      
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
       BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
       rethrow;
     }
   }
-
 }
