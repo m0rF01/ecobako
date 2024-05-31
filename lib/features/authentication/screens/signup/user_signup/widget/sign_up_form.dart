@@ -27,7 +27,8 @@ class BakoSignUpForm extends StatelessWidget {
                   child: TextFormField(
                     controller: controller.firstName,
                     validator: (value) =>
-                        BakoValidator.validateEmptyText("First name", value),
+                        // BakoValidator.validateEmptyText("First name", value),
+                        BakoValidator.validateStringAlphabetic("First name", value),
                     expands: false,
                     decoration: const InputDecoration(
                         labelText: BakoTexts.firstName,
@@ -39,7 +40,8 @@ class BakoSignUpForm extends StatelessWidget {
                   child: TextFormField(
                     controller: controller.lastName,
                     validator: (value) =>
-                        BakoValidator.validateEmptyText("Last name", value),
+                        // BakoValidator.validateEmptyText("Last name", value),
+                        BakoValidator.validateStringAlphabetic("Last name", value),
                     expands: false,
                     decoration: const InputDecoration(
                         labelText: BakoTexts.lastName,
@@ -53,7 +55,8 @@ class BakoSignUpForm extends StatelessWidget {
             // Username
             TextFormField(
               validator: (value) =>
-                  BakoValidator.validateEmptyText("Username", value),
+                  // BakoValidator.validateEmptyText("Username", value),
+                  BakoValidator.validateAlphanumeric("Username", value),
               controller: controller.username,
               expands: false,
               decoration: const InputDecoration(
@@ -65,7 +68,8 @@ class BakoSignUpForm extends StatelessWidget {
             // Address line 1
             TextFormField(
               validator: (value) =>
-                  BakoValidator.validateEmptyText("Home address", value),
+                  // BakoValidator.validateEmptyText("Home address", value),
+                  BakoValidator.validateAddress("Home address", value),
               controller: controller.homeAddress,
               expands: false,
               decoration: const InputDecoration(
@@ -80,7 +84,8 @@ class BakoSignUpForm extends StatelessWidget {
                   child: TextFormField(
                     controller: controller.age,
                     validator: (value) =>
-                        BakoValidator.validateEmptyText("Age", value),
+                        // BakoValidator.validateEmptyText("Age", value),
+                        BakoValidator.validateAge("Age", value),
                     expands: false,
                     decoration: const InputDecoration(
                         labelText: BakoTexts.age,

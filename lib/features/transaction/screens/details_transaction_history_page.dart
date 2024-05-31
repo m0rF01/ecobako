@@ -9,10 +9,10 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
-class UserHomeTransactionHistory extends StatelessWidget {
+class DetailsTransactionHistory extends StatelessWidget {
   final List<TransactionModel> transactions;
 
-  const UserHomeTransactionHistory({super.key, required this.transactions});
+  const DetailsTransactionHistory({super.key, required this.transactions});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class UserHomeTransactionHistory extends StatelessWidget {
         );
       } else {
         return BakoGridLayout(
-          itemCount: transactions.length > 5 ? 5 : transactions.length,
+          itemCount: transactions.length,
           mainAxisExtent: 70,
           crossAxisCount: 1,
           itemBuilder: (_, index) {

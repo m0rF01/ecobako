@@ -31,69 +31,82 @@ class BakoModuleCardVertical extends StatelessWidget {
         child: Column(
           children: [
             // Thumbnail
-            const SizedBox(height: BakoSizes.spaceBtwItems/2,),
+            const SizedBox(
+              height: BakoSizes.spaceBtwItems / 2,
+            ),
             BakoRoundedContainer(
               height: 180,
               padding: const EdgeInsets.all(BakoSizes.sm),
               backgroundColor: dark ? BakoColors.dark : BakoColors.light,
-              child: const BakoRoundImage(imageUrl: BakoImages.dunia1, applyImageRadius: true,),
+              child: const BakoRoundImage(
+                imageUrl: BakoImages.dunia1,
+                applyImageRadius: true,
+              ),
             ),
-            const SizedBox(height: BakoSizes.spaceBtwItems/2,),
+            const SizedBox(
+              height: BakoSizes.spaceBtwItems / 2,
+            ),
 
             // Title
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(left: BakoSizes.sm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Main title
-                  const BakoModuleItemTitleText(title: "Dunia Bahan terbuang", smallSize: false,),
-                  const SizedBox(height: BakoSizes.spaceBtwItems/2),
+                  const BakoModuleItemTitleText(
+                    title: "Dunia Bahan terbuang",
+                    smallSize: false,
+                  ),
+                  const SizedBox(height: BakoSizes.spaceBtwItems / 2),
                   Row(
                     // Sub title
                     children: [
-                      Text("Adult Module 1", overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.bodyMedium),
+                      Text("Adult Module 1",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(width: BakoSizes.xs),
                     ],
                   ),
-                  
                 ],
               ),
-              ),
-              const Spacer(),
-              Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: BakoSizes.sm),
-                        child: Text(
-                          "5 Minit",
-                           maxLines: 1, 
-                           overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ),
-                      Container(
-                      decoration: const BoxDecoration(
-                        color: BakoColors.dark,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(BakoSizes.cardRadiusMd),
-                          bottomRight: Radius.circular(BakoSizes.productImageRadius),
-                        )
-                      ),
-                      child: const SizedBox(
-                        width: BakoSizes.iconLg * 1.2,
-                        height: BakoSizes.iconLg * 1.2,
-                        child: Center(
-                          child: Icon(Iconsax.eye, color: BakoColors.white,),
-                        ),
+            ),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: BakoSizes.sm),
+                  child: Text(
+                    "5 Minit",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                      color: BakoColors.dark,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(BakoSizes.cardRadiusMd),
+                        bottomRight:
+                            Radius.circular(BakoSizes.productImageRadius),
+                      )),
+                  child: const SizedBox(
+                    width: BakoSizes.iconLg * 1.2,
+                    height: BakoSizes.iconLg * 1.2,
+                    child: Center(
+                      child: Icon(
+                        Iconsax.eye,
+                        color: BakoColors.white,
                       ),
                     ),
-                    
-                    ],
-                    
-                  )
-      
-      
+                  ),
+                ),
+              ],
+            )
+
             // Details
           ],
         ),

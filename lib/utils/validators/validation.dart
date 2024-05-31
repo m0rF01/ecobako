@@ -74,4 +74,66 @@ class BakoValidator {
 
     return null;
   }
+
+  static String? validateStringAlphabetic(String? fieldName, String? value) {
+    if (value == null || value.isEmpty) {
+      return "$fieldName is required.";
+    }
+
+    final nameRegExp = RegExp(r'^[a-zA-Z]+$');
+
+    if (!nameRegExp.hasMatch(value)) {
+      return "$fieldName must contain only alphabetic characters.";
+    }
+
+    return null;
+  }
+
+  static String? validateAddress(String? fieldName, String? value) {
+    if (value == null || value.isEmpty) {
+      return "$fieldName is required.";
+    }
+
+    final alphanumericSpecialCharRegExp = RegExp(r'^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]+$');
+
+    if (!alphanumericSpecialCharRegExp.hasMatch(value)) {
+      return "$fieldName must contain only alphanumeric and special characters.";
+    }
+
+    return null;
+  }
+
+   static String? validateAlphanumeric(String? fieldName, String? value) {
+    if (value == null || value.isEmpty) {
+      return "$fieldName is required.";
+    }
+
+    final alphanumericRegExp = RegExp(r'^[a-zA-Z0-9]+$');
+
+    if (!alphanumericRegExp.hasMatch(value)) {
+      return "$fieldName must contain only alphanumeric characters.";
+    }
+
+    return null;
+  }
+
+  static String? validateAge(String? fieldname, String? value) {
+    if (value == null || value.isEmpty) {
+      return "Age is required.";
+    }
+
+    final ageRegExp = RegExp(r'^[0-9]+$');
+
+    if (!ageRegExp.hasMatch(value)) {
+      return "Age must be a numeric value.";
+    }
+
+    int age = int.parse(value);
+
+    if (age < 7 || age > 100) {
+      return "Age must be between 7 years old and 100 years old.";
+    }
+
+    return null;
+  }
 }

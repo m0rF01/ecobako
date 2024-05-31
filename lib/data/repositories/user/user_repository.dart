@@ -15,7 +15,6 @@ class UserRepository extends GetxController {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final _storage = FirebaseStorage.instance;
 
-
   // //fx to save user data to firestore
   // Future<void> saveUserRecord(UserModel user) async {
   //   try{
@@ -173,7 +172,7 @@ class UserRepository extends GetxController {
   }
 
 // Function to check if the user already has a qr code id or not
-    Future<bool> checkUserQR(String userId) async {
+  Future<bool> checkUserQR(String userId) async {
     try {
       final docSnapshot = await _db.collection('Users').doc(userId).get();
       final userQR = docSnapshot.data()?['UserQR'];
@@ -184,7 +183,7 @@ class UserRepository extends GetxController {
   }
 
 // Generate User qr code, render in image format and save in database
-   Future<String> generateAndSaveQRCode(String userId) async {
+  Future<String> generateAndSaveQRCode(String userId) async {
     try {
       // Generate QR code
       final qrData = userId;
@@ -207,7 +206,8 @@ class UserRepository extends GetxController {
       final imageData = picData!.buffer.asUint8List();
 
       // Upload QR code image to Firebase Storage
-      final storageRef = _storage.ref().child('Users/Images/qr_codes/$userId.png');
+      final storageRef =
+          _storage.ref().child('Users/Images/qr_codes/$userId.png');
       await storageRef.putData(imageData);
 
       // Get download URL of the uploaded QR code image
@@ -225,32 +225,70 @@ class UserRepository extends GetxController {
   }
 
 // fetch transaction history data
- Future<List<TransactionModel>> fetchTransactions(String userId) async {
-  try {
-    final querySnapshot = await _db
-        .collection('Transactions')
-        .where('userId', isEqualTo: userId)
-        // .orderBy('date', descending: true) 
-        .get();
-    if (querySnapshot.docs.isNotEmpty) {
-      return querySnapshot.docs
-          .map((doc) => TransactionModel.fromSnapshot(doc))
-          .toList();
-    } else {
-      return [];
+  Future<List<TransactionModel>> fetchTransactions(String userId) async {
+    try {
+      final querySnapshot = await _db
+          .collection('Transactions')
+          .where('userId', isEqualTo: userId)
+          .orderBy('date', descending: true)
+          .limit(5)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        return querySnapshot.docs
+            .map((doc) => TransactionModel.fromSnapshot(doc))
+            .toList();
+      } else {
+        print("No data found");
+        return [];
+      }
+    } on FirebaseException catch (e) {
+      throw "Error1 - FT ${e.message}";
+    } on FormatException catch (e) {
+      throw "Error2 - FT ${e.message}";
+    } on PlatformException catch (e) {
+      throw "Error3 - FT ${e.message}";
+    } catch (e) {
+      throw "Something went wrong, Please try again - FT";
     }
-  } on FirebaseException catch (e) {
-    throw "Error1 - FT ${e.message}";
-  } on FormatException catch (e) {
-    throw "Error2 - FT ${e.message}";
-  } on PlatformException catch (e) {
-    throw "Error3 - FT ${e.message}";
-  } catch (e) {
-    throw "Something went wrong, Please try again - FT";
+  }
+
+  Future<List<TransactionModel>> fetchDetailsTransactions(String userId,
+      [DateTime? startDate, DateTime? endDate]) async {
+    try {
+      Query query = _db
+          .collection('Transactions')
+          .where('userId', isEqualTo: userId)
+          .orderBy('date', descending: true);
+
+      if (startDate != null && endDate != null) {
+        // Set endDate to the end of the day
+        endDate =
+            DateTime(endDate.year, endDate.month, endDate.day, 23, 59, 59, 999);
+        query = query
+            .where('date', isGreaterThanOrEqualTo: startDate)
+            .where('date', isLessThanOrEqualTo: endDate);
+      }
+
+      final querySnapshot = await query.get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        return querySnapshot.docs
+            .map((doc) => TransactionModel.fromSnapshot(
+                doc as QueryDocumentSnapshot<Map<String, dynamic>>))
+            .toList();
+      } else {
+        print("No data found");
+        return [];
+      }
+    } on FirebaseException catch (e) {
+      throw "Error1 - FDT ${e.message}";
+    } on FormatException catch (e) {
+      throw "Error2 - FDT ${e.message}";
+    } on PlatformException catch (e) {
+      throw "Error3 - FDT ${e.message}";
+    } catch (e) {
+      throw "Something went wrong, Please try again - FDT";
+    }
   }
 }
-
-
-  
-}
-

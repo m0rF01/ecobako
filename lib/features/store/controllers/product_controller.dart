@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/product/product_repository.dart';
+import 'package:ecobako_app/data/repositories/transaction/transaction_repository.dart';
 import 'package:ecobako_app/features/store/models/product_model.dart';
 import 'package:ecobako_app/features/store/screens/admin/store/admin_store.dart';
 import 'package:ecobako_app/features/store/screens/admin/store/user_store.dart';
@@ -34,6 +35,7 @@ class ProductController extends GetxController {
   GlobalKey<FormState> addProductFormKey = GlobalKey<FormState>();
   RxList<ProductModel> storeProducts = <ProductModel>[].obs;
   bool productDataFetched = false;
+  final transactionCollection = TransactionRepository();
 
   @override
   void onInit() {
@@ -301,6 +303,8 @@ class ProductController extends GetxController {
     required int quantity,
     required int totalCost,
     required int newBalance,
+    required String userid,
+    required String product,
   }) async {
     // Calculate new stock and new user balance
 
@@ -324,6 +328,12 @@ class ProductController extends GetxController {
       // Update user's EcoPoint balance
       await productRepository
           .updateUserEcoPointBalance(newUserBalance);
+       await transactionCollection.logTransaction(
+          userId: userid,
+          type: 'Deduct',
+          amount: totalCost,
+          description: 'Redeem Item: $product',);
+
       // Show success message
       BakoLoaders.successSnackBar(
           title: "Congratulations",

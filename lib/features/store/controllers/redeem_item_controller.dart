@@ -1,5 +1,6 @@
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/product/product_repository.dart';
+import 'package:ecobako_app/features/personalization/controllers/user_controller.dart';
 import 'package:ecobako_app/features/store/screens/user/product_details/user_product_redeem_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class RedeemItemController extends GetxController {
   final productIdController = TextEditingController();
   final quantityController = TextEditingController();
   final productRepository = ProductRepository();
+  final userController = UserController();
   // final FirebaseService _firebaseService = FirebaseService();
 
   final productId = ''.obs;
@@ -38,6 +40,7 @@ class RedeemItemController extends GetxController {
         userEcoPointBalance: validationResult["userEcoPointBalance"],
         productName: validationResult["productName"],
         productPrice: validationResult["productPrice"],
+        userId: validationResult["userId"],
       ));
     } else {
      final errorMessage = validationResult['errorMessage'] ?? 'Unknown error occurred';
@@ -65,6 +68,8 @@ Future<Map<String, dynamic>> validateRedemption() async {
 
   // final userEcoPointBalance = int.tryParse(userEcoPointBalanceString) ?? 0;
   final userEcoPointBalance = await productRepository.getUserEcoPointBalance();
+  final userId = await userController.getCurrentUserId();
+  
 
   // final userEcoPointBalance = int.tryParse(userEcoPointBalanceString) ?? 0;
   final totalCost = productPrice * quantity;
@@ -79,7 +84,7 @@ Future<Map<String, dynamic>> validateRedemption() async {
   }
 
   // Return validation result with validated values
-  return {'isValid': true, 'productId': productId, 'quantity': quantity, 'totalCost': totalCost, 'userEcoPointBalance' : userEcoPointBalance,  'productName':productName, 'productPrice': productPrice};
+  return {'isValid': true, 'productId': productId, 'quantity': quantity, 'totalCost': totalCost, 'userEcoPointBalance' : userEcoPointBalance,  'productName':productName, 'productPrice': productPrice, "userId": userId};
 }
 
 void showErrorMessage(String errorMessage) {

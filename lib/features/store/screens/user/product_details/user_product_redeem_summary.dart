@@ -19,6 +19,7 @@ class SummaryPage extends StatelessWidget {
     required this.userEcoPointBalance,
     required this.productName,
     required this.productPrice,
+    required this.userId
   });
 
   final String productId;
@@ -27,6 +28,7 @@ class SummaryPage extends StatelessWidget {
   final int userEcoPointBalance;
   final String productName;
   final int productPrice;
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +104,9 @@ class SummaryPage extends StatelessWidget {
                       productId: productId,
                     quantity: quantity,
                     totalCost: totalCost,
-                    newBalance: newBalance
+                    newBalance: newBalance,
+                    userid:userId,
+                    product: productName
                     ),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: BakoColors.buttonPrimary,

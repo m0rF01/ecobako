@@ -1,11 +1,11 @@
 import 'package:ecobako_app/common/widget/custom_shape/containers/primary_header_container.dart';
 import 'package:ecobako_app/common/widget/custom_shape/containers/serach_container.dart';
 import 'package:ecobako_app/common/widget/texts/section_heading.dart';
-import 'package:ecobako_app/data/repositories/user/user_repository.dart';
 import 'package:ecobako_app/features/home/screens/user/widgets/home_appbar.dart';
 import 'package:ecobako_app/features/home/screens/user/widgets/home_bakopoint_section.dart';
 import 'package:ecobako_app/features/home/screens/user/widgets/home_transaction_history.dart';
 import 'package:ecobako_app/features/personalization/controllers/user_controller.dart';
+import 'package:ecobako_app/features/transaction/screens/transaction_history.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,14 +59,24 @@ class UserHomeScreen extends StatelessWidget {
                     const SizedBox(height: BakoSizes.spaceBtwSections),
                     BakoSectionHeading(
                       title: "Transaction History",
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(() => const TransactionHistoryScreen());
+                      },
                       icon: Iconsax.maximize_3,
                     ),
                     const SizedBox(height: BakoSizes.spaceBtwItems / 1.5),
 
                     // EcoBako Transaction History
-                    UserHomeTransactionHistory( transactions: controller.transactions),
-                   
+                    UserHomeTransactionHistory(
+                        transactions: controller.transactions),
+                    const SizedBox(height: BakoSizes.spaceBtwItems / 1.5),
+                    const Divider(),
+                    Center(
+                      child: Text(
+                          "Showing the 5 latest transactions. Head to full transaction history page for more details.",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodySmall),
+                    ),
                   ],
                 ),
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BakoColors{
+class BakoColors {
   BakoColors._();
 
 // App Basic Colors
@@ -14,11 +14,11 @@ class BakoColors{
     begin: Alignment(0.0, 0.0),
     end: Alignment(0.707, -0.707),
     colors: [
-    Color(0xFFFF9a9e),
-    Color(0xFFFAD0c4),
-    Color(0xFFFAD0C4),
-  ],
-);
+      Color(0xFFFF9a9e),
+      Color(0xFFFAD0c4),
+      Color(0xFFFAD0C4),
+    ],
+  );
 
 // Text Color
   static const Color textPrimary = Color(0xFF333333);

@@ -145,6 +145,8 @@
 //       );
 // }
 
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TransactionModel {
@@ -200,6 +202,18 @@ class TransactionModel {
     } else {
       throw Exception("Document data is null");
     }
+  }
+
+   factory TransactionModel.fromSnapshot2(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final data = snapshot.data();
+    return TransactionModel(
+      id: snapshot.id,
+      amount: data['amount'],
+      date: (data['date'] as Timestamp).toDate(),
+      description: data['description'],
+      type: data['type'],
+      userId: data['userId'],
+    );
   }
 
   static TransactionModel empty() => TransactionModel(

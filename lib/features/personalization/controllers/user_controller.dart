@@ -25,6 +25,8 @@ class UserController extends GetxController {
 
   final RxList<TransactionModel> transactions = <TransactionModel>[].obs;
   final RxBool dataFetched2 = false.obs;
+  var startDate = Rxn<DateTime>();
+  var endDate = Rxn<DateTime>();
 
   final hidePassword = false.obs;
   final imageUploading = false.obs;
@@ -67,37 +69,71 @@ class UserController extends GetxController {
     }
   }
 
-
   Future<void> fetchTransactions() async {
-  try {
-    final userId = await getCurrentUserId(); // Function to retrieve current user ID
-    print("I check dataFetched");
-    dataFetched2.value = false;
-    transactions.value = await userRepository.fetchTransactions(userId);
-  } catch (e) {
-    print('Error fetching transactions: $e');
-    transactions.value = [];
-  } finally {
-    dataFetched2.value = true;
+    try {
+      final userId =
+          await getCurrentUserId(); // Function to retrieve current user ID
+      print("I check dataFetched");
+      dataFetched2.value = false;
+      transactions.value = await userRepository.fetchTransactions(userId);
+    } catch (e) {
+      print('Error fetching transactions: $e');
+      transactions.value = [];
+    } finally {
+      dataFetched2.value = true;
+    }
   }
-}
+
+//  Future<void> fetchDetailsTransactions([DateTime? startDate, DateTime? endDate]) async {
+//     try {
+//       final userId = FirebaseAuth.instance.currentUser?.uid;
+//       if (userId == null) {
+//         throw Exception("User is not authenticated");
+//       }
+
+//       dataFetched2.value = false;
+//       transactions.value = await userRepository.fetchDetailsTransactions(userId, startDate, endDate);
+//       dataFetched2.value = true;
+//     } catch (e) {
+//       print('Error fetching transactions: $e');
+//       transactions.value = [];
+//       dataFetched2.value = true;
+//     }
+//   }
+
+  Future<void> fetchDetailsTransactions(
+      [DateTime? startDate, DateTime? endDate]) async {
+    try {
+      final userId = FirebaseAuth.instance.currentUser?.uid;
+      if (userId == null) {
+        throw Exception("User is not authenticated");
+      }
+
+      dataFetched2.value = true;
+      transactions.value = await userRepository.fetchDetailsTransactions(
+          userId, startDate, endDate);
+    } catch (e) {
+      print('Error fetching transactions: $e');
+      transactions.value = [];
+    } finally {
+      dataFetched2.value = false;
+    }
+  }
+
+  void setDateRange(DateTime start, DateTime end) {
+    startDate.value = start;
+    endDate.value = end;
+  }
 
   Future<String> getCurrentUserId() async {
-  final user = FirebaseAuth.instance.currentUser;
-  if (user != null) {
-    return user.uid;
-  } else {
-    // Handle case where user is not signed in
-    throw Exception("User is not signed in");
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return user.uid;
+    } else {
+      // Handle case where user is not signed in
+      throw Exception("User is not signed in");
+    }
   }
-}
-
-   
-  // void resetDataFetched2() {
-  //   dataFetched2.value = false;
-  // }
-
-
 
   void resetDataFetched() {
     dataFetched = false;
