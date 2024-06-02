@@ -43,7 +43,7 @@ class UserStoreScreen extends StatelessWidget {
                   ],
                 ),
               ),
-        
+
               //body
               Padding(
                 padding: const EdgeInsets.all(BakoSizes.defaultSpace),
@@ -63,7 +63,7 @@ class UserStoreScreen extends StatelessWidget {
                             child: Text("No Data Found!",
                                 style: Theme.of(context).textTheme.bodyMedium));
                       }
-                      
+
                       return BakoGridLayout(
                         itemCount: controller.storeProducts.length,
                         itemBuilder: (_, index) => BakoUserItemCardVertical(

@@ -73,7 +73,6 @@ class UserController extends GetxController {
     try {
       final userId =
           await getCurrentUserId(); // Function to retrieve current user ID
-      print("I check dataFetched");
       dataFetched2.value = false;
       transactions.value = await userRepository.fetchTransactions(userId);
     } catch (e) {

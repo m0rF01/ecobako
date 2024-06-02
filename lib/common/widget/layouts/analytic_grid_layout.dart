@@ -1,11 +1,11 @@
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
-class BakoGridLayout extends StatelessWidget {
-  const BakoGridLayout({
+class BakoAnalyticGridLayout extends StatelessWidget {
+  const BakoAnalyticGridLayout({
     super.key,
     required this.itemCount,
-    this.mainAxisExtent = 288,
+    this.mainAxisExtent = 180,
     required this.itemBuilder,
     this.crossAxisCount = 2,
   });

@@ -1,4 +1,5 @@
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
+import 'package:ecobako_app/features/dashboard/screens/user/user_dashboard.dart';
 import 'package:ecobako_app/features/personalization/screens/settings/settings.dart';
 import 'package:ecobako_app/features/home/screens/user/home.dart';
 import 'package:ecobako_app/features/module/screens/user/user_module.dart';
@@ -67,9 +68,7 @@ class UserNavigationController extends GetxController {
   final screens = [
     const UserHomeScreen(),
     const UserModuleScreen(),
-    Container(
-      color: Colors.orange,
-    ),
+    const UserDashboardScreen(),
     const UserSettingScreen()
   ];
 }

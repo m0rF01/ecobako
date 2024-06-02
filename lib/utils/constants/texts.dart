@@ -36,13 +36,13 @@ class BakoTexts {
   //Admin login page details
   static const String adminLoginTitle = "Welcome back Admin";
   static const String adminLoginSubTitle = "Bright future start from here";
-  static const String adminID = "ID";
+  static const String adminEmail = "Email";
 
 
   // -- Authentication Forms
   static const String firstName = "First Name";
   static const String lastName = "Last Name";
-  static const String email = "E-Mail";
+  static const String email = "Email";
   static const String homeAddress = "Address";
   static const String postal = "Postal Code";
   static const String country = "Country";

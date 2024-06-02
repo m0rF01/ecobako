@@ -29,7 +29,7 @@ class AdminLoginForm extends StatelessWidget {
               validator: (value) => BakoValidator.validateEmail(value),
               decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.direct_right),
-                labelText: BakoTexts.adminID,
+                labelText: BakoTexts.adminEmail,
               ),
             ),
             const SizedBox(height: BakoSizes.spaceBtwInputFields),
@@ -68,14 +68,16 @@ class AdminLoginForm extends StatelessWidget {
               height: BakoSizes.spaceBtwItems,
             ),
 
-            SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                    onPressed: () => Get.to(() => const AdminSignupScreen()),
-                    style: OutlinedButton.styleFrom(
-                        side:
-                            const BorderSide(color: BakoColors.buttonPrimary)),
-                    child: const Text(BakoTexts.createAccount))),
+
+// Open only, want to add new admin 
+            // SizedBox(
+            //     width: double.infinity,
+            //     child: OutlinedButton(
+            //         onPressed: () => Get.to(() => const AdminSignupScreen()),
+            //         style: OutlinedButton.styleFrom(
+            //             side:
+            //                 const BorderSide(color: BakoColors.buttonPrimary)),
+            //         child: const Text(BakoTexts.createAccount))),
           ],
         ),
       ),
