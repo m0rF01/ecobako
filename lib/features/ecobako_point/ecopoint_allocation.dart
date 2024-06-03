@@ -87,7 +87,7 @@ class AdminPointAllocationScreen extends StatelessWidget {
                     TextFormField(
                       controller: controller.petWeight,
                       validator: (value) =>
-                          BakoValidator.validateEmptyText("PET Weight", value),
+                          BakoValidator.validateDecimalPlaces("PET Weight", value),
                       expands: false,
                       decoration: const InputDecoration(
                           labelText: BakoTexts.weightPET,
@@ -99,7 +99,7 @@ class AdminPointAllocationScreen extends StatelessWidget {
                     TextFormField(
                       controller: controller.hdpeWeight,
                       validator: (value) =>
-                          BakoValidator.validateEmptyText("HDPE Weight", value),
+                          BakoValidator.validateDecimalPlaces("HDPE Weight", value),
                       expands: false,
                       decoration: const InputDecoration(
                           labelText: BakoTexts.weightHDPE,
@@ -111,7 +111,7 @@ class AdminPointAllocationScreen extends StatelessWidget {
                     TextFormField(
                       controller: controller.ppWeight,
                       validator: (value) =>
-                          BakoValidator.validateEmptyText("PP Weight", value),
+                          BakoValidator.validateDecimalPlaces("PP Weight", value),
                       expands: false,
                       decoration: const InputDecoration(
                           labelText: BakoTexts.weightPP,

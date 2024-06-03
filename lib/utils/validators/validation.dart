@@ -136,4 +136,16 @@ class BakoValidator {
 
     return null;
   }
+
+  static String? validateDecimalPlaces(String fieldName, String? value) {
+    if (value == null || value.isEmpty) {
+      return '$fieldName is required';
+    }
+    // Regular expression to match values with exactly two decimal places
+    RegExp regex = RegExp(r'^\d+\.\d{2}$');
+    if (!regex.hasMatch(value)) {
+      return 'Please enter a valid $fieldName (e.g. 12.34)';
+    }
+    return null;
+  }
 }

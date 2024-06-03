@@ -1,4 +1,5 @@
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
+import 'package:ecobako_app/data/repositories/dashboard/user_dashboard_repository.dart';
 import 'package:ecobako_app/data/repositories/transaction/transaction_repository.dart';
 import 'package:ecobako_app/data/repositories/user/user_repository.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
@@ -16,7 +17,8 @@ class AdminPointController extends GetxController {
   final ppWeight = TextEditingController();
   GlobalKey<FormState> addPointFormKey = GlobalKey<FormState>();
   final userRepository = UserRepository();
-   final transactionCollection = TransactionRepository();
+  final transactionCollection = TransactionRepository();
+  final userDashboardRepository = UserDashboardRepository();
 
   Future <void> addUserPoints() async {
     try {
@@ -28,13 +30,15 @@ class AdminPointController extends GetxController {
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         BakoFullScreenLoader.stopLoading();
-        Get.snackbar("Error", "No internet connection.");
+        // Get.snackbar("Error", "No internet connection.");
+        BakoLoaders.errorSnackBar(title: "Oh Snap!", message: "No internet connection.");
         return;
       }
       // Form validation
       if (!addPointFormKey.currentState!.validate()) {
         BakoFullScreenLoader.stopLoading();
-        Get.snackbar("Error", "Form validation failed.");
+        // Get.snackbar("Error", "Form validation failed.");
+        BakoLoaders.errorSnackBar(title: "Oh Snap!", message: "Form validation failed.");
         return;
       }
 
@@ -49,7 +53,8 @@ class AdminPointController extends GetxController {
         petWeightValue = double.parse(petWeight.text);
       } catch (e) {
         BakoFullScreenLoader.stopLoading();
-        Get.snackbar("Error", "Invalid PET Weight value.");
+        // Get.snackbar("Error", "Invalid PET Weight value.");
+        BakoLoaders.errorSnackBar(title: "Oh Snap!", message: "Invalid PET Weight value.");
         return;
       }
 
@@ -57,7 +62,8 @@ class AdminPointController extends GetxController {
         hdpeWeightValue = double.parse(hdpeWeight.text);
       } catch (e) {
         BakoFullScreenLoader.stopLoading();
-        Get.snackbar("Error", "Invalid HDPE Weight value.");
+        // Get.snackbar("Error", "Invalid HDPE Weight value.");
+        BakoLoaders.errorSnackBar(title: "Oh Snap!", message: "Invalid HDPE Weight value.");
         return;
       }
 
@@ -65,7 +71,8 @@ class AdminPointController extends GetxController {
         ppWeightValue = double.parse(ppWeight.text);
       } catch (e) {
         BakoFullScreenLoader.stopLoading();
-        Get.snackbar("Error", "Invalid PP Weight value.");
+        // Get.snackbar("Error", "Invalid PP Weight value.");
+        BakoLoaders.errorSnackBar(title: "Oh Snap!", message: "Invalid PP Weight value.");
         return;
       }
 
@@ -73,19 +80,22 @@ class AdminPointController extends GetxController {
       double petPoints = petWeightValue * MaterialPrices.petPrice;
       double hdpePoints = hdpeWeightValue * MaterialPrices.hdpePrice;
       double ppPoints = ppWeightValue * MaterialPrices.ppPrice;
-
       // Calculate total points earned
       double totalPoints = petPoints + hdpePoints + ppPoints;
 
-      // Round down to the nearest integer
-      int roundedTotalPoints = totalPoints.floor();
+      // make it into 2 decimal places without round up
+      double truncatedTotalPoints = (totalPoints * 100).truncateToDouble() / 100;
+
+      // multiply by 100 to make it into logical points
+      int finalTotalPoints = (truncatedTotalPoints * 100).toInt(); // Multiply by 100
+
 
       // Fetch existing points
       final existingPoints =
           await userRepository.fetchUserEcoPoints(userid);
 
       // Adding new point with existing points
-      final newTotalPoints = existingPoints + roundedTotalPoints;
+      final newTotalPoints = existingPoints + finalTotalPoints;
 
       // Update user points with new total points
       await userRepository.updateUserEcoPoints(userid, newTotalPoints);
@@ -95,15 +105,25 @@ class AdminPointController extends GetxController {
       await transactionCollection.logTransaction(
           userId: userid,
           type: 'Add',
-          amount: roundedTotalPoints,
+          // amount: roundedTotalPoints,
+          amount: finalTotalPoints,
           description: 'EcoBako Points Added');
+      
+      // Update user dashboard data
+      await userDashboardRepository.updateUserDashboardData(
+        userid,
+        ppWeightValue,
+        petWeightValue,
+        hdpeWeightValue,
+        finalTotalPoints,
+      );
 
 
       // Stop loading and show success message
       BakoFullScreenLoader.stopLoading();
       BakoLoaders.successSnackBar(
           title: "Success",
-          message: "$roundedTotalPoints Point successfully added to the user account.");
+          message: "$finalTotalPoints Point successfully added to the user account.");
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
       BakoLoaders.errorSnackBar(title: "Oh Snappppp", message: e.toString());
@@ -119,8 +139,8 @@ class AdminPointController extends GetxController {
 }
 
 class MaterialPrices {
-  static const double petPrice = 1.0; // Price per kg for PET
-  static const double hdpePrice = 0.8; // Price per kg for HDPE
-  static const double ppPrice = 1.2; // Price per kg for PP
+  static const double petPrice = 0.15; // Price per kg for PET
+  static const double hdpePrice = 0.15; // Price per kg for HDPE
+  static const double ppPrice = 0.15; // Price per kg for PP
 }
 
