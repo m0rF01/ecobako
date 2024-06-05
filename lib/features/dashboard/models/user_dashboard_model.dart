@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecobako_app/features/dashboard/models/user_dashboard_constant.dart';
 
 class UserDashboardModel {
   String id;
@@ -25,7 +26,7 @@ class UserDashboardModel {
       pet: 0.0,
       hdpe: 0.0,
       totalEcoPoints: 0,
-      totalAllPlastic: 0.0, 
+      totalAllPlastic: 0.0,
       tierLevel: '');
 
   toJson() {
@@ -50,8 +51,55 @@ class UserDashboardModel {
       pet: data["TypePET"],
       hdpe: data["TypeHDPE"],
       totalEcoPoints: data["TotalEcoPoints"],
-      totalAllPlastic: data["TotalAllPlastic"], 
+      totalAllPlastic: data["TotalAllPlastic"],
       tierLevel: data["TierLevel"],
     );
   }
+
+  void updateTier() {
+    double totalCollectedPlastic = pp + pet + hdpe;
+    if (totalCollectedPlastic >= TierCriteria.expert) {
+      tierLevel = 'Expert';
+    } else if (totalCollectedPlastic >= TierCriteria.explorer) {
+      tierLevel = 'Explorer';
+    } else {
+      tierLevel = 'Newbie';
+    }
+  }
+
+  double getProgress() {
+    double progress = 0.0;
+    double totalCollectedPlastic = pp + pet + hdpe;
+    if (tierLevel == 'Newbie') {
+      progress = totalCollectedPlastic / TierCriteria.explorer;
+    } else if (tierLevel == 'Explorer') {
+      progress = (totalCollectedPlastic - TierCriteria.explorer) /
+                 (TierCriteria.expert - TierCriteria.explorer);
+    } else if (tierLevel == 'Expert') {
+      progress = 1.0; // Expert tier, progress is complete
+    }
+    return progress;
+  }
+
+  String getNextTier() {
+    if (tierLevel == 'Newbie') {
+      return 'Explorer';
+    } else if (tierLevel == 'Explorer') {
+      return 'Expert';
+    } else {
+      return 'none'; // Already at highest tier
+    }
+  }
+
+  double getNextTierThreshold() {
+    if (tierLevel == 'Newbie') {
+      return TierCriteria.explorer.toDouble();
+    } else if (tierLevel == 'Explorer') {
+      return TierCriteria.expert.toDouble();
+    } else {
+      return totalAllPlastic; // For expert, return the current total as there's no next tier
+    }
+  }
 }
+
+

@@ -17,7 +17,6 @@ class PieChartProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = BakoHelperFunctions.isDarkMode(context);
     final controller = UserDashboardController.instance;
-    const tierTargetedValue = 10;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
@@ -70,16 +69,54 @@ class PieChartProgressIndicator extends StatelessWidget {
                     width: size,
                     height: size,
                     child: Obx(() {
-                      final sections = showingSections();
-                      return PieChart(
-                        PieChartData(
-                          sections: sections,
-                          borderData: FlBorderData(show: false),
-                          sectionsSpace: 3,
-                          centerSpaceRadius: size / 4,
-                          startDegreeOffset: 270,
-                        ),
-                      );
+                      if (controller.isLoading.value) {
+                        return const BakoShimmerEffect(width: 10, height: 10);
+                      } else {
+                        final userDashboard =
+                            controller.userDashboardData.value;
+                        final progress = userDashboard.getProgress();
+                        final nextTier = userDashboard.getNextTier();
+                        // final nextTierThreshold = userDashboard.getNextTierThreshold();
+
+                        return Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            PieChart(
+                              PieChartData(
+                                sections: [
+                                  PieChartSectionData(
+                                    color: BakoColors.primary,
+                                    value: progress * 100,
+                                    radius: 50,
+                                    title: '${(progress * 100).toInt()}%',
+                                    titleStyle: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: BakoColors.primaryBackground,
+                                    ),
+                                  ),
+                                  PieChartSectionData(
+                                    color: BakoColors.darkGrey,
+                                    value: 100 - (progress * 100),
+                                    title: "",
+                                    radius: 50,
+                                  ),
+                                ],
+                                borderData: FlBorderData(show: false),
+                                sectionsSpace: 3,
+                                centerSpaceRadius: size / 4,
+                                startDegreeOffset: 270,
+                              ),
+                            ),
+                            if (nextTier != 'none')
+                              Text(
+                                'Next: $nextTier',
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
+                              ),
+                          ],
+                        );
+                      }
                     }),
                   );
                 },
@@ -89,9 +126,12 @@ class PieChartProgressIndicator extends StatelessWidget {
               if (controller.isLoading.value) {
                 return const BakoShimmerEffect(width: 10, height: 10);
               } else {
+                final userDashboard = controller.userDashboardData.value;
+                final nextTierThreshold = userDashboard.getNextTierThreshold();
                 return Text(
-                    "${controller.userDashboardData.value.totalAllPlastic.toString()} / $tierTargetedValue Kg",
-                    style: Theme.of(context).textTheme.headlineSmall!);
+                  "${userDashboard.totalAllPlastic} Kg / ${nextTierThreshold.toInt()} Kg",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                );
               }
             }),
             const SizedBox(height: BakoSizes.defaultSpace),
@@ -99,39 +139,5 @@ class PieChartProgressIndicator extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  List<PieChartSectionData> showingSections() {
-    final UserDashboardController controller = Get.find<UserDashboardController>();
-    const double remainingProgress = 1.0;
-    const double tierTargetedValue = 10;
-    final double progress = controller.userDashboardData.value.totalAllPlastic / tierTargetedValue;
-
-    final List<PieChartSectionData> sections = [];
-
-    sections.add(
-      PieChartSectionData(
-        color: BakoColors.primary,
-        value: progress,
-        radius: 50,
-        title: '${(progress * 100).toInt()}%',
-        titleStyle: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: BakoColors.primaryBackground,
-        ),
-      ),
-    );
-
-    sections.add(
-      PieChartSectionData(
-        color: BakoColors.darkGrey,
-        value: remainingProgress - progress,
-        title: "",
-        radius: 50,
-      ),
-    );
-
-    return sections;
   }
 }

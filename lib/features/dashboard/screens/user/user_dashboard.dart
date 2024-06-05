@@ -87,12 +87,10 @@ class UserDashboardScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(
                 height: BakoSizes.spaceBtwItems,
               ),
-              const PieChartProgressIndicator(
-              ),
+              const PieChartProgressIndicator(),
               const SizedBox(
                 height: BakoSizes.spaceBtwSections,
               ),

@@ -8,7 +8,8 @@ class UserDashboardRepository extends GetxController {
 
   final _db = FirebaseFirestore.instance;
 
-  Future<void> updateUserDashboardData(String userId, double pp, double pet, double hdpe, int totalEcoPoints) async {
+  Future<void> updateUserDashboardData(String userId, double pp, double pet,
+      double hdpe, int totalEcoPoints) async {
     final userDashboardRef = _db.collection('UserDashboard').doc(userId);
     final userDashboardSnapshot = await userDashboardRef.get();
 
@@ -30,15 +31,21 @@ class UserDashboardRepository extends GetxController {
         'TierLevel': 'Newbie', // default tier level
       });
     }
+    // Call updateTier after updating the dashboard data
+    final userDashboardSnapshotUpdated = await userDashboardRef.get();
+    if (userDashboardSnapshotUpdated.exists) {
+      final UserDashboardModel dashboardModel =
+          UserDashboardModel.fromSnapshot(userDashboardSnapshotUpdated);
+      dashboardModel.updateTier();
+      await userDashboardRef.update({'TierLevel': dashboardModel.tierLevel});
+    }
   }
 
- Future<UserDashboardModel> fetchUserDashboardData(String userId) async {
+  Future<UserDashboardModel> fetchUserDashboardData(String userId) async {
     try {
       print("Print from repo $userId");
-      final documentSnapshot = await _db
-          .collection("UserDashboard")
-          .doc(userId)
-          .get();
+      final documentSnapshot =
+          await _db.collection("UserDashboard").doc(userId).get();
       if (documentSnapshot.exists) {
         print(UserDashboardModel.fromSnapshot(documentSnapshot));
         return UserDashboardModel.fromSnapshot(documentSnapshot);
@@ -55,6 +62,4 @@ class UserDashboardRepository extends GetxController {
       throw "Something went wrong, Please try again - UR";
     }
   }
-
-
 }
