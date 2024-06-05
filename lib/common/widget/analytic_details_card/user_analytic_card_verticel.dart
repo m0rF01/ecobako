@@ -1,23 +1,33 @@
+import 'package:ecobako_app/common/widget/shimmers/shimmer.dart';
+import 'package:ecobako_app/features/dashboard/controllers/user_dashboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
+import 'package:get/get.dart';
 
 class UserAnalyticCardVertical extends StatelessWidget {
   const UserAnalyticCardVertical({
     super.key,
     this.showBackground = true,
+    required this.title, 
+    required this.value,
   });
 
   final bool showBackground;
+  final String title;
+  final String value;
+
 
   @override
   Widget build(BuildContext context) {
     final isDarkMode = BakoHelperFunctions.isDarkMode(context);
+    final controller = Get.find<UserDashboardController>();
 
     return GestureDetector(
       child: Container(
         width: 180,
+        height: 180,
         padding: const EdgeInsets.all(1),
         decoration: ShapeDecoration(
           color: showBackground
@@ -48,18 +58,35 @@ class UserAnalyticCardVertical extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'HDPE',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            Obx(() {
+                  if (controller.isLoading.value) {
+                    return const BakoShimmerEffect(width: 10, height: 10);
+                  } else {
+                    return Text(
+                      title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall!
+                    );
+                  }
+                }),
             const SizedBox(height: BakoSizes.spaceBtwItems / 2),
             Padding(
               padding: const EdgeInsets.only(
                   bottom: 10.0), // Adjust the top padding as needed
-              child: Text(
-                '1.5 KG',
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
+              child: 
+              Obx(() {
+                  if (controller.isLoading.value) {
+                    return const BakoShimmerEffect(width: 10, height: 10);
+                  } else {
+                    return Text(
+                      value,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                    );
+                  }
+                }),
             ),
           ],
         ),

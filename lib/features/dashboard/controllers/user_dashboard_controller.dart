@@ -1,50 +1,43 @@
-// // import 'package:ecobako_app/data/repositories/dashboard/user_dashboard_repository.dart';
-// // import 'package:ecobako_app/features/dashboard/models/user_dashboard_model.dart';
-// // import 'package:get/get.dart';
+import 'package:ecobako_app/data/repositories/dashboard/user_dashboard_repository.dart';
+import 'package:ecobako_app/features/dashboard/models/user_dashboard_model.dart';
+import 'package:ecobako_app/features/personalization/controllers/user_controller.dart';
+import 'package:get/get.dart';
 
-// // class UserDashboardController extends GetxController{
-// //   static UserDashboardController get instance => Get.find();
+class UserDashboardController extends GetxController {
+  static UserDashboardController get instance =>
+      Get.put(UserDashboardController());
 
-// //   final isLoading = false.obs;
-// //   RxList<UserDashboardModel> userDashbaord = <UserDashboardModel>[].obs;
-// //   final userDashbaordRepository = Get.put(UserDashbaordRepository());
+  final isLoading = false.obs;
+  final userDashboardRepository = UserDashboardRepository();
+  final userController = UserController();
+  bool dataFetched = false;
+  final RxBool dataFetched2 = false.obs;
+  Rx<UserDashboardModel> userDashboardData = UserDashboardModel.empty().obs;
 
-// //   Future<void> fetchUserDashboardData(String userId) async{
-// //     try {
-// //       isLoading.value = true;
-// //       final userData = await  userDashbaordRepository.getUserDashboardData(userId);
-// //       userDashbaord.value = userData;
-// //     } catch (e) {
-      
-// //     } finally{
-// //       isLoading.value = false;
-// //     }
-// //   }
+  @override
+  void onInit() {
+    super.onInit();
+    fetchUserRecord();
+  }
+  Future<void> fetchUserRecord() async {
+    try {
+      isLoading.value = true;
+      if (!dataFetched) {
+        final userId = await userController.getCurrentUserId();
+        final userDashboardData =
+            await userDashboardRepository.fetchUserDashboardData(userId);
+        this.userDashboardData(userDashboardData);
+        // dataFetched = true;
+      }
+    } catch (e) {
+      userDashboardData(UserDashboardModel.empty());
+    } finally {
+      dataFetched = true;
+      isLoading.value = false;
+    }
+  }
 
-
-// // }
-
-// import 'package:ecobako_app/data/repositories/dashboard/user_dashboard_repository.dart';
-// import 'package:ecobako_app/features/dashboard/models/user_dashboard_model.dart';
-// import 'package:get/get.dart';
-
-// class UserDashboardController extends GetxController {
-//   static UserDashboardController get instance => Get.find();
-
-//   final isLoading = false.obs;
-//   final userDashboard = UserDashboardModel(id: '').obs;
-//   final userDashboardRepository = UserDashboardRepository();
-
-//   Future<void> fetchUserDashboardData(String userId) async {
-//     try {
-//       isLoading.value = true;
-//       final userData = await userDashboardRepository.getUserDashboardData(userId);
-//       userDashboard.value = userData;
-//     } catch (e) {
-//       print("Error fetching user dashboard data: $e");
-//     } finally {
-//       isLoading.value = false;
-//     }
-//   }
-// }
-
+  void resetDataFetched() {
+    dataFetched = false;
+  }
+}

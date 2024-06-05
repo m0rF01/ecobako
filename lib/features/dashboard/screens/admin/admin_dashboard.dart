@@ -147,25 +147,25 @@ class AdminDashboardScreen extends StatelessWidget {
             const SizedBox(
               height: BakoSizes.spaceBtwItems / 2,
             ),
-            const PieChartProgressIndicator(
-              progress: 0.25,
-            ),
+            // const PieChartProgressIndicator(
+            //   progress: 0.25,
+            // ),
             const SizedBox(
               height: BakoSizes.spaceBtwItems,
             ),
-            Padding(
-              padding: const EdgeInsets.all(
-                BakoSizes.defaultSpace,
-              ),
-              child: Column(
-                children: [
-                  BakoAnalyticGridLayout(
-                    itemCount: 4,
-                    itemBuilder: (_, index) => const UserAnalyticCardVertical(),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(
+            //     BakoSizes.defaultSpace,
+            //   ),
+            //   child: Column(
+            //     children: [
+            //       BakoAnalyticGridLayout(
+            //         itemCount: 4,
+            //         itemBuilder: (_, index) => const UserAnalyticCardVertical(),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             const SizedBox(
               height: BakoSizes.spaceBtwSections,
             ),

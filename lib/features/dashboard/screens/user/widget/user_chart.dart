@@ -1,30 +1,29 @@
+import 'package:ecobako_app/common/widget/shimmers/shimmer.dart';
+import 'package:ecobako_app/features/dashboard/controllers/user_dashboard_controller.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/device/device_utility.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class PieChartProgressIndicator extends StatefulWidget {
-  const PieChartProgressIndicator(
-      {super.key, required this.progress, this.showBackground = true});
+class PieChartProgressIndicator extends StatelessWidget {
+  const PieChartProgressIndicator({super.key, this.showBackground = true});
 
-  final double progress;
   final bool showBackground;
 
   @override
-  State<StatefulWidget> createState() => PieChartProgressIndicatorState();
-}
-
-class PieChartProgressIndicatorState extends State<PieChartProgressIndicator> {
-  @override
   Widget build(BuildContext context) {
     final dark = BakoHelperFunctions.isDarkMode(context);
+    final controller = UserDashboardController.instance;
+    const tierTargetedValue = 10;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
       width: BakoDeviceUtils.getScreenWidth(context),
       decoration: ShapeDecoration(
-        color: widget.showBackground
+        color: showBackground
             ? dark
                 ? BakoColors.dark
                 : BakoColors.light
@@ -70,21 +69,31 @@ class PieChartProgressIndicatorState extends State<PieChartProgressIndicator> {
                   return SizedBox(
                     width: size,
                     height: size,
-                    child: PieChart(
-                      PieChartData(
-                        sections: showingSections(),
-                        borderData: FlBorderData(show: false),
-                        sectionsSpace: 0,
-                        centerSpaceRadius: size / 4,
-                        startDegreeOffset: 270,
-                      ),
-                    ),
+                    child: Obx(() {
+                      final sections = showingSections();
+                      return PieChart(
+                        PieChartData(
+                          sections: sections,
+                          borderData: FlBorderData(show: false),
+                          sectionsSpace: 3,
+                          centerSpaceRadius: size / 4,
+                          startDegreeOffset: 270,
+                        ),
+                      );
+                    }),
                   );
                 },
               ),
             ),
-            // const SizedBox(height: BakoSizes.defaultSpace),
-            Text('250/1000', style: Theme.of(context).textTheme.headlineSmall),
+            Obx(() {
+              if (controller.isLoading.value) {
+                return const BakoShimmerEffect(width: 10, height: 10);
+              } else {
+                return Text(
+                    "${controller.userDashboardData.value.totalAllPlastic.toString()} / $tierTargetedValue Kg",
+                    style: Theme.of(context).textTheme.headlineSmall!);
+              }
+            }),
             const SizedBox(height: BakoSizes.defaultSpace),
           ],
         ),
@@ -93,15 +102,19 @@ class PieChartProgressIndicatorState extends State<PieChartProgressIndicator> {
   }
 
   List<PieChartSectionData> showingSections() {
-    final double remainingProgress = 1.0 - widget.progress;
+    final UserDashboardController controller = Get.find<UserDashboardController>();
+    const double remainingProgress = 1.0;
+    const double tierTargetedValue = 10;
+    final double progress = controller.userDashboardData.value.totalAllPlastic / tierTargetedValue;
+
     final List<PieChartSectionData> sections = [];
 
     sections.add(
       PieChartSectionData(
         color: BakoColors.primary,
-        value: widget.progress,
+        value: progress,
         radius: 50,
-        title: '${(widget.progress * 100).toInt()}%',
+        title: '${(progress * 100).toInt()}%',
         titleStyle: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
@@ -113,7 +126,7 @@ class PieChartProgressIndicatorState extends State<PieChartProgressIndicator> {
     sections.add(
       PieChartSectionData(
         color: BakoColors.darkGrey,
-        value: remainingProgress,
+        value: remainingProgress - progress,
         title: "",
         radius: 50,
       ),

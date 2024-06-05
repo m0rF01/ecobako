@@ -39,6 +39,7 @@ class UserController extends GetxController {
   void onInit() {
     super.onInit();
     fetchUserRecord();
+    fetchTransactions();
   }
 
   // fetch user record

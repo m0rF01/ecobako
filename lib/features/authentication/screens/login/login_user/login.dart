@@ -28,13 +28,13 @@ class LoginScreen extends StatelessWidget {
               /// Form
               const BakoLoginForm(),
           
-              // Divider
-              BakoFormDivider(dividerText: BakoTexts.orSignInWith.capitalize!),
+              // // Divider
+              // BakoFormDivider(dividerText: BakoTexts.orSignInWith.capitalize!),
 
-              const SizedBox(height: BakoSizes.spaceBtwSections),
+              // const SizedBox(height: BakoSizes.spaceBtwSections),
 
               //Footer
-              const BakoSocialButton()
+              // const BakoSocialButton()
             ],
           ),)
       )

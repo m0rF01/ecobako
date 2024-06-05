@@ -1,20 +1,25 @@
+import 'package:ecobako_app/common/widget/shimmers/shimmer.dart';
+import 'package:ecobako_app/features/dashboard/controllers/user_dashboard_controller.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/device/device_utility.dart';
 import 'package:ecobako_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class TierCard extends StatelessWidget {
   const TierCard({
     super.key,
-    this.showBackground = true,
+    this.showBackground = true, 
   });
 
   final bool showBackground;
 
+
   @override
   Widget build(BuildContext context) {
     final dark = BakoHelperFunctions.isDarkMode(context);
+    final controller = Get.find<UserDashboardController>();
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
       width: BakoDeviceUtils.getScreenWidth(context),
@@ -73,8 +78,18 @@ class TierCard extends StatelessWidget {
               children: [
                 Text('Your Current Tier',
                     style: Theme.of(context).textTheme.bodySmall),
-                Text('Starter Tier',
-                    style: Theme.of(context).textTheme.headlineSmall),
+                 Obx(() {
+                  if (controller.isLoading.value) {
+                    return const BakoShimmerEffect(width: 10, height: 10);
+                  } else {
+                    return Text(
+                      controller.userDashboardData.value.tierLevel,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                    );
+                  }
+                }),
               ],
             ),
           ),
