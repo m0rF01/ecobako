@@ -80,7 +80,7 @@ class BakoValidator {
       return "$fieldName is required.";
     }
 
-    final nameRegExp = RegExp(r'^[a-zA-Z]+$');
+    final nameRegExp = RegExp(r'^[a-zA-Z ]+$');
 
     if (!nameRegExp.hasMatch(value)) {
       return "$fieldName must contain only alphabetic characters.";
@@ -94,7 +94,7 @@ class BakoValidator {
       return "$fieldName is required.";
     }
 
-    final alphanumericSpecialCharRegExp = RegExp(r'^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]+$');
+    final alphanumericSpecialCharRegExp = RegExp(r'^[a-zA-Z0-9!@#$%^&*(),.?":{}|<> ]+$');
 
     if (!alphanumericSpecialCharRegExp.hasMatch(value)) {
       return "$fieldName must contain only alphanumeric and special characters.";

@@ -2,6 +2,7 @@ import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/admin/admin_repository.dart';
 import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
+import 'package:ecobako_app/data/repositories/dashboard/user_dashboard_repository.dart';
 import 'package:ecobako_app/data/repositories/user/user_repository.dart';
 import 'package:ecobako_app/features/authentication/screens/signup/admin_signup/admin_verify_email.dart';
 import 'package:ecobako_app/features/authentication/screens/signup/user_signup/verify_email.dart';
@@ -86,6 +87,8 @@ class SignupController extends GetxController {
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
 
+     
+
       BakoFullScreenLoader.stopLoading();
 
       // Show Success Message
@@ -93,6 +96,7 @@ class SignupController extends GetxController {
           title: "Congratulations",
           message:
               "Your account has been created successfully! Verify email to continue");
+
 
       // Move to Verify Email Screen
       Get.to(() => VerifyEmailScreen(email: email.text.trim()));

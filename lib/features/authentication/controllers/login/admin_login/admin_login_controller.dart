@@ -68,10 +68,15 @@ class AdminLoginController extends GetxController {
 
   // Chechk role for admin and user then redirect to dedicated home page
   void redirectToHomePage(String? role) async {
-    if (role == null || role.isEmpty) {
+    if (role == "user"||role == null || role.isEmpty) {
       // Handle the case when the role is not found
       BakoFullScreenLoader.stopLoading();
-      Get.offAll(() => const ChooseRole());
+      // Get.offAll(() => const ChooseRole());
+      BakoLoaders.errorSnackBar(
+          title: "Invalid role",
+          message:
+              "This account/credential does not have access to this account.");
+      return;
     } else if (role == "admin") {
       BakoFullScreenLoader.stopLoading();
       await AdminAuthenticationRepository.instance.adminScreenRedirect();

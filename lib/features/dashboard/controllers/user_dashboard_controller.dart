@@ -18,6 +18,7 @@ class UserDashboardController extends GetxController {
   void onInit() {
     super.onInit();
     fetchUserRecord();
+
   }
   Future<void> fetchUserRecord() async {
     try {
@@ -36,6 +37,25 @@ class UserDashboardController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  Future<void> setDefaultDashboardValues() async {
+    try {
+      isLoading.value = true;
+      if (!dataFetched) {
+        final userId = await userController.getCurrentUserId();
+        print(userId);
+        await userDashboardRepository.setDefaultDashboardValues(userId);
+        // this.userDashboardData(userDashboardData);
+        // dataFetched = true;
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      dataFetched = true;
+      isLoading.value = false;
+    }
+  }
+  
 
   void resetDataFetched() {
     dataFetched = false;

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/common/widget/success_screen/success_screen.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
+import 'package:ecobako_app/data/repositories/dashboard/user_dashboard_repository.dart';
+import 'package:ecobako_app/features/dashboard/controllers/user_dashboard_controller.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,6 +38,8 @@ class VerifyEmailController extends GetxController {
       final user = FirebaseAuth.instance.currentUser;
       if (user?.emailVerified ?? false) {
         timer.cancel();
+        final userDashboardController = Get.put(UserDashboardController());
+        await userDashboardController.setDefaultDashboardValues();
         Get.off(
           () => SuccessScreen(
             image: BakoImages.sccessfullyRegisterAnimation,
@@ -57,6 +61,9 @@ class VerifyEmailController extends GetxController {
       // final qrCodeUrl =
       //     await userRepository.generateAndUploadQRCode(currentUser.uid);
       // await userRepository.updateUserQR(currentUser.uid, qrCodeUrl);
+      final userDashboardController = Get.put(UserDashboardController());
+      await userDashboardController.setDefaultDashboardValues();
+
 
       Get.off(
         () => SuccessScreen(
