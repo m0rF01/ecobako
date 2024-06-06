@@ -1,4 +1,5 @@
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
+import 'package:ecobako_app/data/repositories/dashboard/admin_dashboard_repository.dart';
 import 'package:ecobako_app/data/repositories/dashboard/user_dashboard_repository.dart';
 import 'package:ecobako_app/data/repositories/transaction/transaction_repository.dart';
 import 'package:ecobako_app/data/repositories/user/user_repository.dart';
@@ -19,6 +20,7 @@ class AdminPointController extends GetxController {
   final userRepository = UserRepository();
   final transactionCollection = TransactionRepository();
   final userDashboardRepository = UserDashboardRepository();
+  final adminDashboardRepository = AdminDashboardRepository();
 
   Future <void> addUserPoints() async {
     try {
@@ -111,6 +113,14 @@ class AdminPointController extends GetxController {
       
       // Update user dashboard data
       await userDashboardRepository.updateUserDashboardData(
+        userid,
+        ppWeightValue,
+        petWeightValue,
+        hdpeWeightValue,
+        finalTotalPoints,
+      );
+
+      await adminDashboardRepository.addAdminDashboardData(
         userid,
         ppWeightValue,
         petWeightValue,
