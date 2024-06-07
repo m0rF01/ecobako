@@ -120,6 +120,7 @@ class AdminPointController extends GetxController {
         finalTotalPoints,
       );
 
+      // Update admin dashboard data
       await adminDashboardRepository.addAdminDashboardData(
         userid,
         ppWeightValue,
