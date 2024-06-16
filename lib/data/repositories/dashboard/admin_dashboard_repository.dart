@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class AdminDashboardRepository extends GetxController {
   static AdminDashboardRepository get instance => Get.find();
+  
 
   final _db = FirebaseFirestore.instance;
   Future<void> addAdminDashboardData(String userId, double pp, double pet,
@@ -50,4 +51,90 @@ class AdminDashboardRepository extends GetxController {
       throw Exception("Something went wrong, Please try again - FADD");
     }
   }
+
+  
+
+Future<List<Map<String, dynamic>>> getAdminDashboardDataByDateFilter(
+  [DateTime? selectedStartDate, DateTime? selectedEndDate]
+) async {
+  try {
+    // make sure end date end with 23:59:59
+    if (selectedEndDate != null) {
+      selectedEndDate = DateTime(selectedEndDate.year, selectedEndDate.month, selectedEndDate.day, 23, 59, 59, 999);
+    }
+    // Query documents where the date field is between startDate and endDate
+    
+    final querySnapshot = await _db.collection("AdminDashboard")
+        .where('date', isGreaterThanOrEqualTo: selectedStartDate)
+        .where('date', isLessThanOrEqualTo: selectedEndDate)
+        .get();
+
+    // Extract and return data from each document
+    return querySnapshot.docs.map((doc) => doc.data()).toList();
+  } on FirebaseException catch (e) {
+    print("FirebaseException - FADD: ${e.message}");
+    throw Exception("Error1 - FADD ${e.message}");
+  } on FormatException catch (e) {
+    print("FormatException - FADD: ${e.message}");
+    throw Exception("Error2 - FADD ${e.message}");
+  } on PlatformException catch (e) {
+    print("PlatformException - FADD: ${e.message}");
+    throw Exception("Error3 - FADD ${e.message}");
+  } catch (e) {
+    print("Unknown Exception - FADD: ${e.toString()}");
+    throw Exception("Something went wrong, Please try again - FADD");
+  }
 }
+   // Function to fetch username by UserID
+  // Future<void> fetchUsernameByUserId(String userId) async {
+  //   try {
+  //     final userDoc = await _db.collection('Users').doc(userId).get();
+  //     if (userDoc.exists) {
+  //       mostPerformantUsername.value = userDoc.data()?['username'] ?? '';
+  //     } else {
+  //       mostPerformantUsername.value = 'Unknown User';
+  //     }
+  //   } catch (e) {
+  //     mostPerformantUsername.value = 'Error fetching username';
+  //   }
+  // }
+
+  // Future<int> fetchTotalUsers() async {
+  //   try {
+  //     final querySnapshot = await _db.collection('Users').get();
+  //     return querySnapshot.size;
+  //   } catch (e) {
+  //     return 0;
+  //   }
+  // }
+
+  Future<Map<String, int>> fetchGenderStatistics() async {
+    try {
+      final querySnapshot = await _db.collection('Users').get();
+
+      int maleCount = 0;
+      int femaleCount = 0;
+
+      // Iterate over each document in the query snapshot
+      for (var doc in querySnapshot.docs) {
+        final gender = doc['Gender'] ?? '';
+        if (gender.toLowerCase() == 'male') {
+          maleCount++;
+        } else if (gender.toLowerCase() == 'female') {
+          femaleCount++;
+        }
+      }
+
+      return {
+        'maleUsers': maleCount,
+        'femaleUsers': femaleCount,
+      };
+    } catch (e) {
+      return {
+        'maleUsers': 0,
+        'femaleUsers': 0,
+      };
+    }
+  }
+}
+

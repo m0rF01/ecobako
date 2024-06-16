@@ -75,16 +75,15 @@ class BarGraphUserInformation extends StatelessWidget {
                         // final adminDashboard =
                         //     controller.adminDashboardData.value;
                         // final adminDashboardData = controller.adminDashboardData2.value;
-                        final totalTypeHDPESum =
-                            controller.totalTypeHDPESum.value;
-                        final totalTypePPSum = controller.totalTypePPSum.value;
-                        final totalTypePETSum =
-                            controller.totalTypePETSum.value;
+                        final male =
+                            controller.maleUsers.value;
+                        final female = controller.femaleUsers.value;
+                    
 
                         // Calculate the maximum value
                         final maxY = [
-                          totalTypeHDPESum,
-                          totalTypePPSum,
+                          male,
+                          female,
                         ].reduce((a, b) => a > b ? a : b);
 
                         return BarChart(
@@ -108,10 +107,10 @@ class BarGraphUserInformation extends StatelessWidget {
                                     String text;
                                     switch (value.toInt()) {
                                       case 0:
-                                        text = 'PP';
+                                        text = 'Male';
                                         break;
                                       case 1:
-                                        text = 'PET';
+                                        text = 'Female';
                                         break;
                                       default:
                                         text = '';
@@ -141,7 +140,7 @@ class BarGraphUserInformation extends StatelessWidget {
                                 x: 0,
                                 barRods: [
                                   BarChartRodData(
-                                    toY: totalTypePPSum,
+                                    toY: male.toDouble(),
                                     // toY: adminDashboard.pp,
                                     gradient: const LinearGradient(
                                       colors: [
@@ -159,7 +158,7 @@ class BarGraphUserInformation extends StatelessWidget {
                                 x: 1,
                                 barRods: [
                                   BarChartRodData(
-                                    toY: totalTypePETSum,
+                                    toY: female.toDouble(),
                                     // toY: adminDashboard.pet,
                                     gradient: const LinearGradient(
                                       colors: [
@@ -176,7 +175,7 @@ class BarGraphUserInformation extends StatelessWidget {
                             ],
                             gridData: const FlGridData(show: false),
                             alignment: BarChartAlignment.spaceAround,
-                            maxY: maxY * 1.2,
+                            maxY: maxY * 2,
                           ),
                         );
                       }

@@ -1,6 +1,7 @@
 import 'package:ecobako_app/common/widget/analytic_details_card/admin_analytic_card_verticle.dart';
 import 'package:ecobako_app/features/dashboard/controllers/admin_dashboard_controller.dart';
 import 'package:ecobako_app/features/dashboard/screens/admin/widget/admin_dashboard_chart1.dart';
+import 'package:ecobako_app/features/dashboard/screens/admin/widget/admin_dashboard_chart2.dart';
 import 'package:ecobako_app/features/dashboard/screens/admin/widget/filter_date.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,323 +11,8 @@ import 'package:ecobako_app/common/widget/custom_shape/containers/primary_header
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 
-// // class AdminDashboardScreen extends StatelessWidget {
-// //   AdminDashboardScreen({super.key});
-
-// //   final FilterController _filterController = Get.put(FilterController());
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     final controller = AdminDashboardController.instance;
-// //     // final controller2 = UserDashboardController.instance;
-// //     // final totalEcoPointsSum = controller.totalEcoPointsSum.value;
-// //     return Scaffold(
-// //       body: RefreshIndicator(
-// //         onRefresh: () async {
-// //           controller.resetDataFetched(); // Reset dataFetched flag
-// //           await controller.fetchAdminDashboardData();
-// //           // await controller.fetchTransactions(); // Fetch user record again
-// //         },
-// //         child: SingleChildScrollView(
-// //           physics: const AlwaysScrollableScrollPhysics(),
-// //           child: Column(
-// //             children: [
-// //               BakoPrimaryHeaderContainer(
-// //                 child: Column(
-// //                   children: [
-// //                     BakoAppBar(
-// //                       title: Row(
-// //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-// //                         children: [
-// //                           Text(
-// //                             "Performance Analytics",
-// //                             style: Theme.of(context)
-// //                                 .textTheme
-// //                                 .headlineMedium!
-// //                                 .apply(color: BakoColors.white),
-// //                           ),
-// //                           IconButton(
-// //                             icon: const Icon(Iconsax.filter,
-// //                                 color: BakoColors.white),
-// //                             onPressed: () => BottomSheetHelper.openBottomSheet(
-// //                                 context, _filterController),
-// //                           ),
-// //                         ],
-// //                       ),
-// //                     ),
-// //                     const SizedBox(height: BakoSizes.spaceBtwSections),
-// //                   ],
-// //                 ),
-// //               ),
-// //               const SizedBox(
-// //                 height: BakoSizes.spaceBtwItems / 2,
-// //               ),
-// //               // const PieChartProgressIndicator(),
-// //               // const PieChartProgressIndicator(
-// //               const BarGraphPlasticInformation(),
-// //               //   progress: 0.25,
-// //               // ),
-// //               const SizedBox(
-// //                 height: BakoSizes.spaceBtwItems,
-// //               ),
-// //               Padding(
-// //                 padding: const EdgeInsets.all(BakoSizes.defaultSpace),
-// //                 child: Column(
-// //                   children: [
-// //                     Row(
-// //                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-// //                       children: [
-// //                         Obx(() => AdminAnalyticCardVertical(
-// //                               title: 'PP',
-// //                               value:
-// //                                   "${controller.totalTypePPSum.value} Kg",
-// //                             )),
-// //                         Obx(() => AdminAnalyticCardVertical(
-// //                               title: 'PET',
-// //                               value:
-// //                                   "${controller.totalTypePETSum.value} Kg",
-// //                             )),
-// //                       ],
-// //                     ),
-// //                     const SizedBox(height: BakoSizes.spaceBtwItems),
-// //                     Row(
-// //                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-// //                       children: [
-// //                         Obx(() => AdminAnalyticCardVertical(
-// //                               title: 'HDPE',
-// //                               value:
-// //                                   "${controller.totalTypeHDPESum.value} Kg",
-// //                             )),
-// //                         Obx(() => AdminAnalyticCardVertical(
-// //                               title: 'Total Recycled Plastic',
-// //                               value:
-// //                                   "${controller.totalAllPlasticSum.value} Kg",
-// //                             )),
-// //                       ],
-// //                     ),
-// //                   ],
-// //                 ),
-// //               ),
-// //               const SizedBox(
-// //                 height: BakoSizes.spaceBtwSections,
-// //               ),
-// //               ElevatedButton(
-// //                   onPressed: () {}, child: const Text("Download Data")),
-// //               const SizedBox(
-// //                 height: BakoSizes.spaceBtwSections,
-// //               ),
-// //             ],
-// //           ),
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
-
-// // class FilterController extends GetxController {
-// //   var selectedType = ''.obs;
-// //   var selectedStartDate = Rxn<DateTime>();
-// //   var selectedEndDate = Rxn<DateTime>();
-
-// //   void resetFilters() {
-// //     selectedType.value = '';
-// //     selectedStartDate.value = null;
-// //     selectedEndDate.value = null;
-// //   }
-// // }
-
-
-// // // class AdminDashboardScreen extends StatelessWidget {
-// // //   AdminDashboardScreen({super.key});
-
-// // //   final FilterController _filterController = Get.put(FilterController());
-// // //   final AdminDashboardController controller = AdminDashboardController.instance;
-
-// // //   @override
-// // //   Widget build(BuildContext context) {
-// // //     return Scaffold(
-// // //       body: RefreshIndicator(
-// // //         onRefresh: () async {
-// // //           controller.resetDataFetched(); // Reset dataFetched flag
-// // //           await controller.fetchAdminDashboardData();
-// // //         },
-// // //         child: SingleChildScrollView(
-// // //           physics: const AlwaysScrollableScrollPhysics(),
-// // //           child: Column(
-// // //             children: [
-// // //               BakoPrimaryHeaderContainer(
-// // //                 child: Column(
-// // //                   children: [
-// // //                     BakoAppBar(
-// // //                       title: Row(
-// // //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-// // //                         children: [
-// // //                           Text(
-// // //                             "Performance Analytics",
-// // //                             style: Theme.of(context)
-// // //                                 .textTheme
-// // //                                 .headlineMedium!
-// // //                                 .apply(color: BakoColors.white),
-// // //                           ),
-// // //                           IconButton(
-// // //                             icon: const Icon(Iconsax.filter,
-// // //                                 color: BakoColors.white),
-// // //                             onPressed: () => BottomSheetHelper.openBottomSheet(
-// // //                                 context, _filterController),
-// // //                           ),
-// // //                         ],
-// // //                       ),
-// // //                     ),
-// // //                     const SizedBox(height: BakoSizes.spaceBtwSections),
-// // //                   ],
-// // //                 ),
-// // //               ),
-// // //               const SizedBox(
-// // //                 height: BakoSizes.spaceBtwItems / 2,
-// // //               ),
-// // //               DashboardHelper.buildChartWidget(_filterController, controller),
-// // //               const SizedBox(
-// // //                 height: BakoSizes.spaceBtwItems,
-// // //               ),
-// // //               Padding(
-// // //                 padding: const EdgeInsets.all(BakoSizes.defaultSpace),
-// // //                 child: Column(
-// // //                   children: DashboardHelper.buildAnalyticCards(_filterController, controller), // Call the method from DashboardHelper class
-// // //                 ),
-// // //               ),
-// // //               const SizedBox(
-// // //                 height: BakoSizes.spaceBtwSections,
-// // //               ),
-// // //               ElevatedButton(
-// // //                   onPressed: () {}, child: const Text("Download Data")),
-// // //               const SizedBox(
-// // //                 height: BakoSizes.spaceBtwSections,
-// // //               ),
-// // //             ],
-// // //           ),
-// // //         ),
-// // //       ),
-// // //     );
-// // //   }
-// // // }
-
-
-
-
-// class AdminDashboardScreen extends StatelessWidget {
-//   const AdminDashboardScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final controller = AdminDashboardController.instance;
-//     final  filterController = Get.put(FilterController());
-//     // final controller2 = UserDashboardController.instance;
-//     // final totalEcoPointsSum = controller.totalEcoPointsSum.value;
-//     return Scaffold(
-//       body: RefreshIndicator(
-//         onRefresh: () async {
-//           controller.resetDataFetched(); // Reset dataFetched flag
-//           await controller.fetchAdminDashboardData();
-//           // await controller.fetchTransactions(); // Fetch user record again
-//         },
-//         child: SingleChildScrollView(
-//           physics: const AlwaysScrollableScrollPhysics(),
-//           child: Column(
-//             children: [
-//               BakoPrimaryHeaderContainer(
-//                 child: Column(
-//                   children: [
-//                     BakoAppBar(
-//                       title: Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           Text(
-//                             "Performance Analytics",
-//                             style: Theme.of(context)
-//                                 .textTheme
-//                                 .headlineMedium!
-//                                 .apply(color: BakoColors.white),
-//                           ),
-//                           IconButton(
-//                             icon: const Icon(Iconsax.filter,
-//                                 color: BakoColors.white),
-//                             onPressed: () => showModalBottomSheet(
-//                               context: context,
-//                               builder: (context) => const FilterDateBottomSheet(),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     const SizedBox(height: BakoSizes.spaceBtwSections),
-//                   ],
-//                 ),
-//               ),
-//               const SizedBox(
-//                 height: BakoSizes.spaceBtwItems / 2,
-//               ),
-//               const BarGraphPlasticInformation(),
-//               const SizedBox(
-//                 height: BakoSizes.spaceBtwItems,
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.all(BakoSizes.defaultSpace),
-//                 child: Column(
-//                   children: [
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                       children: [
-//                         Obx(() => AdminAnalyticCardVertical(
-//                               title: 'PP',
-//                               value:
-//                                   "${controller.totalTypePPSum.value} Kg",
-//                             )),
-//                         Obx(() => AdminAnalyticCardVertical(
-//                               title: 'PET',
-//                               value:
-//                                   "${controller.totalTypePETSum.value} Kg",
-//                             )),
-//                       ],
-//                     ),
-//                     const SizedBox(height: BakoSizes.spaceBtwItems),
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                       children: [
-//                         Obx(() => AdminAnalyticCardVertical(
-//                               title: 'HDPE',
-//                               value:
-//                                   "${controller.totalTypeHDPESum.value} Kg",
-//                             )),
-//                         Obx(() => AdminAnalyticCardVertical(
-//                               title: 'Total Recycled Plastic',
-//                               value:
-//                                   "${controller.totalAllPlasticSum.value} Kg",
-//                             )),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               const SizedBox(
-//                 height: BakoSizes.spaceBtwSections,
-//               ),
-//               ElevatedButton(
-//                   onPressed: () {}, child: const Text("Download Data")),
-//               const SizedBox(
-//                 height: BakoSizes.spaceBtwSections,
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
 class AdminDashboardScreen extends StatelessWidget {
-  AdminDashboardScreen({super.key});
-
-  final FilterController _filterController = Get.put(FilterController());
+  const AdminDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -337,6 +23,7 @@ class AdminDashboardScreen extends StatelessWidget {
         onRefresh: () async {
           controller.resetDataFetched(); // Reset dataFetched flag
           await controller.fetchAdminDashboardData();
+          await controller.fetchAdminDashboardDataByFilterDate();
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -361,9 +48,9 @@ class AdminDashboardScreen extends StatelessWidget {
                                 color: BakoColors.white),
                             onPressed: () => showModalBottomSheet(
                               context: context,
-                              builder: (context) => BottomSheetContent(
-                                _filterController,
-                              ),
+                              builder: (context) => const BottomSheetContent(
+                                  // _filterController,
+                                  ),
                             ),
                           ),
                         ],
@@ -376,7 +63,17 @@ class AdminDashboardScreen extends StatelessWidget {
               const SizedBox(
                 height: BakoSizes.spaceBtwItems / 2,
               ),
-              const BarGraphPlasticInformation(),
+              // Conditionally show either BarGraphPlasticInformation or BarGraphUserInformation
+              Obx(() {
+                if (controller.selectedType.value == "Plastic Collection") {
+                  return const BarGraphPlasticInformation();
+                } else if (controller.selectedType.value ==
+                    "User Information") {
+                  return const BarGraphUserInformation();
+                } else {
+                  return const SizedBox(); // Fallback if none matched
+                }
+              }),
               const SizedBox(
                 height: BakoSizes.spaceBtwItems,
               ),
@@ -387,32 +84,71 @@ class AdminDashboardScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Obx(() => AdminAnalyticCardVertical(
+                        Obx(() {
+                          if (controller.selectedType.value ==
+                              "Plastic Collection") {
+                            return AdminAnalyticCardVertical(
                               title: 'PP',
-                              value:
-                                  "${controller.totalTypePPSum.value} Kg",
-                            )),
-                        Obx(() => AdminAnalyticCardVertical(
+                              value: "${controller.totalTypePPSum.value} Kg",
+                            );
+                          } else {
+                            return AdminAnalyticCardVertical(
+                              title: 'Active User',
+                              value: "${controller.totalActiveUser.value} User",
+                            );
+                          }
+                        }),
+                        Obx(() {
+                          if (controller.selectedType.value ==
+                              "Plastic Collection") {
+                            return AdminAnalyticCardVertical(
                               title: 'PET',
-                              value:
-                                  "${controller.totalTypePETSum.value} Kg",
-                            )),
+                              value: "${controller.totalTypePETSum.value} Kg",
+                            );
+                          } else {
+                            return AdminAnalyticCardVertical(
+                              title: 'Top Performer',
+                              value: controller.mostPerformantUsername.value,
+                            );
+                          }
+                        }),
                       ],
                     ),
                     const SizedBox(height: BakoSizes.spaceBtwItems),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Obx(() => AdminAnalyticCardVertical(
+                        Obx(() {
+                          if (controller.selectedType.value ==
+                              "Plastic Collection") {
+                            return AdminAnalyticCardVertical(
                               title: 'HDPE',
+                              value: "${controller.totalTypeHDPESum.value} Kg",
+                            );
+                          } else {
+                            return AdminAnalyticCardVertical(
+                              title: 'Total EcoBako Points',
                               value:
-                                  "${controller.totalTypeHDPESum.value} Kg",
-                            )),
-                        Obx(() => AdminAnalyticCardVertical(
+                                  "${controller.totalGeneratedPoint.value} Points",
+                            );
+                          }
+                        }),
+                        Obx(() {
+                          if (controller.selectedType.value ==
+                              "Plastic Collection") {
+                            return AdminAnalyticCardVertical(
                               title: 'Total Recycled Plastic',
                               value:
                                   "${controller.totalAllPlasticSum.value} Kg",
-                            )),
+                            );
+                          } else {
+                            return AdminAnalyticCardVertical(
+                              title: 'Total Recycled Plastic',
+                              value:
+                                  "${controller.totalAllPlasticSum.value} Kg",
+                            );
+                          }
+                        }),
                       ],
                     ),
                   ],
@@ -433,5 +169,3 @@ class AdminDashboardScreen extends StatelessWidget {
     );
   }
 }
-
-
