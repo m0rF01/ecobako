@@ -115,6 +115,10 @@ class BakoTexts {
   static const String confirmRedeem = "Confirm";
 
 
+  //-- filter dashboard analytics buttoon
+  static const String fliterCancel = "Cancel";
+
+
 
 
 

@@ -2,7 +2,6 @@ import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/admin/admin_repository.dart';
 import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
-import 'package:ecobako_app/data/repositories/dashboard/user_dashboard_repository.dart';
 import 'package:ecobako_app/data/repositories/user/user_repository.dart';
 import 'package:ecobako_app/features/authentication/screens/signup/admin_signup/admin_verify_email.dart';
 import 'package:ecobako_app/features/authentication/screens/signup/user_signup/verify_email.dart';
@@ -55,6 +54,7 @@ class SignupController extends GetxController {
 
       // Privacy Policy Check
       if (!privacyPolicy.value) {
+        BakoFullScreenLoader.stopLoading();
         BakoLoaders.warningSnackBar(
             title: "Accept Privacy Policy",
             message:

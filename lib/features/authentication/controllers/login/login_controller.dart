@@ -1,6 +1,5 @@
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
-import 'package:ecobako_app/features/authentication/screens/choose_role/choose_role.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/helpers/network_manager.dart';
 import 'package:ecobako_app/utils/popups/full_screen_loader.dart';

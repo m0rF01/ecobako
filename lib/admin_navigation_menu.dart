@@ -60,5 +60,6 @@ class AdminNavigationMenu extends StatelessWidget {
 class AdminNavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const AdminHomeScreen(), const AdminStoreScreen(), AdminDashboardScreen(), const AdminPointAllocationScreen()];
+  // final screens = [const AdminHomeScreen(), const AdminStoreScreen(), AdminDashboardScreen(), const AdminPointAllocationScreen()];
+  final screens = [ AdminHomeScreen(), const AdminStoreScreen(), AdminDashboardScreen(), const AdminPointAllocationScreen()];
 }

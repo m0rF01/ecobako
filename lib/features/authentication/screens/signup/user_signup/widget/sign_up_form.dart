@@ -96,6 +96,7 @@ class BakoSignUpForm extends StatelessWidget {
                 Expanded(
                   child: DropdownButtonFormField<String>(
                     value: controller.gender.value,
+                    validator: (value) => BakoValidator.validateGender("Gender", value),
                     onChanged: (String? newValue) {
                       controller.gender.value = newValue!;
                     },

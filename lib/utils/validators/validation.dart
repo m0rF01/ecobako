@@ -148,4 +148,14 @@ class BakoValidator {
     }
     return null;
   }
+
+  static String? validateGender(String fieldname,String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Gender is required';
+    }
+    // Additional validation logic can be added if needed
+    return null;
+}
+
+
 }

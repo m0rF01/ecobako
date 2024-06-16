@@ -164,7 +164,7 @@ Future<void> adminScreenRedirect() async {
       return await _auth.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (_) {
-      throw "Error1 - AR";
+      throw "Error - Wrong email or password";
     } on FirebaseException catch (_) {
       throw "Error 2 - AR";
     } on FormatException catch (_) {

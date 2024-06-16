@@ -2,7 +2,6 @@ import 'package:ecobako_app/common/widget/custom_shape/containers/primary_header
 import 'package:ecobako_app/common/widget/custom_shape/containers/serach_container.dart';
 import 'package:ecobako_app/common/widget/texts/section_heading.dart';
 import 'package:ecobako_app/features/home/screens/user/widgets/home_appbar.dart';
-import 'package:ecobako_app/features/home/screens/user/widgets/home_bakopoint_section.dart';
 import 'package:ecobako_app/features/home/screens/user/widgets/home_transaction_history.dart';
 import 'package:ecobako_app/features/personalization/controllers/user_controller.dart';
 import 'package:ecobako_app/features/transaction/screens/transaction_history.dart';
@@ -48,15 +47,15 @@ class UserHomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     // EcoBako point section
-                    const BakoSectionHeading(
-                      title: "BakoPoint Section",
-                      showActionButton: false,
-                    ),
-                    const SizedBox(height: BakoSizes.spaceBtwItems / 1.5),
+                    // const BakoSectionHeading(
+                    //   title: "BakoPoint Section",
+                    //   showActionButton: false,
+                    // ),
+                    // const SizedBox(height: BakoSizes.spaceBtwItems / 1.5),
 
-                    const BakoPointSection(),
+                    // const BakoPointSection(),
 
-                    const SizedBox(height: BakoSizes.spaceBtwSections),
+                    // const SizedBox(height: BakoSizes.spaceBtwSections),
                     BakoSectionHeading(
                       title: "Transaction History",
                       onPressed: () {

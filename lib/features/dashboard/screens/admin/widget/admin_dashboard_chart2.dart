@@ -8,8 +8,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BarGraphPlasticInformation extends StatelessWidget {
-  const BarGraphPlasticInformation({super.key, this.showBackground = true});
+class BarGraphUserInformation extends StatelessWidget {
+  const BarGraphUserInformation({super.key, this.showBackground = true});
 
   final bool showBackground;
 
@@ -54,7 +54,7 @@ class BarGraphPlasticInformation extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text('Plastic Collection',
+              child: Text('User Infromation',
                   style: Theme.of(context).textTheme.headlineSmall),
             ),
             Flexible(
@@ -85,7 +85,6 @@ class BarGraphPlasticInformation extends StatelessWidget {
                         final maxY = [
                           totalTypeHDPESum,
                           totalTypePPSum,
-                          totalTypePETSum,
                         ].reduce((a, b) => a > b ? a : b);
 
                         return BarChart(
@@ -113,9 +112,6 @@ class BarGraphPlasticInformation extends StatelessWidget {
                                         break;
                                       case 1:
                                         text = 'PET';
-                                        break;
-                                      case 2:
-                                        text = 'HDPE';
                                         break;
                                       default:
                                         text = '';
@@ -165,24 +161,6 @@ class BarGraphPlasticInformation extends StatelessWidget {
                                   BarChartRodData(
                                     toY: totalTypePETSum,
                                     // toY: adminDashboard.pet,
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        BakoColors.secondary,
-                                        BakoColors.primary,
-                                      ],
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.topCenter,
-                                    ),
-                                  )
-                                ],
-                                showingTooltipIndicators: [0],
-                              ),
-                              BarChartGroupData(
-                                x: 2,
-                                barRods: [
-                                  BarChartRodData(
-                                    // toY: adminDashboard.hdpe,
-                                    toY: totalTypeHDPESum,
                                     gradient: const LinearGradient(
                                       colors: [
                                         BakoColors.secondary,

@@ -64,7 +64,7 @@ class UserNavigationController extends GetxController {
 
   final screens = [
     const UserHomeScreen(),
-    const UserModuleScreen(),
+    UserModuleScreen(),
     const UserDashboardScreen(),
     const UserSettingScreen()
   ];

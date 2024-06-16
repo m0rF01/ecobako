@@ -133,6 +133,7 @@ flutter:
     - assets/icons/categories/
     - assets/images/content/
     - assets/images/products/
+    - assets/images/ecobako_module/
 
 #--------------------------local fonts---------------------------#
 
