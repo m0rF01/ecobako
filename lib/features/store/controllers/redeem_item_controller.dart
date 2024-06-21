@@ -13,8 +13,6 @@ class RedeemItemController extends GetxController {
   final quantityController = TextEditingController();
   final productRepository = ProductRepository();
   final userController = UserController();
-  // final FirebaseService _firebaseService = FirebaseService();
-
   final productId = ''.obs;
   final quantity = 1.obs;
   
@@ -51,7 +49,8 @@ class RedeemItemController extends GetxController {
 
 Future<Map<String, dynamic>> validateRedemption() async {
   // Get product ID and quantity from text controllers
-  final String productId = productIdController.text;
+  // final String productId = productIdController.text;
+  String productId = productIdController.text;
   final int quantity = int.tryParse(quantityController.text) ?? 0;
 
   // Get product data from Firebase using the retrieved product ID

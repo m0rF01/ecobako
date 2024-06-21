@@ -64,7 +64,7 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                             controller.updateProductID(newValue);
                           },
                           validator: (value) =>
-                              BakoValidator.validateEmptyText("Product ID", value),
+                              BakoValidator.validateEmptyText("Item ID", value),
                           expands: false,
                           decoration: const InputDecoration(
                             labelText: BakoTexts.productID,
@@ -79,7 +79,7 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                             controller.updateProductName(newValue);
                           },
                           validator: (value) =>
-                              BakoValidator.validateEmptyText("Product Name", value),
+                              BakoValidator.validateEmptyText("Item Name", value),
                           expands: false,
                           decoration: const InputDecoration(
                             labelText: BakoTexts.productName,
@@ -94,7 +94,7 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                             controller.updateProductDesc(newValue);
                           },
                           validator: (value) =>
-                              BakoValidator.validateEmptyText("Product Description", value),
+                              BakoValidator.validateEmptyText("Item Description", value),
                           expands: false,
                           decoration: const InputDecoration(
                             labelText: BakoTexts.productDesc,
@@ -167,7 +167,7 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                               side: const BorderSide(
                                   color: Colors.red),
                             ),
-                            child: const Text("Delete Product"),
+                            child: const Text("Delete Item"),
                           ),
                         ),
                         const SizedBox(height: BakoSizes.spaceBtwSections),

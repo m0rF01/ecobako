@@ -87,7 +87,7 @@ class ProfileScreen extends StatelessWidget {
             BakoProfileMenu(
               title: 'UserID',
               value: controller.user.value.id,
-              icon: Iconsax.copy,
+              icon: Iconsax.lock,
               onPressed: () {},
             ),
 

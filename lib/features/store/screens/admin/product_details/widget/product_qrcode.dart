@@ -14,7 +14,7 @@ class ProductQrCode extends StatelessWidget {
       child: Scaffold(
         appBar: const BakoAppBar(
           showBackArrow: true,
-          title: Text("Product Qr Code"),
+          title: Text("Item QR Code"),
         ),
           body: Center(
         child: product.productQR.isNotEmpty

@@ -1,4 +1,5 @@
 import 'package:ecobako_app/features/personalization/controllers/user_controller.dart';
+import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:ecobako_app/utils/validators/validation.dart';
@@ -56,6 +57,12 @@ class ReAuthUserLoginForm extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: BakoColors.buttonPrimary,
+                          side: const BorderSide(
+                            color: BakoColors.buttonPrimary,
+                          ),
+                        ),
                         onPressed: () =>
                             controller.reAuthenticateEmaiAndPassword(),
                         child: const Text("Verify")),

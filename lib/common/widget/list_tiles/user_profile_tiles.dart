@@ -43,7 +43,7 @@ class BakoUserProfileTile extends StatelessWidget {
         style: Theme.of(context).textTheme.headlineSmall!.apply(color: BakoColors.white),
       ),
       subtitle: Text(
-        controller.user.value.email, 
+        controller.user.value.id, 
         style: Theme.of(context).textTheme.bodyMedium!.apply(color: BakoColors.white),
       ),
       trailing: IconButton(

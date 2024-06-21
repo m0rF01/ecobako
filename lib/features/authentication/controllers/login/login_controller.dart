@@ -38,14 +38,14 @@ class LoginController extends GetxController {
       }
 
       // Form Validation
-      // if (!userLoginFormKey.currentState!.validate()) {
-      //   BakoFullScreenLoader.stopLoading();
-      //   return;
-      // }
-      if (userLoginFormKey.currentState?.validate() ?? false) {
+      if (!userLoginFormKey.currentState!.validate()) {
         BakoFullScreenLoader.stopLoading();
         return;
       }
+      // if (userLoginFormKey.currentState?.validate() ?? false) {
+      //   BakoFullScreenLoader.stopLoading();
+      //   return;
+      // }
 
       //Save login cridential if Remember Me is selected
       if (rememberMe.value) {
@@ -110,52 +110,11 @@ class LoginController extends GetxController {
         BakoFullScreenLoader.stopLoading();
         return;
       }
-
-      // Google authentication
-      final userCredentials =
-          await AuthenticationRepository.instance.signInWithGoogle();
     } catch (e) {
       BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
     }
   }
 
-  // // Email and Password Signin
-  // Future<void> adminEmailAndPasswordSignIn() async {
-  //   try {
-  //     // Start loading
-  //     BakoFullScreenLoader.openLoadingDialog(
-  //         "Logging you in....", BakoImages.docerAnimation);
-
-  //     //Check Internet Connection
-  //     final isConnected = await NetworkManager.instance.isConnected();
-  //     if (!isConnected) {
-  //       BakoFullScreenLoader.stopLoading();
-  //       return;
-  //     }
-
-  //     // Form Validation
-  //     // if (!userLoginFormKey.currentState!.validate()) {
-  //     //   BakoFullScreenLoader.stopLoading();
-  //     //   return;
-  //     // }
-  //     if (userLoginFormKey.currentState?.validate() ?? false) {
-  //       BakoFullScreenLoader.stopLoading();
-  //       return;
-  //     }
-
-  //     // Login user using Email & Password Auth
-  //     final adminCredentials = await AdminAuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
-
-  //        // // Check user role after successful login
-  //     final role = await AdminAuthenticationRepository.instance
-  //         .getAdminRole(adminCredentials.user?.uid ?? "");
-      
-  //     redirectToHomePage(role);
-  //   } catch (e) {
-  //     BakoFullScreenLoader.stopLoading();
-  //     BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
-  //   }
-  // }
 
  
 

@@ -14,7 +14,7 @@ class AdminLoginController extends GetxController {
   final localStorage = GetStorage();
   final email = TextEditingController();
   final password = TextEditingController();
-  GlobalKey<FormState> userLoginFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> adminLoginFormKey = GlobalKey<FormState>();
 
   @override
   void onInit() {
@@ -38,14 +38,14 @@ class AdminLoginController extends GetxController {
       }
 
       // Form Validation
-      // if (!userLoginFormKey.currentState!.validate()) {
-      //   BakoFullScreenLoader.stopLoading();
-      //   return;
-      // }
-      if (userLoginFormKey.currentState?.validate() ?? false) {
+      if (!adminLoginFormKey.currentState!.validate()) {
         BakoFullScreenLoader.stopLoading();
         return;
       }
+      // if (userLoginFormKey.currentState?.validate() ?? false) {
+      //   BakoFullScreenLoader.stopLoading();
+      //   return;
+      // }
 
       // Login user using Email & Password Auth
       final adminCredentials = await AdminAuthenticationRepository.instance

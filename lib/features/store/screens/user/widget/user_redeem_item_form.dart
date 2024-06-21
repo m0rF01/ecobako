@@ -122,7 +122,7 @@ class RedeemItemForm extends StatelessWidget {
     return Scaffold(
       appBar: const BakoAppBar(
         showBackArrow: true,
-        title: Text("Redeem Product"),
+        title: Text("Redeem Item"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -137,8 +137,8 @@ class RedeemItemForm extends StatelessWidget {
                     Expanded(
                       child: TextFormField(
                         controller: controller.productIdController,
-                        validator: (value) => BakoValidator.validateEmptyText(
-                            "Product ID", value),
+                        validator: (value) =>
+                            BakoValidator.validateEmptyText("Item ID", value),
                         decoration: const InputDecoration(
                           labelText: BakoTexts.redeemProductID,
                           prefix: Icon(Iconsax.user_edit),
@@ -154,11 +154,7 @@ class RedeemItemForm extends StatelessWidget {
                         //     builder: (context) => const UserProductQRScanner(),
                         //   ),
                         // );
-                        // Check the previous route
-                        print('Previous route: ${Get.previousRoute}');
-// Check the current route
-                        print('Current route: ${Get.currentRoute}');
-
+           
                         final scannedData =
                             await Get.to(() => const UserProductQRScanner());
                         if (scannedData != null) {
@@ -175,8 +171,8 @@ class RedeemItemForm extends StatelessWidget {
                 const SizedBox(height: BakoSizes.spaceBtwItems),
                 TextFormField(
                   controller: controller.quantityController,
-                  validator: (value) => BakoValidator.validateEmptyText(
-                      "Product Quantity", value),
+                  validator: (value) =>
+                      BakoValidator.validateEmptyText("Item Quantity", value),
                   decoration: const InputDecoration(
                     labelText: BakoTexts.redeemProductQuantity,
                     prefix: Icon(Iconsax.user_edit),

@@ -83,7 +83,7 @@ class BakoTexts {
 
   // -- Product
   static const String popularProducts = "Popular Products";
-  static const String redeemItem = "Redeem Product";
+  static const String redeemItem = "Redeem Item";
 
   // -- Home
   static const String userHomeAppbarTitle = "Hello,";
@@ -98,19 +98,19 @@ class BakoTexts {
   static const String addPoint = "Add";
 
   //-- Add Item
-  static const String productID = "Product ID";
-  static const String productName = "Name of Product";
-  static const String productDesc = "Product Description";
-  static const String productPoint = "Product Points";
-  static const String productQuantity = "Product Quantity";
-  static const String addProduct = "Add Product";
-  static const String updateProduct = "Update Product";
+  static const String productID = "Item ID";
+  static const String productName = "Name of Item";
+  static const String productDesc = "Item Description";
+  static const String productPoint = "Item Points";
+  static const String productQuantity = "Item Quantity";
+  static const String addProduct = "Add Item";
+  static const String updateProduct = "Update Item";
 
   //--- Qr image
   static const String qrImage = "Scan user QR code";
 
   //-- User Redeem Item
-  static const String redeemProductID = "Product ID";
+  static const String redeemProductID = "Item ID";
   static const String redeemProductQuantity = "Quantity";
   static const String confirmRedeem = "Confirm";
 

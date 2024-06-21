@@ -113,7 +113,6 @@ class UserController extends GetxController {
       transactions.value = await userRepository.fetchDetailsTransactions(
           userId, startDate, endDate);
     } catch (e) {
-      print('Error fetching transactions: $e');
       transactions.value = [];
     } finally {
       dataFetched2.value = false;

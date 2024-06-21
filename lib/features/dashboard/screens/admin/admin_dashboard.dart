@@ -3,6 +3,7 @@ import 'package:ecobako_app/features/dashboard/controllers/admin_dashboard_contr
 import 'package:ecobako_app/features/dashboard/screens/admin/widget/admin_dashboard_chart1.dart';
 import 'package:ecobako_app/features/dashboard/screens/admin/widget/admin_dashboard_chart2.dart';
 import 'package:ecobako_app/features/dashboard/screens/admin/widget/filter_date.dart';
+import 'package:ecobako_app/features/dashboard/screens/admin/widget/filter_download.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -43,14 +44,21 @@ class AdminDashboardScreen extends StatelessWidget {
                                 .headlineMedium!
                                 .apply(color: BakoColors.white),
                           ),
+                          const SizedBox(width: BakoSizes.inputFieldRadius),
                           IconButton(
                             icon: const Icon(Iconsax.filter,
                                 color: BakoColors.white),
                             onPressed: () => showModalBottomSheet(
                               context: context,
-                              builder: (context) => const BottomSheetContent(
-                                  // _filterController,
-                                  ),
+                              builder: (context) => const BottomSheetContent(),
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Iconsax.document_download,
+                                color: BakoColors.white),
+                            onPressed: () => showModalBottomSheet(
+                              context: context,
+                              builder: (context) => const DownloadData(),
                             ),
                           ),
                         ],
@@ -154,11 +162,6 @@ class AdminDashboardScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: BakoSizes.spaceBtwSections,
-              ),
-              ElevatedButton(
-                  onPressed: () {}, child: const Text("Download Data")),
               const SizedBox(
                 height: BakoSizes.spaceBtwSections,
               ),

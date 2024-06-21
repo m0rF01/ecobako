@@ -20,13 +20,13 @@ class ProductDeatilsLowerPart extends StatelessWidget {
       children: [
         // Product Details header
         const BakoSectionHeading(
-          title: "Product Detail",
+          title: "Item Detail",
           showActionButton: false,
         ),
         const SizedBox(height: BakoSizes.spaceBtwItems),
 
         Row(children: [
-          const BakoModuleItemTitleText(title: "Product ID:"),
+          const BakoModuleItemTitleText(title: "Item ID:"),
           const SizedBox(width: BakoSizes.spaceBtwItems),
           BakoModuleItemTitleText(title: product.id),
         ]),
@@ -36,7 +36,7 @@ class ProductDeatilsLowerPart extends StatelessWidget {
 
         // Product Name
         Row(children: [
-          const BakoModuleItemTitleText(title: "Product Name:"),
+          const BakoModuleItemTitleText(title: "Item Name:"),
           const SizedBox(width: BakoSizes.spaceBtwItems),
           BakoModuleItemTitleText(title: product.productName),
         ]),
@@ -66,7 +66,7 @@ class ProductDeatilsLowerPart extends StatelessWidget {
 
         // Product Description
         const BakoSectionHeading(
-          title: "Product Description",
+          title: "Item Description",
           showActionButton: false,
         ),
         const SizedBox(

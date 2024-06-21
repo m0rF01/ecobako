@@ -1,5 +1,6 @@
 import 'package:ecobako_app/common/widget/appbar/appbar.dart';
 import 'package:ecobako_app/features/personalization/controllers/update_name_controller.dart';
+import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:ecobako_app/utils/validators/validation.dart';
@@ -58,7 +59,13 @@ class ChangeName extends StatelessWidget {
 
              SizedBox(
               width: double.infinity,
-              child: ElevatedButton(onPressed: () => controller.updateUserName(), child: const Text("Save")),
+              child: ElevatedButton(onPressed: () => controller.updateUserName(), 
+               style: ElevatedButton.styleFrom(
+                      backgroundColor: BakoColors.buttonPrimary,
+                      side: const BorderSide(
+                        color: BakoColors.buttonPrimary,
+                      ),
+                    ),child: const Text("Save")),
              )
           ],
         ) ,

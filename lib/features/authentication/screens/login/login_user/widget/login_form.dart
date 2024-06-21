@@ -18,6 +18,7 @@ class BakoLoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
     return Form(
+      key: controller.userLoginFormKey,
       child: Padding(
         padding:
             const EdgeInsets.symmetric(vertical: BakoSizes.spaceBtwSections),

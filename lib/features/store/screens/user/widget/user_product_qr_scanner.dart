@@ -60,11 +60,6 @@ class UserProductQRScannerState extends State<UserProductQRScanner> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      // Check the previous route
-      print('Previous route: ${Get.previousRoute}');
-// Check the current route
-      print('Current route: ${Get.currentRoute}');
-
       Get.back(result: scanData.code);
     });
   }

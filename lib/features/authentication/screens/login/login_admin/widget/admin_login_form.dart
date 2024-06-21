@@ -17,6 +17,7 @@ class AdminLoginForm extends StatelessWidget {
     // final controller = Get.put(AdminLoginController());
     final controller = Get.put(AdminLoginController());
     return Form(
+      key: controller.adminLoginFormKey,
       child: Padding(
         padding:
             const EdgeInsets.symmetric(vertical: BakoSizes.spaceBtwSections),

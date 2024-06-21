@@ -1,4 +1,5 @@
 import 'package:ecobako_app/features/authentication/controllers/forget_password/forget_password_controller.dart';
+import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
 import 'package:ecobako_app/utils/validators/validation.dart';
@@ -50,6 +51,12 @@ class ForgetPassword extends StatelessWidget {
             SizedBox(
               width: double.infinity, 
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: BakoColors.buttonPrimary,
+                    side: const BorderSide(
+                      color: BakoColors.buttonPrimary,
+                    ),
+                  ),
                 onPressed: () => controller.sendPasswordResetEmail(),
                 child: const Text(BakoTexts.submit),
               ),

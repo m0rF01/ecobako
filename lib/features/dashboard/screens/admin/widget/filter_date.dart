@@ -1,4 +1,5 @@
 import 'package:ecobako_app/features/dashboard/controllers/admin_dashboard_controller.dart';
+import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -65,6 +66,18 @@ class BottomSheetContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      side: const BorderSide(
+                        color:  Colors.red,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(18.0), // Rounded corners
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 15), // Padding around text
+                    ),
                 onPressed: () {
                   controller.resetFilters();
                 },
@@ -112,7 +125,18 @@ class BottomSheetContent extends StatelessWidget {
                         Navigator.pop(currentContext);
                       }
                     },
-
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: BakoColors.buttonPrimary,
+                      side: const BorderSide(
+                        color: BakoColors.buttonPrimary,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(18.0), // Rounded corners
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 15), // Padding around text
+                    ),
                     child: const Text("Confirm"),
                   ),
                 ],
