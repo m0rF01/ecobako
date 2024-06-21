@@ -25,7 +25,7 @@ class UserProductDeatilsLowerPart extends StatelessWidget {
         ),
         const SizedBox(height: BakoSizes.spaceBtwItems),
 
-        // Product Name
+        // Product Name change to Item Name
         Row(children: [
           const BakoModuleItemTitleText(title: "Item Name:"),
           const SizedBox(width: BakoSizes.spaceBtwItems),
