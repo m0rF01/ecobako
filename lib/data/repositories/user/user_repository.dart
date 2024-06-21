@@ -278,7 +278,6 @@ class UserRepository extends GetxController {
                 doc as QueryDocumentSnapshot<Map<String, dynamic>>))
             .toList();
       } else {
-        print("No data found");
         return [];
       }
     } on FirebaseException catch (e) {
