@@ -156,7 +156,8 @@ class RedeemItemForm extends StatelessWidget {
                         // );
            
                         final scannedData =
-                            await Get.to(() => const UserProductQRScanner());
+                            // await Get.to(() => const UserProductQRScanner());
+                             await Get.to<String>(() => UserProductQRScanner());
                         if (scannedData != null) {
                           controller.productIdController.text = scannedData;
                         }
@@ -180,7 +181,10 @@ class RedeemItemForm extends StatelessWidget {
                 ),
                 const SizedBox(height: BakoSizes.spaceBtwItems),
                 ElevatedButton(
-                  onPressed: controller.validateAndProceed,
+                  onPressed: () async{
+                    await controller.validateAndProceed();
+                    controller.clearFields();
+                    },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: BakoColors.buttonPrimary,
                     side: const BorderSide(color: BakoColors.buttonPrimary),

@@ -138,9 +138,7 @@ flutter:
     - assets/logos/
     - assets/images/on_boarding_images/
     - assets/images/animations/
-    - assets/icons/categories/
     - assets/images/content/
-    - assets/images/products/
     - assets/images/ecobako_module/
 
 #--------------------------local fonts---------------------------#

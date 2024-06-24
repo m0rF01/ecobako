@@ -12,16 +12,24 @@ class RedeemItemController extends GetxController {
   final productIdController = TextEditingController();
   final quantityController = TextEditingController();
   final productRepository = ProductRepository();
-  final userController = UserController();
+  final userController = Get.put(UserController());
   final productId = ''.obs;
   final quantity = 1.obs;
+
+
+  @override
+  void onClose() {
+    productIdController.dispose();
+    quantityController.dispose();
+    super.onClose();
+  }
   
 
-  void scanQRCode() async {
-    // QR code scanning logic here
-  }
+  // void scanQRCode() async {
+  //   // QR code scanning logic here
+  // }
 
-  void validateAndProceed() async {
+  Future <void> validateAndProceed() async {
   if (redeemItemFormKey.currentState?.validate() ?? false) {
     final validationResult = await validateRedemption();
     if (validationResult['isValid']) {
@@ -90,5 +98,10 @@ void showErrorMessage(String errorMessage) {
   // Show error message to the user (e.g., using a snackbar)
   BakoLoaders.errorSnackBar(title: "Error", message: errorMessage);
 }
+
+ void clearFields() {
+    productIdController.clear();
+    quantityController.clear();
+  }
 
 }

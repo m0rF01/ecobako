@@ -104,6 +104,7 @@ class DownloadEcoBakoData extends GetxController {
 
   Future<List<Map<String, dynamic>>> getDataAdminDashboard(
       DateTime startDate, DateTime endDate) async {
+        endDate = DateTime(endDate.year, endDate.month, endDate.day, 23, 59, 59, 999);
     QuerySnapshot snapshot = await _db
         .collection('AdminDashboard')
         .where('date', isGreaterThanOrEqualTo: startDate)
@@ -146,6 +147,7 @@ class DownloadEcoBakoData extends GetxController {
 
   Future<List<Map<String, dynamic>>> getDataTransactions(
       DateTime startDate, DateTime endDate) async {
+        endDate = DateTime(endDate.year, endDate.month, endDate.day, 23, 59, 59, 999);
     QuerySnapshot snapshot = await _db
         .collection('Transactions')
         .where('date', isGreaterThanOrEqualTo: startDate)

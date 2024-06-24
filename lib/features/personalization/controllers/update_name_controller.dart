@@ -68,6 +68,7 @@ class UpdateNameController extends GetxController{
       // Get.back();
       Get.until((route) => Get.currentRoute == '/ProfileScreen');
 
+
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
       BakoLoaders.errorSnackBar(title: "Oh Sanp", message: e.toString());

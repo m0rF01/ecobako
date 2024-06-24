@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ecobako_app/features/store/screens/user/widget/user_redeem_item_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -61,6 +62,8 @@ class UserProductQRScannerState extends State<UserProductQRScanner> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       Get.back(result: scanData.code);
+      // Get.to(RedeemItemForm(), arguments:scanData.code);
+      // Get.to(() => RedeemItemForm(), arguments:scanData.code);
     });
   }
 

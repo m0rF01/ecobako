@@ -147,13 +147,13 @@ class AdminDashboardScreen extends StatelessWidget {
                             return AdminAnalyticCardVertical(
                               title: 'Total Recycled Plastic',
                               value:
-                                  "${controller.totalAllPlasticSum.value} Kg",
+                                  "${controller.totalAllPlasticOverallSum.value} Kg",
                             );
                           } else {
                             return AdminAnalyticCardVertical(
                               title: 'Total Recycled Plastic',
                               value:
-                                  "${controller.totalAllPlasticSum.value} Kg",
+                                  "${controller.totalAllPlasticOverallSum.value} Kg",
                             );
                           }
                         }),

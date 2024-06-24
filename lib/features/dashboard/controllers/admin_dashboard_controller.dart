@@ -19,6 +19,7 @@ class AdminDashboardController extends GetxController {
   var totalTypePETSum = 0.0.obs;
   var totalTypeHDPESum = 0.0.obs;
   var totalAllPlasticSum = 0.0.obs;
+  var totalAllPlasticOverallSum = 0.0.obs;
   var totalActiveUser = 0.obs;
   var totalGeneratedPoint = 0.obs;
   var topUser = "".obs;
@@ -51,6 +52,7 @@ class AdminDashboardController extends GetxController {
       totalTypePETSum.value = 0.0;
       totalTypeHDPESum.value = 0.0;
       totalAllPlasticSum.value = 0.0;
+      totalAllPlasticOverallSum.value = 0.0;
       totalGeneratedPoint.value = 0;
       totalActiveUser.value = 0;
       topUser.value = '';
@@ -73,6 +75,7 @@ class AdminDashboardController extends GetxController {
       totalTypePETSum.value = 0.0;
       totalTypeHDPESum.value = 0.0;
       totalAllPlasticSum.value = 0.0;
+      totalAllPlasticOverallSum.value = 0.0;
       totalGeneratedPoint.value = 0;
       totalActiveUser.value = 0;
       topUser.value = '';
@@ -103,6 +106,7 @@ class AdminDashboardController extends GetxController {
     double sumPET = 0.0;
     double sumHDPE = 0.0;
     double sumAllPlastic = 0.0;
+    double sumAllPlasticOverall = 0.0;
     double totalPoint = 0.0;
     final activeUser = <String>{};
     final userTotals = <String, double>{};
@@ -129,7 +133,7 @@ class AdminDashboardController extends GetxController {
       }
 
       if (data.containsKey('TotalAllPlastic')) {
-        sumAllPlastic += data['TotalAllPlastic'];
+        sumAllPlasticOverall += data['TotalAllPlastic'];
       }
 
       if (data.containsKey('TotalEcoPoints')) {
@@ -144,6 +148,7 @@ class AdminDashboardController extends GetxController {
     totalTypePETSum.value = double.parse(sumPET.toStringAsFixed(2));
     totalTypeHDPESum.value = double.parse(sumHDPE.toStringAsFixed(2));
     totalAllPlasticSum.value = double.parse(sumAllPlastic.toStringAsFixed(2));
+    totalAllPlasticOverallSum.value = double.parse(sumAllPlasticOverall.toStringAsFixed(2));
     totalGeneratedPoint.value = totalPoint.toInt();
     totalActiveUser.value = activeUser.length;
 
