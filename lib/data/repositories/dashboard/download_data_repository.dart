@@ -1,3 +1,4 @@
+// use and checked
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
@@ -5,80 +6,6 @@ class DownloadEcoBakoData extends GetxController {
   static DownloadEcoBakoData get instance => Get.find();
 
   final _db = FirebaseFirestore.instance;
-  // Function to fetch Users data from Firestore with date filter
-  // Future<List<Map<String, dynamic>>> fetchUsersData(DateTime startDate, DateTime endDate) async {
-  //   try {
-
-  //     endDate = DateTime(endDate.year, endDate.month, endDate.day, 23, 59, 59, 999);
-
-  //     final QuerySnapshot snapshot = await _db
-  //         .collection('Users')
-  //         .where('dateField', isGreaterThanOrEqualTo: startDate)
-  //         .where('dateField', isLessThanOrEqualTo: endDate)
-  //         .get();
-
-  //     List<Map<String, dynamic>> usersData = snapshot.docs.map((DocumentSnapshot doc) {
-  //       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-  //       // Filter and select only the desired fields
-  //       return {
-  //         'Address': data['Address'] ?? '',
-  //         'Age': data['Age'] ?? '',
-  //         'EcoPoint': data['EcoPoint'] ?? '',
-  //         'Email': data['Email'] ?? '',
-  //         'FirstName': data['FirstName'] ?? '',
-  //         'Gender': data['Gender'] ?? '',
-  //         'LastName': data['LastName'] ?? '',
-  //         'PhoneNumber': data['PhoneNumber'] ?? '',
-  //         'Role': data['Role'] ?? '',
-  //         'Username': data['Username'] ?? '',
-  //       };
-  //     }).toList();
-
-  //     return usersData;
-  //   } catch (e) {
-  //     print('Error fetching users data: $e');
-  //     return [];
-  //   }
-  // }
-
-  // // Function to fetch Transaction data from Firestore with date filter
-  // Future<List<Map<String, dynamic>>> fetchTransactionData(DateTime startDate, DateTime endDate) async {
-  //   try {
-  //     endDate = DateTime(endDate.year, endDate.month, endDate.day, 23, 59, 59, 999);
-  //     final QuerySnapshot snapshot = await _db
-  //         .collection('Transactions')
-  //         .where('date', isGreaterThanOrEqualTo: startDate)
-  //         .where('date', isLessThanOrEqualTo: endDate)
-  //         .get();
-
-  //     List<Map<String, dynamic>> transactionData = snapshot.docs.map((DocumentSnapshot doc) {
-  //       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-  //       // Filter and select only the desired fields
-  //       return {
-  //         'amount': data['amount'] ?? '',
-  //         'date': data['date'] ?? '',
-  //         'description': data['description'] ?? '',
-  //         'type': data['type'] ?? '',
-  //         'userId': data['userId'] ?? '',
-  //       };
-  //     }).toList();
-
-  //     return transactionData;
-  //   } catch (e) {
-  //     print('Error fetching transaction data: $e');
-  //     return [];
-  //   }
-  // }
-
-  // Future<QuerySnapshot<Map<String, dynamic>>> getUsersInDateRange(DateTime startDate, DateTime endDate) async {
-  //   return await _db.collection('Users')
-  //       .where('Date', isGreaterThanOrEqualTo: startDate)
-  //       .where('Date', isLessThanOrEqualTo: endDate)
-  //       .get();
-  // }
-
   Future<List<Map<String, dynamic>>> getDataUsers(
       ) async {
     QuerySnapshot snapshot = await _db

@@ -1,3 +1,4 @@
+// use and checked
 import 'dart:async';
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/common/widget/success_screen/success_screen.dart';
@@ -55,11 +56,6 @@ class VerifyEmailController extends GetxController {
   checkEmailVerificationStatus() async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null && currentUser.emailVerified) {
-      // Generate and upload QR code
-      // final userRepository = Get.put(UserRepository());
-      // final qrCodeUrl =
-      //     await userRepository.generateAndUploadQRCode(currentUser.uid);
-      // await userRepository.updateUserQR(currentUser.uid, qrCodeUrl);
       final userDashboardController = Get.put(UserDashboardController());
       await userDashboardController.setDefaultDashboardValues();
 

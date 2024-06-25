@@ -1,3 +1,4 @@
+// use and checked
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
@@ -42,11 +43,7 @@ class AdminLoginController extends GetxController {
         BakoFullScreenLoader.stopLoading();
         return;
       }
-      // if (userLoginFormKey.currentState?.validate() ?? false) {
-      //   BakoFullScreenLoader.stopLoading();
-      //   return;
-      // }
-
+   
       // Login user using Email & Password Auth
       final adminCredentials = await AdminAuthenticationRepository.instance
           .loginWithEmailAndPassword(email.text.trim(), password.text.trim());

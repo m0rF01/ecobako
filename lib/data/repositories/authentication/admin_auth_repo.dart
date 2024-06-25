@@ -1,3 +1,4 @@
+// use and checked
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecobako_app/admin_navigation_menu.dart';
 import 'package:ecobako_app/features/authentication/screens/choose_role/choose_role.dart';
@@ -29,88 +30,6 @@ class AdminAuthenticationRepository extends GetxController {
     adminScreenRedirect();
   }
 
-  // Function to show relevent Screen
-  // screenRedirect() async {
-  //   final user = _auth.currentUser;
-  //   if (user != null) {
-  //     if (user.emailVerified) {
-  //       print("I lalu screenRedirect function admin");
-  //       print(user);
-  //       Get.offAll(() => const AdminNavigationMenu());
-  //       print("Admin successfully");
-  //     } else {
-  //       Get.offAll(() => AdminVerifyEmailScreen(email: _auth.currentUser?.email));
-  //     }
-  //   } else {
-  //     deviceStorage.writeIfNull("isFirstTime", true);
-  //     // check if the user is first time launching the app
-  //     deviceStorage.read("isFirstTime") != true
-  //         ? Get.offAll(
-  //             () => const ChooseRole()) // redirect to choose role screen
-  //         : Get.offAll(() =>
-  //             const OnBoardingScreen()); // redirect to on boarding screen if the user is first time
-  //   }
-  //   // local storage
-  // }
-
-//   screenRedirect() async {
-//   final user = _auth.currentUser;
-//   if (user != null) {
-//     if (user.emailVerified) {
-//       // Get the user's role
-//       final role = await getAdminRole(user.uid);
-//       if (role == "admin") {
-//         // User is an admin, redirect to admin navigation menu
-//         Get.offAll(() => const AdminNavigationMenu());
-//         print("Admin successfully");
-//       } else {
-//         // User is not an admin, redirect to ChooseRole page
-//         Get.offAll(() => const ChooseRole());
-//       }
-//     } else {
-//       // User email not verified, redirect to email verification screen
-//       Get.offAll(() => AdminVerifyEmailScreen(email: _auth.currentUser?.email));
-//     }
-//   } else {
-//     // User not logged in, handle first-time launch or other scenarios
-//     deviceStorage.writeIfNull("isFirstTime", true);
-//     deviceStorage.read("isFirstTime") != true
-//         ? Get.offAll(() => const ChooseRole()) // Redirect to choose role screen
-//         : Get.offAll(() => const OnBoardingScreen()); // Redirect to onboarding screen if user is first time
-//   }
-// }
-
-// safest choice
-// adminScreenRedirect() async {
-//   final user = _auth.currentUser;
-//   if (user != null) {
-//     if (user.emailVerified) {
-//      print("I lalu sini (adminScreenRedirect)");
-
-//       // Get the user's role
-//       final role = await getAdminRole(user.uid);
-//       print("Role obtained: $role");
-
-//       if (role == "admin") {
-//         // If the role is admin, redirect to the AdminNavigationMenu
-//         Get.offAll(() => const AdminNavigationMenu());
-//       } else if (role == null || role.isEmpty) {
-//         // If the role is null or empty, redirect to the ChooseRole page
-//         print("Sebab xde role i lalu sini (admin)");
-//         Get.offAll(() => const ChooseRole());
-//       } else{
-//         print("Sebab semua xde i lalu (admin)");
-//         Get.offAll(() => const ChooseRole());
-//       }
-//       }
-//   } else {
-//     // User not logged in, handle first-time launch or other scenarios
-//     deviceStorage.writeIfNull("isFirstTime", true);
-//     deviceStorage.read("isFirstTime") != true
-//         ? Get.offAll(() => const ChooseRole()) // Redirect to choose role screen
-//         : Get.offAll(() => const OnBoardingScreen()); // Redirect to onboarding screen if user is first time
-//   }
-// }
 
 Future<void> adminScreenRedirect() async {
   final user = _auth.currentUser;
@@ -128,18 +47,6 @@ Future<void> adminScreenRedirect() async {
         return;
       } 
 
-    //   // Get the user's role
-    //   final role = await getAdminRole(user.uid);
-    //   print("Role obtained: $role");
-
-    //   if (role == "admin") {
-    //     // If the role is admin, redirect to the AdminNavigationMenu
-    //     Get.offAll(() => const AdminNavigationMenu());
-    //   } else {
-    //     // If the role is null, empty, or not admin, redirect to the ChooseRole page
-    //     print("Sebab xde role i lalu sini (admin)");
-    //     Get.offAll(() => const ChooseRole());
-    //   }
     else {
       // User email not verified, redirect to email verification screen
       Get.offAll(() => AdminVerifyEmailScreen(email: _auth.currentUser?.email));

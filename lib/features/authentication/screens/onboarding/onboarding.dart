@@ -1,3 +1,4 @@
+// use and checked
 import 'package:ecobako_app/features/authentication/screens/onboarding/widgets/onboarding_dot_navigation.dart';
 import 'package:ecobako_app/features/authentication/screens/onboarding/widgets/onboarding_next_button.dart';
 import 'package:ecobako_app/features/authentication/screens/onboarding/widgets/onboarding_page.dart';

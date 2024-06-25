@@ -1,3 +1,4 @@
+// use and checked
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/admin/admin_repository.dart';
 import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
@@ -108,10 +109,6 @@ class SignupController extends GetxController {
       // Show some generic error message to the user
       BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
     }
-             // Generate and upload QR code
-      
-      // final qrCodeUrl = await userRepository.generateAndUploadQRCode(newUser.id);
-      // await userRepository.updateUserQR(newUser.id, qrCodeUrl);
   }
 
 // SIGNUP CONTROLLER FUNCTION FOR ADMIN

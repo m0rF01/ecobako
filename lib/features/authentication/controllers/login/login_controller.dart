@@ -1,3 +1,4 @@
+// use and checked
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
@@ -42,11 +43,7 @@ class LoginController extends GetxController {
         BakoFullScreenLoader.stopLoading();
         return;
       }
-      // if (userLoginFormKey.currentState?.validate() ?? false) {
-      //   BakoFullScreenLoader.stopLoading();
-      //   return;
-      // }
-
+    
       //Save login cridential if Remember Me is selected
       if (rememberMe.value) {
         localStorage.write("REMEMBER_ME_EMAIL", email.text.trim());

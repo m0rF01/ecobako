@@ -1,3 +1,4 @@
+// use and checked
 import 'package:ecobako_app/features/authentication/controllers/login/admin_login/admin_login_controller.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
@@ -14,7 +15,6 @@ class AdminLoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.put(AdminLoginController());
     final controller = Get.put(AdminLoginController());
     return Form(
       key: controller.adminLoginFormKey,

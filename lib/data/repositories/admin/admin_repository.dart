@@ -1,5 +1,5 @@
+// use and checked
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ecobako_app/features/personalization/models/admin_modal.dart';
@@ -34,13 +34,13 @@ class AdminRepository extends GetxController {
     try {
       await _db.collection("Admins").doc(admin.id).set(admin.toJson());
     } on FirebaseException catch (e) {
-      throw "Error1 - SUR ${e.message}";
+      throw "Error1 - SAR ${e.message}";
     } on FormatException catch (e) {
-      throw "Error2 - SUR ${e.message}";
+      throw "Error2 - SAR ${e.message}";
     } on PlatformException catch (e) {
-      throw "Error3 - SUR ${e.message}";
+      throw "Error3 - SAR ${e.message}";
     } catch (e) {
-      throw "Something went wrong, Please try again - UR";
+      throw "Something went wrong, Please try again - SAR";
     }
   }
 
@@ -57,13 +57,13 @@ class AdminRepository extends GetxController {
         return AdminModel.empty();
       }
     } on FirebaseException catch (e) {
-      throw "Error1 - FUD ${e.message}";
+      throw "Error1 - FAD ${e.message}";
     } on FormatException catch (e) {
-      throw "Error2 - FUD ${e.message}";
+      throw "Error2 - FAD ${e.message}";
     } on PlatformException catch (e) {
-      throw "Error3 - FUD ${e.message}";
+      throw "Error3 - FAD ${e.message}";
     } catch (e) {
-      throw "Something went wrong, Please try again - UR";
+      throw "Something went wrong, Please try again - FAD";
     }
   }
 
@@ -75,13 +75,13 @@ class AdminRepository extends GetxController {
           .doc(updatedAdmin.id)
           .update(updatedAdmin.toJson());
     } on FirebaseException catch (e) {
-      throw "Error1 - FUD ${e.message}";
+      throw "Error1 - UAD ${e.message}";
     } on FormatException catch (e) {
-      throw "Error2 - FUD ${e.message}";
+      throw "Error2 - UAD ${e.message}";
     } on PlatformException catch (e) {
-      throw "Error3 - FUD ${e.message}";
+      throw "Error3 - UAD ${e.message}";
     } catch (e) {
-      throw "Something went wrong, Please try again - UR";
+      throw "Something went wrong, Please try again - UAD";
     }
   }
 
@@ -93,13 +93,13 @@ class AdminRepository extends GetxController {
           .doc(AdminAuthenticationRepository.instance.authUser?.uid)
           .update(json);
     } on FirebaseException catch (e) {
-      throw "Error1 - FUD ${e.message}";
+      throw "Error1 - USFA ${e.message}";
     } on FormatException catch (e) {
-      throw "Error2 - FUD ${e.message}";
+      throw "Error2 - USFA ${e.message}";
     } on PlatformException catch (e) {
-      throw "Error3 - FUD ${e.message}";
+      throw "Error3 - USFA ${e.message}";
     } catch (e) {
-      throw "Something went wrong, Please try again - UR";
+      throw "Something went wrong, Please try again - USFA";
     }
   }
 
@@ -108,13 +108,13 @@ class AdminRepository extends GetxController {
     try {
       await _db.collection("Admins").doc(adminID).delete();
     } on FirebaseException catch (e) {
-      throw "Error1 - RUR ${e.message}";
+      throw "Error1 - RAR ${e.message}";
     } on FormatException catch (e) {
-      throw "Error2 - RUR ${e.message}";
+      throw "Error2 - RAR ${e.message}";
     } on PlatformException catch (e) {
-      throw "Error3 - RUR ${e.message}";
+      throw "Error3 - RAR ${e.message}";
     } catch (e) {
-      throw "Something went wrong, Please try again - UR";
+      throw "Something went wrong, Please try again - RAR";
     }
   }
 
@@ -126,30 +126,13 @@ class AdminRepository extends GetxController {
       final url = await ref.getDownloadURL();
       return url;
     } on FirebaseException catch (e) {
-      throw "Error1 - UI ${e.message}";
+      throw "Error1 - UIA ${e.message}";
     } on FormatException catch (e) {
-      throw "Error2 - UI ${e.message}";
+      throw "Error2 - UIA ${e.message}";
     } on PlatformException catch (e) {
-      throw "Error3 - UI ${e.message}";
+      throw "Error3 - UIA ${e.message}";
     } catch (e) {
-      throw "Something went wrong, Please try again - UI";
+      throw "Something went wrong, Please try again - UIA";
     }
   }
-
-  //  Future<String> uploadStoreItemImage(String path, XFile image) async {
-  //   try {
-  //     final ref = FirebaseStorage.instance.ref(path).child(image.name);
-  //     await ref.putFile(File(image.path));
-  //     final url = await ref.getDownloadURL();
-  //     return url;
-  //   } on FirebaseException catch (e) {
-  //     throw "Error1 - UI ${e.message}";
-  //   } on FormatException catch (e) {
-  //     throw "Error2 - UI ${e.message}";
-  //   } on PlatformException catch (e) {
-  //     throw "Error3 - UI ${e.message}";
-  //   } catch (e) {
-  //     throw "Something went wrong, Please try again - UI";
-  //   }
-  // }
 }

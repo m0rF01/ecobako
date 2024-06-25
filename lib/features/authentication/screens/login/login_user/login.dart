@@ -1,3 +1,4 @@
+// use and checked
 import 'package:ecobako_app/common/styles/spacing_styles.dart';
 import 'package:ecobako_app/features/authentication/screens/login/login_user/widget/login_form.dart';
 import 'package:ecobako_app/features/authentication/screens/login/login_user/widget/login_header.dart';
@@ -23,13 +24,6 @@ class LoginScreen extends StatelessWidget {
               /// Form
               const BakoLoginForm(),
           
-              // // Divider
-              // BakoFormDivider(dividerText: BakoTexts.orSignInWith.capitalize!),
-
-              // const SizedBox(height: BakoSizes.spaceBtwSections),
-
-              //Footer
-              // const BakoSocialButton()
             ],
           ),)
       )

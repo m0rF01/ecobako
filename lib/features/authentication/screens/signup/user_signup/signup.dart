@@ -1,3 +1,4 @@
+// use and checked
 import 'package:ecobako_app/features/authentication/screens/signup/user_signup/widget/sign_up_form.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:ecobako_app/utils/constants/texts.dart';
@@ -25,13 +26,6 @@ class SignupScreen extends StatelessWidget {
 
               //Form
               const BakoSignUpForm(),
-
-              // Divider
-              // BakoFormDivider(dividerText: BakoTexts.orSignUpWith.capitalize!),
-              // const SizedBox(height: BakoSizes.spaceBtwSections),
-    
-              // Social Button
-              // const BakoSocialButton(),
 
             ],
           ),

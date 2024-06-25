@@ -1,3 +1,4 @@
+// use and checked
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -85,28 +86,6 @@ Future<List<Map<String, dynamic>>> getAdminDashboardDataByDateFilter(
     throw Exception("Something went wrong, Please try again - FADD");
   }
 }
-   // Function to fetch username by UserID
-  // Future<void> fetchUsernameByUserId(String userId) async {
-  //   try {
-  //     final userDoc = await _db.collection('Users').doc(userId).get();
-  //     if (userDoc.exists) {
-  //       mostPerformantUsername.value = userDoc.data()?['username'] ?? '';
-  //     } else {
-  //       mostPerformantUsername.value = 'Unknown User';
-  //     }
-  //   } catch (e) {
-  //     mostPerformantUsername.value = 'Error fetching username';
-  //   }
-  // }
-
-  // Future<int> fetchTotalUsers() async {
-  //   try {
-  //     final querySnapshot = await _db.collection('Users').get();
-  //     return querySnapshot.size;
-  //   } catch (e) {
-  //     return 0;
-  //   }
-  // }
 
   Future<Map<String, int>> fetchGenderStatistics() async {
     try {

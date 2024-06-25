@@ -1,3 +1,4 @@
+// use and checked
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecobako_app/data/services/firebase_storage_services.dart';
@@ -127,23 +128,6 @@ class ProductRepository extends GetxController {
       throw Exception('Failed to fetch product stock');
     }
   }
-
-//   Future<String> getUserEcoPointBalance() async {
-//   try {
-//     final User? user = _auth.currentUser;
-//     if (user == null) {
-//       return '0'; // User not authenticated
-//     }
-//     final DocumentSnapshot userDoc = await _db.collection('Users').doc(user.uid).get();
-//     if (!userDoc.exists) {
-//       return '0'; // User data not found
-//     }
-//     final userData = userDoc.data() as Map<String, dynamic>;
-//     return userData['EcoPoint'] as String;
-//   } catch (e) {
-//     return '0';
-//   }
-// }
 
  Future<int> getUserEcoPointBalance() async {
   try {

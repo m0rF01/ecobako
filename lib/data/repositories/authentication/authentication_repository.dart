@@ -1,3 +1,4 @@
+// use and checked
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecobako_app/data/repositories/user/user_repository.dart';
 import 'package:ecobako_app/features/authentication/screens/choose_role/choose_role.dart';
@@ -30,88 +31,6 @@ class AuthenticationRepository extends GetxController {
     // Redirect to the appropriate screen
     userScreenRedirect();
   }
-
-  // Function to show relevent Screen
-  // screenRedirect() async {
-  //   final user = _auth.currentUser;
-  //   if (user != null) {
-  //     if (user.emailVerified) {
-  //       print("I lalu screenRedirect function user");
-  //       print(user);
-  //       Get.offAll(() => const UserNavigationMenu());
-  //       print("USer successfully logged in");
-  //     } else {
-  //       Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
-  //     }
-  //   } else {
-  //     deviceStorage.writeIfNull("isFirstTime", true);
-  //     // check if the user is first time launching the app
-  //     deviceStorage.read("isFirstTime") != true
-  //         ? Get.offAll(
-  //             () => const ChooseRole()) // redirect to choose role screen
-  //         : Get.offAll(() =>
-  //             const OnBoardingScreen()); // redirect to on boarding screen if the user is first time
-  //   }
-  //   // local storage
-  // }
-
-//     screenRedirect() async {
-//   final user = _auth.currentUser;
-//   if (user != null) {
-//     if (user.emailVerified) {
-//       // Get the user's role
-//       final role = await getUserRole(user.uid);
-//       if (role == "user") {
-//         // User is an admin, redirect to admin navigation menu
-//         Get.offAll(() => const UserNavigationMenu());
-//         print("authentic User successfully navigate");
-//       } else {
-//         // User is not an admin, redirect to ChooseRole page
-//         Get.offAll(() => const ChooseRole());
-//       }
-//     } else {
-//       // User email not verified, redirect to email verification screen
-//       Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
-//     }
-//   } else {
-//     // User not logged in, handle first-time launch or other scenarios
-//     deviceStorage.writeIfNull("isFirstTime", true);
-//     deviceStorage.read("isFirstTime") != true
-//         ? Get.offAll(() => const ChooseRole()) // Redirect to choose role screen
-//         : Get.offAll(() => const OnBoardingScreen()); // Redirect to onboarding screen if user is first time
-//   }
-// }
-
-// screenRedirect() async {
-//   final user = _auth.currentUser;
-//   if (user != null) {
-//     if (user.emailVerified) {
-//       // Get the user's role
-//       final role = await getUserRole(user.uid);
-//       if (role == "admin") {
-//         // User is an admin, redirect to AdminLoginScreen
-//         Get.offAll(() => const AdminLoginScreen());
-//         print("Admin successfully");
-//       } else if (role == "user") {
-//         // User is a regular user, redirect to LoginScreen
-//         Get.offAll(() => const LoginScreen());
-//         print("Authenticated User successfully");
-//       } else {
-//         // Role is neither admin nor user, handle appropriately (e.g., redirect to ChooseRole)
-//         Get.offAll(() => const ChooseRole());
-//       }
-//     } else {
-//       // User email not verified, redirect to email verification screen
-//       Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
-//     }
-//   } else {
-//     // User not logged in, handle first-time launch or other scenarios
-//     deviceStorage.writeIfNull("isFirstTime", true);
-//     deviceStorage.read("isFirstTime") != true
-//         ? Get.offAll(() => const ChooseRole()) // Redirect to choose role screen
-//         : Get.offAll(() => const OnBoardingScreen()); // Redirect to onboarding screen if user is first time
-//   }
-// }
 
 // safest choice
 Future<void> userScreenRedirect() async {
@@ -283,41 +202,6 @@ Future<void> userScreenRedirect() async {
       throw "Something went wrong, Please try again - ";
     }
   }
-
-  /*-------------------------------- Federated identity & social sign in -------------------------------*/
-
-  // GoogleAuth - Google
-  Future<UserCredential?> signInWithGoogle() async {
-    try {
-      // trigger the auth flow
-      final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
-
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
-          await userAccount?.authentication;
-
-      // Create a new credential
-      final credentials = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-
-      // Once signed in, return user credentials
-      return await _auth.signInWithCredential(credentials);
-    } on FirebaseAuthException catch (e) {
-      throw "Error1 - GA ${e.message}";
-    } on FirebaseException catch (e) {
-      throw "Error 2 - GA ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error 3 - GA ${e.message}";
-    } on PlatformException catch (_) {
-      throw "Error 4 - GA";
-    } catch (e) {
-      throw "Something went wrong, Please try again - GA ";
-    }
-  }
-
-  // FacebookAuth - Facebook
-
-  /*-------------------------------- End Federated identity & social sign in -------------------------------*/
 
   // LogoutUser - Valid for any authentication.
   Future<void> logout() async {
