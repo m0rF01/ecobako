@@ -65,7 +65,7 @@ class LoginController extends GetxController {
       redirectToHomePage(role);
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     }
   }
 
@@ -108,7 +108,7 @@ class LoginController extends GetxController {
         return;
       }
     } catch (e) {
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     }
   }
 

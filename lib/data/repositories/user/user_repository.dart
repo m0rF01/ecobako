@@ -4,6 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecobako_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecobako_app/features/personalization/models/user_model.dart';
 import 'package:ecobako_app/features/transaction/model/transaction_model.dart';
+import 'package:ecobako_app/utils/exceptions/firebase_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/format_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/platform_exceptions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -16,34 +19,18 @@ class UserRepository extends GetxController {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final _storage = FirebaseStorage.instance;
 
-  // //fx to save user data to firestore
-  // Future<void> saveUserRecord(UserModel user) async {
-  //   try{
-  //     await _db.collection("Users").doc(user.id).set(user.toJson());
-  //   } on FirebaseException catch (e) {
-  //     throw BakoFirebaseException(e.code).message;
-  //   } on FormatException catch (_) {
-  //     throw const BakoFormatExecption();
-  //   } on PlatformException catch (e){
-  //     throw BakoPlatformException(e.code).message;
-  //   } catch (e) {
-  //     throw "Something went wrong, Please try again";
-  //   }
-  // }
-  //fx to save user data to firestore
-
   // Function to save user data to firestore
   Future<void> saveUserRecord(UserModel user) async {
     try {
       await _db.collection("Users").doc(user.id).set(user.toJson());
     } on FirebaseException catch (e) {
-      throw "Error1 - SUR ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - SUR ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - SUR ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - UR";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -60,13 +47,13 @@ class UserRepository extends GetxController {
         return UserModel.empty();
       }
     } on FirebaseException catch (e) {
-      throw "Error1 - FUD ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - FUD ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - FUD ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - UR";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -78,13 +65,13 @@ class UserRepository extends GetxController {
           .doc(updatedUser.id)
           .update(updatedUser.toJson());
     } on FirebaseException catch (e) {
-      throw "Error1 - FUD ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - FUD ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - FUD ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - UR";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -96,13 +83,13 @@ class UserRepository extends GetxController {
           .doc(AuthenticationRepository.instance.authUser?.uid)
           .update(json);
     } on FirebaseException catch (e) {
-      throw "Error1 - FUD ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - FUD ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - FUD ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - UR";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -111,13 +98,13 @@ class UserRepository extends GetxController {
     try {
       await _db.collection("Users").doc(userID).delete();
     } on FirebaseException catch (e) {
-      throw "Error1 - RUR ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - RUR ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - RUR ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - UR";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -129,13 +116,13 @@ class UserRepository extends GetxController {
       final url = await ref.getDownloadURL();
       return url;
     } on FirebaseException catch (e) {
-      throw "Error1 - UI ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - UI ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - UI ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - UI";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -153,6 +140,12 @@ class UserRepository extends GetxController {
         }
       }
       return 0;
+    } on FirebaseException catch (e) {
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
+    } on PlatformException catch (e) {
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
       throw "Error fetching user EcoPoint: $e";
     }
@@ -167,6 +160,12 @@ class UserRepository extends GetxController {
       // Update EcoPoint field with the converted value
       // await documentReference.update({'EcoPoint': ecoPointsAsString});
       await documentReference.update({'EcoPoint': newPoints});
+    } on FirebaseException catch (e) {
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
+    } on PlatformException catch (e) {
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
       throw "Error updating user EcoPoint: $e";
     }
@@ -244,13 +243,13 @@ class UserRepository extends GetxController {
         return [];
       }
     } on FirebaseException catch (e) {
-      throw "Error1 - FT ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - FT ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - FT ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - FT";
+      throw "Something went wrong, please try again.";
     }
   }
 
@@ -282,13 +281,13 @@ class UserRepository extends GetxController {
         return [];
       }
     } on FirebaseException catch (e) {
-      throw "Error1 - FDT ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - FDT ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - FDT ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - FDT";
+      throw "Something went wrong, please try again.";
     }
   }
 }

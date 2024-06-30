@@ -5,6 +5,10 @@ import 'package:ecobako_app/features/authentication/screens/choose_role/choose_r
 import 'package:ecobako_app/features/authentication/screens/login/login_admin/admin_login.dart';
 import 'package:ecobako_app/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:ecobako_app/features/authentication/screens/signup/admin_signup/admin_verify_email.dart';
+import 'package:ecobako_app/utils/exceptions/firebase_auth_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/firebase_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/format_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/platform_exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -30,14 +34,14 @@ class AdminAuthenticationRepository extends GetxController {
     adminScreenRedirect();
   }
 
+  Future<void> adminScreenRedirect() async {
+    final user = _auth.currentUser;
+    final box = GetStorage();
+    final isAdminLoggedIn =
+        box.read('admin_logged_in') ?? false; // Check login flag
 
-Future<void> adminScreenRedirect() async {
-  final user = _auth.currentUser;
-  final box = GetStorage();
-  final isAdminLoggedIn = box.read('admin_logged_in') ?? false; // Check login flag
-
-  if (user != null) {
-    if (user.emailVerified && isAdminLoggedIn) {
+    if (user != null) {
+      if (user.emailVerified && isAdminLoggedIn) {
         // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to ChooseRole
         Get.offAll(() => const AdminNavigationMenu());
         return;
@@ -45,21 +49,21 @@ Future<void> adminScreenRedirect() async {
         // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to ChooseRole
         Get.offAll(() => const ChooseRole());
         return;
-      } 
-
-    else {
-      // User email not verified, redirect to email verification screen
-      Get.offAll(() => AdminVerifyEmailScreen(email: _auth.currentUser?.email));
+      } else {
+        // User email not verified, redirect to email verification screen
+        Get.offAll(
+            () => AdminVerifyEmailScreen(email: _auth.currentUser?.email));
+      }
+    } else {
+      // User not logged in, handle first-time launch or other scenarios
+      deviceStorage.writeIfNull("isFirstTime", true);
+      deviceStorage.read("isFirstTime") != true
+          ? Get.offAll(
+              () => const ChooseRole()) // Redirect to choose role screen
+          : Get.offAll(() =>
+              const OnBoardingScreen()); // Redirect to onboarding screen if user is first time
     }
-  } else {
-    // User not logged in, handle first-time launch or other scenarios
-    deviceStorage.writeIfNull("isFirstTime", true);
-    deviceStorage.read("isFirstTime") != true
-        ? Get.offAll(() => const ChooseRole()) // Redirect to choose role screen
-        : Get.offAll(() => const OnBoardingScreen()); // Redirect to onboarding screen if user is first time
   }
-}
-
 
   /*-------------------------------- Email & Password sign-in -------------------------------*/
 
@@ -70,24 +74,25 @@ Future<void> adminScreenRedirect() async {
     try {
       return await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-    } on FirebaseAuthException catch (_) {
-      throw "Error - Wrong email or password";
-    } on FirebaseException catch (_) {
-      throw "Error 2 - AR";
+    } on FirebaseAuthException catch (e) {
+      throw BakoFirebaseAuthException(e.code);
+    } on FirebaseException catch (e) {
+      throw BakoFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw "Error 3 - AR";
-    } on PlatformException catch (_) {
-      throw "Error 4 - AR";
+      throw const BakoFormatException();
+    } on PlatformException catch (e) {
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - AR";
+      throw "Something went wrong, please try again.";
     }
   }
 
-    // check user role
+  // check user role
   Future<String?> getAdminRole(String uid) async {
     try {
       // Get user document from Firestore
-      final adminDoc = await FirebaseFirestore.instance.collection("Admins").doc(uid).get();
+      final adminDoc =
+          await FirebaseFirestore.instance.collection("Admins").doc(uid).get();
 
       // Check if user document exists
       if (adminDoc.exists) {
@@ -116,34 +121,33 @@ Future<void> adminScreenRedirect() async {
     try {
       return await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-    } on FirebaseAuthException catch (_) {
-      throw "Error1 - AR";
-    } on FirebaseException catch (_) {
-      throw "Error 2 - AR";
+    } on FirebaseAuthException catch (e) {
+      throw BakoFirebaseAuthException(e.code);
+    } on FirebaseException catch (e) {
+      throw BakoFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw "Error 3 - AR";
-    } on PlatformException catch (_) {
-      throw "Error 4 - AR";
+      throw const BakoFormatException();
+    } on PlatformException catch (e) {
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - AR";
+      throw "Something went wrong, please try again.";
     }
   }
-
 
   /// emailVerification - email verification
   Future<void> sendEmailVerification() async {
     try {
       await _auth.currentUser?.sendEmailVerification();
-    } on FirebaseAuthException catch (_) {
-      throw "Error1 - EV";
-    } on FirebaseException catch (_) {
-      throw "Error 2 - EV";
+    } on FirebaseAuthException catch (e) {
+      throw BakoFirebaseAuthException(e.code);
+    } on FirebaseException catch (e) {
+      throw BakoFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw "Error 3 - EV";
-    } on PlatformException catch (_) {
-      throw "Error 4 - EV";
+      throw const BakoFormatException();
+    } on PlatformException catch (e) {
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - ";
+      throw "Something went wrong, please try again.";
     }
   }
 
@@ -153,16 +157,16 @@ Future<void> adminScreenRedirect() async {
       // await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => const AdminLoginScreen());
-    } on FirebaseAuthException catch (_) {
-      throw "Error1 - EV";
-    } on FirebaseException catch (_) {
-      throw "Error 2 - EV";
+    } on FirebaseAuthException catch (e) {
+      throw BakoFirebaseAuthException(e.code);
+    } on FirebaseException catch (e) {
+      throw BakoFirebaseException(e.code).message;
     } on FormatException catch (_) {
-      throw "Error 3 - EV";
-    } on PlatformException catch (_) {
-      throw "Error 4 - EV";
+      throw const BakoFormatException();
+    } on PlatformException catch (e) {
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - ";
+      throw "Something went wrong, please try again.";
     }
   }
 }

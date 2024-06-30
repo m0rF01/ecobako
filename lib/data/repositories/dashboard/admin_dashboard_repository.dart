@@ -1,5 +1,8 @@
 // use and checked
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecobako_app/utils/exceptions/firebase_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/format_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/platform_exceptions.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -39,17 +42,13 @@ class AdminDashboardRepository extends GetxController {
       // Extract and return data from each document
       return querySnapshot.docs.map((doc) => doc.data()).toList();
     } on FirebaseException catch (e) {
-      print("FirebaseException - FADD: ${e.message}");
-      throw Exception("Error1 - FADD ${e.message}");
-    } on FormatException catch (e) {
-      print("FormatException - FADD: ${e.message}");
-      throw Exception("Error2 - FADD ${e.message}");
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      print("PlatformException - FADD: ${e.message}");
-      throw Exception("Error3 - FADD ${e.message}");
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      print("Unknown Exception - FADD: ${e.toString()}");
-      throw Exception("Something went wrong, Please try again - FADD");
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -73,18 +72,14 @@ Future<List<Map<String, dynamic>>> getAdminDashboardDataByDateFilter(
     // Extract and return data from each document
     return querySnapshot.docs.map((doc) => doc.data()).toList();
   } on FirebaseException catch (e) {
-    print("FirebaseException - FADD: ${e.message}");
-    throw Exception("Error1 - FADD ${e.message}");
-  } on FormatException catch (e) {
-    print("FormatException - FADD: ${e.message}");
-    throw Exception("Error2 - FADD ${e.message}");
-  } on PlatformException catch (e) {
-    print("PlatformException - FADD: ${e.message}");
-    throw Exception("Error3 - FADD ${e.message}");
-  } catch (e) {
-    print("Unknown Exception - FADD: ${e.toString()}");
-    throw Exception("Something went wrong, Please try again - FADD");
-  }
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
+    } on PlatformException catch (e) {
+      throw BakoPlatformException(e.code).message;
+    } catch (e) {
+      throw "Something went wrong, Please try again";
+    }
 }
 
   Future<Map<String, int>> fetchGenderStatistics() async {

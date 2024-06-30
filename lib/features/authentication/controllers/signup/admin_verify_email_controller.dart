@@ -25,7 +25,7 @@ class AdminVerifyEmailController extends GetxController{
       BakoLoaders.successSnackBar(title: "Email Sent", message: "Please Check your inbox and verify your email");
 
     }catch (e) {
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     }
   }
 

@@ -99,7 +99,7 @@ class DownloadData extends StatelessWidget {
                             controller.selectedEndDate.value!);
                       } else {
                         BakoLoaders.errorSnackBar(
-                            title: "Oh Snap!",
+                            title: "Oops!",
                             message:
                                 "Please select the desired start and end date to download the data");
                       }

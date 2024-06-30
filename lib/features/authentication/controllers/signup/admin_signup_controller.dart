@@ -75,7 +75,7 @@
 //       // Remove loader
 //       BakoFullScreenLoader.stopLoading();
 //       // Show some generic error message to the user
-//       BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+//       BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
 //     }
 //   }
 // }

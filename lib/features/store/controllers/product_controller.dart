@@ -59,7 +59,7 @@ class ProductController extends GetxController {
       final products = await productRepository.getAllProducts();
       storeProducts.assignAll(products);
     } catch (e) {
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     } finally {
       isLoading.value = false;
     }
@@ -183,13 +183,13 @@ class ProductController extends GetxController {
       BakoFullScreenLoader.stopLoading();
 
       BakoLoaders.successSnackBar(
-          title: "Congratulations",
+          title: "Success",
           message: "Your product has been successfully added to the store.");
 
       clearFormData();
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     }
   }
 
@@ -234,11 +234,11 @@ class ProductController extends GetxController {
       BakoFullScreenLoader.stopLoading();
 
       BakoLoaders.successSnackBar(
-          title: "Congratulations",
+          title: "Success",
           message: "Your product has been successfully updated.");
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     }
   }
 
@@ -258,7 +258,7 @@ class ProductController extends GetxController {
     } catch (e) {
       imageUploading.value = false;
       BakoLoaders.errorSnackBar(
-          title: "Oh Snap", message: "Failed to upload image: $e");
+          title: "Oops!", message: "Failed to upload image: $e");
       throw Exception("Image upload failed");
     }
   }
@@ -336,7 +336,7 @@ class ProductController extends GetxController {
 
       // Show success message
       BakoLoaders.successSnackBar(
-          title: "Congratulations",
+          title: "Success",
           message: "You have successfully redeem the product.");
       Get.off(() => const UserStoreScreen());
     } catch (e) {

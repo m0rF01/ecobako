@@ -219,7 +219,7 @@ class UserController extends GetxController {
       }
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.warningSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.warningSnackBar(title: "Oops!", message: e.toString());
     }
   }
 
@@ -247,7 +247,7 @@ class UserController extends GetxController {
       Get.offAll(() => const LoginScreen());
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.warningSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.warningSnackBar(title: "Oops!", message: e.toString());
     }
   }
 
@@ -275,7 +275,7 @@ class UserController extends GetxController {
       }
     } catch (e) {
       BakoLoaders.errorSnackBar(
-          title: "Oh Snap!", message: "Something went wrong!: $e");
+          title: "Oops!", message: "Something went wrong!: $e");
     } finally {
       imageUploading.value = false;
     }
@@ -294,7 +294,7 @@ class UserController extends GetxController {
       return downloadUrl;
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
       rethrow;
     }
   }

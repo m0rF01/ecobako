@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecobako_app/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ecobako_app/features/personalization/models/admin_modal.dart';
+import 'package:ecobako_app/utils/exceptions/firebase_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/format_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/platform_exceptions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -10,37 +13,20 @@ import 'package:image_picker/image_picker.dart';
 
 class AdminRepository extends GetxController {
   static AdminRepository get instance => Get.find();
-
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-
-  // //fx to save user data to firestore
-  // Future<void> saveUserRecord(UserModel user) async {
-  //   try{
-  //     await _db.collection("Users").doc(user.id).set(user.toJson());
-  //   } on FirebaseException catch (e) {
-  //     throw BakoFirebaseException(e.code).message;
-  //   } on FormatException catch (_) {
-  //     throw const BakoFormatExecption();
-  //   } on PlatformException catch (e){
-  //     throw BakoPlatformException(e.code).message;
-  //   } catch (e) {
-  //     throw "Something went wrong, Please try again";
-  //   }
-  // }
-  //fx to save user data to firestore
 
   // Function to save user data to firestore
   Future<void> saveAdminRecord(AdminModel admin) async {
     try {
       await _db.collection("Admins").doc(admin.id).set(admin.toJson());
     } on FirebaseException catch (e) {
-      throw "Error1 - SAR ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - SAR ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - SAR ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - SAR";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -57,13 +43,13 @@ class AdminRepository extends GetxController {
         return AdminModel.empty();
       }
     } on FirebaseException catch (e) {
-      throw "Error1 - FAD ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - FAD ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - FAD ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - FAD";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -75,13 +61,13 @@ class AdminRepository extends GetxController {
           .doc(updatedAdmin.id)
           .update(updatedAdmin.toJson());
     } on FirebaseException catch (e) {
-      throw "Error1 - UAD ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - UAD ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - UAD ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - UAD";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -92,14 +78,14 @@ class AdminRepository extends GetxController {
           .collection("Admins")
           .doc(AdminAuthenticationRepository.instance.authUser?.uid)
           .update(json);
-    } on FirebaseException catch (e) {
-      throw "Error1 - USFA ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - USFA ${e.message}";
+    }on FirebaseException catch (e) {
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - USFA ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - USFA";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -108,13 +94,13 @@ class AdminRepository extends GetxController {
     try {
       await _db.collection("Admins").doc(adminID).delete();
     } on FirebaseException catch (e) {
-      throw "Error1 - RAR ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - RAR ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - RAR ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - RAR";
+      throw "Something went wrong, Please try again";
     }
   }
 
@@ -125,14 +111,14 @@ class AdminRepository extends GetxController {
       await ref.putFile(File(image.path));
       final url = await ref.getDownloadURL();
       return url;
-    } on FirebaseException catch (e) {
-      throw "Error1 - UIA ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - UIA ${e.message}";
+    }on FirebaseException catch (e) {
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - UIA ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - UIA";
+      throw "Something went wrong, Please try again";
     }
   }
 }

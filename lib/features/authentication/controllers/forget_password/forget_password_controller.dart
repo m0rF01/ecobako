@@ -46,7 +46,7 @@ class ForgetPasswordController extends GetxController {
       Get.to(() => ResetPassword(email: email.text.trim()));
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops", message: e.toString());
     }
   }
 
@@ -75,11 +75,11 @@ class ForgetPasswordController extends GetxController {
 
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     }
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message:e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message:e.toString());
     }
   }
 }

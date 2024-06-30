@@ -33,14 +33,14 @@ class AdminPointController extends GetxController {
       if (!isConnected) {
         BakoFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "No internet connection.");
-        BakoLoaders.errorSnackBar(title: "Oh Snap!", message: "No internet connection.");
+        BakoLoaders.errorSnackBar(title: "Oops!", message: "No internet connection.");
         return;
       }
       // Form validation
       if (!addPointFormKey.currentState!.validate()) {
         BakoFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "Form validation failed.");
-        BakoLoaders.errorSnackBar(title: "Oh Snap!", message: "Form validation failed.");
+        BakoLoaders.errorSnackBar(title: "Oops!", message: "Form validation failed.");
         return;
       }
 
@@ -56,7 +56,7 @@ class AdminPointController extends GetxController {
       } catch (e) {
         BakoFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "Invalid PET Weight value.");
-        BakoLoaders.errorSnackBar(title: "Oh Snap!", message: "Invalid PET Weight value.");
+        BakoLoaders.errorSnackBar(title: "Oops!", message: "Invalid PET Weight value.");
         return;
       }
 
@@ -65,7 +65,7 @@ class AdminPointController extends GetxController {
       } catch (e) {
         BakoFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "Invalid HDPE Weight value.");
-        BakoLoaders.errorSnackBar(title: "Oh Snap!", message: "Invalid HDPE Weight value.");
+        BakoLoaders.errorSnackBar(title: "Oops!", message: "Invalid HDPE Weight value.");
         return;
       }
 
@@ -74,7 +74,7 @@ class AdminPointController extends GetxController {
       } catch (e) {
         BakoFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "Invalid PP Weight value.");
-        BakoLoaders.errorSnackBar(title: "Oh Snap!", message: "Invalid PP Weight value.");
+        BakoLoaders.errorSnackBar(title: "Oops!", message: "Invalid PP Weight value.");
         return;
       }
 
@@ -137,7 +137,7 @@ class AdminPointController extends GetxController {
           message: "$finalTotalPoints Point successfully added to the user account.");
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(title: "Oh Snappppp", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     }
   }
 

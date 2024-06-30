@@ -58,7 +58,7 @@ class AdminLoginController extends GetxController {
       redirectToHomePage(role);
     } catch (e) {
       BakoFullScreenLoader.stopLoading();
-      BakoLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     }
   }
 

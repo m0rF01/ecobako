@@ -1,6 +1,9 @@
 // use and checked
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecobako_app/features/dashboard/models/user_dashboard_model.dart';
+import 'package:ecobako_app/utils/exceptions/firebase_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/format_exceptions.dart';
+import 'package:ecobako_app/utils/exceptions/platform_exceptions.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -58,13 +61,13 @@ class UserDashboardRepository extends GetxController {
         return UserDashboardModel.empty();
       }
     } on FirebaseException catch (e) {
-      throw "Error1 - FUDD ${e.message}";
-    } on FormatException catch (e) {
-      throw "Error2 - FUDD ${e.message}";
+      throw BakoFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const BakoFormatException();
     } on PlatformException catch (e) {
-      throw "Error3 - FUDD ${e.message}";
+      throw BakoPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong, Please try again - FUDD";
+      throw "Something went wrong, Please try again";
     }
   }
   

@@ -94,7 +94,7 @@ class SignupController extends GetxController {
 
       // Show Success Message
       BakoLoaders.successSnackBar(
-          title: "Congratulations",
+          title: "Success",
           message:
               "Your account has been created successfully! Verify email to continue");
 
@@ -107,7 +107,7 @@ class SignupController extends GetxController {
       // Remove loader
       BakoFullScreenLoader.stopLoading();
       // Show some generic error message to the user
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     }
   }
 
@@ -153,7 +153,7 @@ class SignupController extends GetxController {
 
       // Show Success Message
       BakoLoaders.successSnackBar(
-          title: "Congratulations",
+          title: "Success",
           message:
               "Your account has been created successfully! Verify email to continue");
 
@@ -163,7 +163,7 @@ class SignupController extends GetxController {
       // Remove loader
       BakoFullScreenLoader.stopLoading();
       // Show some generic error message to the user
-      BakoLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+      BakoLoaders.errorSnackBar(title: "Oops!", message: e.toString());
     }
   }
 }

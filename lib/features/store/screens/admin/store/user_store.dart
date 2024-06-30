@@ -4,10 +4,7 @@ import 'package:ecobako_app/common/widget/items_cards/user_item_card_verticle.da
 import 'package:ecobako_app/common/widget/layouts/grid_layout.dart';
 import 'package:ecobako_app/common/widget/shimmers/vertical_product_shimmer.dart';
 import 'package:ecobako_app/common/widget/texts/section_heading.dart';
-import 'package:ecobako_app/features/personalization/screens/settings/settings.dart';
 import 'package:ecobako_app/features/store/controllers/product_controller.dart';
-import 'package:ecobako_app/features/store/models/product_model.dart';
-import 'package:ecobako_app/features/store/screens/user/widget/user_button_action.dart';
 import 'package:ecobako_app/user_navigation_menu.dart';
 import 'package:ecobako_app/utils/constants/colors.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';

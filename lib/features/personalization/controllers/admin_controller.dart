@@ -85,12 +85,12 @@ class AdminController extends GetxController {
         user.value.profilePicture = imageUrl;
         user.refresh();
         BakoLoaders.successSnackBar(
-            title: "Congratulations",
+            title: "Success",
             message: "Your profile picture has been updated successfully!");
       }
     } catch (e) {
       BakoLoaders.errorSnackBar(
-          title: "Oh Snap!", message: "Something went wrong!: $e");
+          title: "Oops!", message: "Something went wrong!: $e");
     } finally {
       imageUploading.value = false;
     }
@@ -111,7 +111,7 @@ class AdminController extends GetxController {
   //     }
   //   } catch (e) {
   //        BakoLoaders.errorSnackBar(
-  //         title: "Oh Snap!", message: "Something went wrong when uploading item image!: $e");
+  //         title: "Oops!", message: "Something went wrong when uploading item image!: $e");
   //   } finally{
   //     imageUploading.value = false;
 

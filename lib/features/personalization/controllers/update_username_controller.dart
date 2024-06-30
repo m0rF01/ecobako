@@ -58,7 +58,7 @@ class UpdateUserNameController extends GetxController{
       BakoFullScreenLoader.stopLoading();
 
       // Show Succcess message
-      BakoLoaders.successSnackBar(title: "Congratulation", message: "Your name has been updated.");
+      BakoLoaders.successSnackBar(title: "Success", message: "Your name has been updated.");
 
       // Move to previous screen
       Get.off(() => const ProfileScreen());

@@ -124,7 +124,7 @@ class ProfileScreen extends StatelessWidget {
                 title: 'Gender',
                 value: controller.user.value.gender,
                 onPressed: () {
-                  BakoLoaders.cannotEdit(title: "Oh Snap", message:"Sorry this detail cannot be edited");
+                  BakoLoaders.cannotEdit(title: "Oops!", message:"Sorry this detail cannot be edited");
                 },
                 icon: Iconsax.lock,
               ),
@@ -132,7 +132,7 @@ class ProfileScreen extends StatelessWidget {
                 title: 'Age',
                 value: controller.user.value.age,
                 onPressed: () {
-                  BakoLoaders.cannotEdit(title: "Oh Snap", message:"Sorry this detail cannot be edited");
+                  BakoLoaders.cannotEdit(title: "Oops!", message:"Sorry this detail cannot be edited");
                 },
                 icon: Iconsax.lock,
               ),
@@ -140,7 +140,7 @@ class ProfileScreen extends StatelessWidget {
                 title: 'Email',
                 value: controller.user.value.email,
                 onPressed: () {
-                  BakoLoaders.cannotEdit(title: "Oh Snap", message:"Sorry this detail cannot be edited");
+                  BakoLoaders.cannotEdit(title: "Oops!", message:"Sorry this detail cannot be edited");
                 },
                 icon: Iconsax.lock,
               ),
@@ -148,7 +148,7 @@ class ProfileScreen extends StatelessWidget {
                 title: 'Phone Number',
                 value: controller.user.value.phoneNo,
                 onPressed: () {
-                  BakoLoaders.cannotEdit(title: "Oh Snap", message:"Sorry this detail cannot be edited");
+                  BakoLoaders.cannotEdit(title: "Oops!", message:"Sorry this detail cannot be edited");
                 },
                 icon: Iconsax.lock,
               ),

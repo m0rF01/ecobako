@@ -1,7 +1,6 @@
 import 'package:ecobako_app/common/widget/loaders/loaders.dart';
 import 'package:ecobako_app/data/repositories/user/user_repository.dart';
 import 'package:ecobako_app/features/personalization/controllers/user_controller.dart';
-import 'package:ecobako_app/features/personalization/screens/profile/profile.dart';
 import 'package:ecobako_app/utils/constants/image_strings.dart';
 import 'package:ecobako_app/utils/helpers/network_manager.dart';
 import 'package:ecobako_app/utils/popups/full_screen_loader.dart';
@@ -61,7 +60,7 @@ class UpdateNameController extends GetxController{
       BakoFullScreenLoader.stopLoading();
 
       // Show Succcess message
-      BakoLoaders.successSnackBar(title: "Congratulation", message: "Your name has been updated.");
+      BakoLoaders.successSnackBar(title: "Success", message: "Your name has been updated.");
 
       // Move to previous screen
       // Get.offAll(() => const ProfileScreen());
