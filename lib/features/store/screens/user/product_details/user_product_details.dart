@@ -50,7 +50,7 @@ class UserProductDetail extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: const UserProductDetailsActionButton(),
+      floatingActionButton: UserProductDetailsActionButton(product:product),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

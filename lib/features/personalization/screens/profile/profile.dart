@@ -12,7 +12,6 @@ import 'package:ecobako_app/common/widget/shimmers/shimmer.dart';
 import 'package:ecobako_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProfileScreen extends StatelessWidget {

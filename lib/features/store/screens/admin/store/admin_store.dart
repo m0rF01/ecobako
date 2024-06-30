@@ -33,36 +33,46 @@ class AdminStoreScreen extends StatelessWidget {
                     // appBar
                     BakoAppBar(
                       title: Text(
-                        "EcoBako Store", 
-                        style: Theme.of(context).textTheme.headlineMedium!.apply(color: BakoColors.white),
+                        "EcoBako Store",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .apply(color: BakoColors.white),
                       ),
                     ),
                     const SizedBox(height: BakoSizes.spaceBtwSections),
                   ],
+                ),
               ),
-              ),
-        
+
               //body
-               Padding(
-        
+              Padding(
                 padding: const EdgeInsets.all(BakoSizes.defaultSpace),
                 child: Column(
                   children: [
-                    const BakoSectionHeading(title: "Redeemable Items", showActionButton: false,),
+                    const BakoSectionHeading(
+                      title: "Redeemable Items",
+                      showActionButton: false,
+                    ),
                     const SizedBox(height: BakoSizes.spaceBtwSections),
-                    Obx((){
-                      if (controller.isLoading.value) return const BakoVerticalProductShimmer();
-                      if (controller.storeProducts.isEmpty){
+                    Obx(() {
+                      if (controller.isLoading.value)
+                        return const BakoVerticalProductShimmer();
+                      if (controller.storeProducts.isEmpty) {
                         return Center(
-                          child: Text("No Data Found!", style: Theme.of(context).textTheme.bodyMedium));
+                            child: Text("No Data Found!",
+                                style: Theme.of(context).textTheme.bodyMedium));
                       }
-                      // return BakoGridLayout(itemCount: controller.storeProducts.length, itemBuilder: (_, index) => BakoItemCardVertical(product: controller.storeProducts[index]),
-                      return BakoGridLayout(itemCount: controller.storeProducts.length, itemBuilder: (_, index) => BakoItemCardVertical(product:controller.storeProducts[index]),
+
+                      return BakoGridLayout(
+                        itemCount: controller.storeProducts.length,
+                        itemBuilder: (_, index) => BakoItemCardVertical(
+                            product: controller.storeProducts[index]),
                       );
                     }),
                   ],
-                ) ,
-               ),
+                ),
+              ),
             ],
           ),
         ),
@@ -72,4 +82,3 @@ class AdminStoreScreen extends StatelessWidget {
     );
   }
 }
-
